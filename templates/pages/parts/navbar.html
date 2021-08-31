@@ -1,0 +1,24 @@
+{%load static%}
+<!-- Navbar (sit on top) -->
+<div class="w3-top">
+    <div class="w3-bar w3-white w3-card " id="myNavbar">
+        <a href="#home" class=""> <img src="{%static 'images/logo_web.png'%}" width=140 alt="sihat_e"> </a>
+        <!-- Right-sided navbar links -->
+        <div class="w3-right w3-hide-small w3-hide-medium ">
+            <a href="#home" class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">
+                Home</a>
+            <a href="#About"
+                class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">About</a>
+            <a href="#Services" class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">
+                Services</a>
+            <a href="#contact"
+                class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">Contact</a>
+            <button onclick="window.location.href='login'"
+                class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb"> Login</button>
+        </div>
+        <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large " onclick="w3_open()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+</div>

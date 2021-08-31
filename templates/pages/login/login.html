@@ -1,0 +1,70 @@
+{%extends 'pages/base.html'%}
+{%load static%}
+
+
+{%block title %}
+<title>Login | Sihat_e</title>
+{%endblock title %}
+
+
+{%block content%}
+<style>
+  /* Add the blur effect */
+  .bgimg-1 {
+    filter: blur(8px);
+    -webkit-filter: blur(8px);
+  }
+
+  /* .w3-modal {
+    background: rgb(2, 0, 36);
+    background: linear-gradient(90deg, rgb(37, 77, 255) 0%, rgb(57, 97, 255) 35%, rgb(0, 213, 255) 100%);
+  } */
+</style>
+
+<!-- modal login -->
+<div class="w3-container login_home">
+  <div id="id01" class="w3-modal w3-animate-opacity w3-show">
+    <div class="w3-modal-content w3-card-4">
+
+      <div class="w3-container  w3-white">
+        <span onclick="window.location.href='../'" class="w3-button w3-large w3-hover-red w3-display-topright"
+          title="Close">&times;</span>
+      </div>
+
+      <div class="w3-row" style="margin-top:50px;">
+        <div class="w3-half w3-container w3-center">
+          <img src="{%static 'images/image.png'%}" alt="sihat_e" class="w3-hide-large w3-hide-medium" width="40%">
+          <img src="{%static 'images/image.png'%}" alt="sihat_e" class="w3-hide-large w3-hide-small " width="120%">
+          <img src="{%static 'images/image.png'%}" alt="sihat_e" class="w3-hide-small w3-hide-medium " width="90%">
+        </div>
+        <div class="w3-half w3-container">
+          <form action="" method="post">
+            {% csrf_token %}
+            <div class="w3-section">
+              <div class="login-container">
+                <div class="title">Login</div>
+                <div class="fluid-input fi1" style="margin: 15px 0px;">
+                  <div class="fluid-input-holder"><input name="username" class="fluid-input-input fii1" type="text"
+                      id="name" autocomplete="on"><label class="fluid-input-label" forhtml="name">username</label>
+                  </div>
+                </div>
+                <div class="fluid-input fi2" style="margin: 15px 0px;">
+                  <div class="fluid-input-holder"><input name="password" class="fluid-input-input fii2" type="password"
+                      id="password" autocomplete="off"><label class="fluid-input-label"
+                      forhtml="password">password</label></div>
+                </div>
+                {%for message in messages%}
+                <span
+                  style="background-color: #ff0000; color: cornsilk;border-radius: 2px;padding: 0px 4px 0px 4px;">{{message}}
+                </span>
+                {%endfor %}
+                <button class="button login-button" type="submit" name="button" value="">log in</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{%endblock content%}

@@ -1,0 +1,131 @@
+{% load static %}
+
+
+<html lang="en" dir="ltr">
+
+<head>
+    {% block title %}
+    <title>Home | Sihat_e</title>
+    {% endblock title %}
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--js  -->
+    <script src="{%static 'js/jquery.min.js'%}"></script>
+
+    <!--css -->
+    <link rel="stylesheet" href="{%static 'css/ws.css'%}">
+    <link rel="stylesheet" href="{%static 'css/w3t.css'%}">
+    <link rel="stylesheet" href="{%static 'css/login_style.css'%}">
+    <link rel="stylesheet" href="{%static 'css/Home_style.css'%}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="{%static 'images/icon.png'%}" />
+
+</head>
+
+<body>
+    
+     {%block content%}
+     {%endblock content%}
+
+    <!-- Navbar (sit on top) -->
+    <div class="w3-top">
+        <div class="w3-bar w3-white w3-card " id="myNavbar">
+            <a href="#home" class=""> <img src="{%static 'images/logo_web.png'%}" width=140 alt="sihat_e"> </a>
+            <!-- Right-sided navbar links -->
+            <div class="w3-right w3-hide-small w3-hide-medium ">
+                <a href="#home" class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">
+                    Home</a>
+                <a href="#About"
+                    class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">About</a>
+                <a href="#Services"
+                    class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">
+                    Services</a>
+                <a href="#contact"
+                    class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">Contact</a>
+                <button onclick="window.location.href='login'"
+                    class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb"> Login</button>
+            </div>
+            <!-- Hide right-floated links on small screens and replace them with a menu icon -->
+            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large " onclick="w3_open()">
+                <i class="fa fa-bars"></i>
+            </a>
+        </div>
+    </div>
+
+
+    <!-- Sidebar on small screens when clicking the menu icon -->
+    <nav class="w3-sidebar w3-bar-block w3-white w3-card w3-animate-left  w3-hide-large" style="display:none"
+        id="mySidebar">
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-small w3-padding-16"
+            style="background-color:rgb(249, 81, 68);color:white">Close ×</a>
+        <a href="#home" onclick="w3_close()"
+            class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">Home</a>
+        <a href="#About" onclick="w3_close()"
+            class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">About</a>
+        <a href="#Services" onclick="w3_close()"
+            class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">Services</a>
+        <a href="#contact" onclick="w3_close()"
+            class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">Contact</a>
+        <button onclick="window.location.href='login'"
+            class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb">Login</button>
+        <!-- onclick="document.getElementById('id01').style.display='block'" -->
+    </nav>
+
+
+    {%include 'pages/parts/header.html'%}
+    {%include 'pages/parts/about.html'%}
+    {%include 'pages/parts/services.html'%}
+    {%include 'pages/parts/contact.html'%}
+    {%include 'pages/parts/footer.html'%}
+
+    <!--sidebar + login script  -->
+    <script>
+        //Toggle between showing and hiding the sidebar when clicking the menu icon
+        var mySidebar = document.getElementById("mySidebar");
+
+        function w3_open() {
+            if (mySidebar.style.display === 'block') {
+                mySidebar.style.display = 'none';
+            } else {
+                mySidebar.style.display = 'block';
+            }
+        }
+
+        // Close the sidebar with the close button
+        function w3_close() {
+            mySidebar.style.display = "none";
+        }
+    </script>
+
+    <!-- jQuery script -->
+    <script>
+        $(document).ready(function () {
+            // fluid-input--focus
+            $(".fii1").focus(function () {
+                $(".fi1").addClass("fluid-input--focus");
+            });
+
+            $(".fii1").blur(function () {
+                if ($(this).val().length === 0) {
+                    $(".fi1").removeClass("fluid-input--focus");
+                }
+            });
+
+            $(".fii2").focus(function () {
+                $(".fi2").addClass("fluid-input--focus");
+            });
+
+            $(".fii2").blur(function () {
+                if ($(this).val().length === 0) {
+                    $(".fi2").removeClass("fluid-input--focus");
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

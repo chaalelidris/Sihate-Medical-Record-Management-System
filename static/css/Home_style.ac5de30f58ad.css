@@ -1,0 +1,58 @@
+.w3-button-nb {
+  background-color: #303143;
+  color: #ffffff;
+  padding: 4px 30px !important;
+  border-radius: 20px;
+}
+
+.w3-button-nb-1 {
+  /* background-color: #303143; */
+  color: #000000;
+  padding: 4px 30px !important;
+  border-radius: 20px;
+}
+
+.w3-button-nb-1:hover,.w3-button-nb:hover {
+  background-color: rgba(48, 49, 68, 0.9) !important;
+  color: #ffffff !important;
+}
+
+.color1 {
+  color: #fff !important;
+  background-color: #303143 !important
+}
+
+.i-margin {
+  margin: 12px 16px 0px 0px;
+}
+
+
+
+/* stile li kan f home tag style */
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Raleway", sans-serif
+}
+
+body,
+html {
+  height: 100%;
+  line-height: 1.8;
+}
+
+/* Full height image header */
+.bgimg-1 {
+  background-position: center;
+  background-size: cover;
+  background-image: url("../images/homepage.51218389a42d.png");
+  min-height: 100%;
+}
+
+.w3-bar .w3-button {
+  padding: 16px;
+}

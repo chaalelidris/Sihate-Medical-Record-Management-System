@@ -1,0 +1,28 @@
+
+{%extends 'pages/base.html'%}
+{% load static %}
+
+
+  {% block title %}
+  <title>Home | Sihat_e</title>
+  {% endblock title %}
+
+  {%block content%}
+  {%for message in messages%}
+  <div id="1" class="w3-modal " style="display: block;">
+    <div class="w3-modal-content w3-round-large">
+      <div class="w3-panel w3-pale-green w3-display-container w3-center w3-round-large" style="margin: 0%;">
+        <h2>
+          thank you <strong style="color: green;">{{ Name }}</strong>
+        </h2>
+        <p> we received your email and we will respond shortly...</p>
+        <span onclick="document.getElementById('1').style.display = 'none'" class="w3-button w3-blue w3-margin-bottom w3-round-large w3-hover-blue w3-hover-shadow">
+          Ok
+        </span>
+      </div>
+    </div>
+  </div>
+  {%endfor%}
+  {%endblock content%}
+
+  
