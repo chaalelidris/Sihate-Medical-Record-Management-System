@@ -1,0 +1,112 @@
+{%extends 'pages/patient/patient_base.html'%}
+{% load static %}
+
+{% block title %}
+<title>Sihate | profile</title>
+{% endblock title %}
+
+
+
+{%block pagecontent%}
+
+<!-- !PAGE CONTENT! -->
+
+<div class="w3-main " style="margin-left:300px;margin-top:43px;">
+    <!--profile  -->
+    <div>
+
+        <header class="w3-container" style="padding-top:22px">
+            <h5><b><i class="fa fa-cog fa-fw"></i> Account Settings </b></h5>
+            <hr>
+        </header>
+        <br>
+        <section class="w3-container ">
+
+
+            <form method="POST" action="{% url 'doctor_profile' %}" class="w3-padding w3-round-large  w3-card-4" style="background: rgb(2,0,36);
+                background: linear-gradient(315deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 23%, rgba(0,212,255,1) 100%);"
+                enctype="multipart/form-data">
+                <div class="w3-row-padding">
+                    <h2 class=""><strong>personal informations</strong></h2>
+                    <p>Please edit your profile settings.</p>
+                    <br>
+                </div>
+                {% csrf_token %}
+
+
+                <div class="w3-row-padding">
+                    <CENter>
+                        <img style="border-radius: 50%;" src="{%static 'images/doctor.png'%}" alt="doctor" width="12%">
+                    </CENter>
+                    <br>
+
+                </div>
+
+
+                {% csrf_token %}
+
+
+
+
+
+
+                <!-- <div class="w3-row-padding">
+
+                    <div class="w3-half">
+                        <label>Email</label>
+                        <input class="w3-input w3-border w3-round" name="first" type="email" placeholder="email">
+                    </div>
+
+                    <div class="w3-half">
+                        <label>Gender</label>
+                        <select class="w3-select w3-border" name="option">
+
+                            <option value="1" selected>Male</option>
+                            <option value="2">Female</option>
+
+                        </select>
+                    </div>
+                </div> -->
+
+
+                <div class="w3-row-padding">
+                    {%for field in form %}
+
+                    <div class="w3-half">
+                        <label for="{{field.id_for_label}}">{{field.html_name}}</label>
+                        {{field}}
+                        <br>
+                    </div>
+                    {%endfor%}
+                </div>
+
+
+                <div class="w3-row-padding">
+
+                    <div class="w3-half">
+                        <br>
+                        <button class="w3-btn w3-blue w3-round" style="margin-bottom: 12px;">Edit and Save</button>
+                        <p class="w3-red">if you change password you will be logged out !</p>
+                    </div>
+                </div>
+
+
+                {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                    <li class="{{ message.tags }}">
+                        {{ message }}
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+
+            </form>
+
+        </section>
+    </div>
+</div>
+
+<!-- End page content -->
+
+{%endblock pagecontent%}

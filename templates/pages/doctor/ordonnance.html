@@ -1,4 +1,3 @@
-
 {% if user.is_authenticated %}
 {% load static %}
 
@@ -81,7 +80,8 @@
           style="right:0;border-radius: 10px;overflow: hidden;">
           <a href="#" class="w3-bar-item w3-button "><i class="fa fa-cog fa-fw " style="color: #818181;"></i>Account
             settings </a>
-          <a href="{%url 'logout'%}" class="w3-bar-item w3-button" style="color: red;"><i class="fa fa-sign-out"></i> Sign Out</a>
+          <a href="{%url 'logout'%}" class="w3-bar-item w3-button" style="color: red;"><i class="fa fa-sign-out"></i>
+            Sign Out</a>
         </div>
       </div>
 
@@ -129,19 +129,24 @@
       <div class="w3-bar-block w3-margin " style="background-color: #ffffff;border-radius: 10px;overflow: hidden;">
         <a href="#" class="w3-bar-item w3-button w3-padding-0 w3-hide-large w3-dark-grey w3-hover-red"
           onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close Menu</a>
-          <a href="{% url 'rdv_list' %}" class="w3-bar-item w3-button w3-padding w3-dark-grey">
-        <i class="fa fa-calendar fa-fw"></i> 
-        Rendez-vous
-      </a>
-        <a href="#" class="w3-bar-item w3-button w3-padding w3-border-bottom btn_menu"><i class="fa fa-eye fa-fw"></i> 
+        <a href="{% url 'rdv_list' %}" class="w3-bar-item w3-button w3-padding w3-dark-grey">
+          <i class="fa fa-calendar fa-fw"></i> 
+          Rendez-vous
+        </a>
+        <a href="{% url 'rdv_annuelle' %}" class="w3-bar-item w3-button w3-padding w3-border-bottom btn_menu"><i
+            class="fa fa-calendar fa-fw"></i> 
+          Rendez-vous Annuelle</a>
+        <a href="{% url 'consultation_list'%}" class="w3-bar-item w3-button w3-padding w3-border-bottom btn_menu"><i
+            class="fa fa-eye fa-fw"></i> 
           Consultation</a>
         <a href="{% url 'patient_list'%}" class="w3-bar-item w3-button w3-padding w3-border-bottom btn_menu"><i
             class="fa fa-users fa-fw"></i>
           Patients</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding w3-border-bottom btn_menu"><i
+        <a href="{% url 'Data'%}" class="w3-bar-item w3-button w3-padding w3-border-bottom btn_menu"><i
             class="fa fa-bar-chart fa-fw"></i> 
           Statistique</a>
-        <a href="{% url 'ordonnance_list'%}" class="w3-bar-item w3-button w3-padding w3-border-bottom btn_menu"><i class="fa fa-file fa-fw"></i> 
+        <a href="{% url 'ordonnance_list'%}" class="w3-bar-item w3-button w3-padding w3-border-bottom btn_menu"><i
+            class="fa fa-file fa-fw"></i> 
           Ordonnances</a>
         <a href="#" class="w3-bar-item w3-button w3-padding btn_menu"><i class="fa fa-cog fa-fw"></i> 
           Settings</a>
@@ -176,43 +181,43 @@
   </div>
 
 
- <div class="w3-main" style="margin-left:300px;margin-top:43px;">
+  <div class="w3-main" style="margin-left:300px;margin-top:43px;">
     <!-- Header -->
     <header class="w3-container" style="padding-top:22px">
-      <h5><b><i class="fa fa-file fa-fw"></i> Ordonnance </b></h5>
+      <h5><b><i class="fa fa-file fa-fw"></i> Prescription </b></h5>
     </header>
 
-{% block content %}
-<center>
+    {% block content %}
+    <center>
 
-<div class="container">
-<form method="post" class="form-horizontal">
- <div class="form-group">
-     {% if user.is_authenticated %}
-     {% csrf_token %}
-     {% for field in form %}
-     <p>
-         {{ field.label_tag }}<br>
-         {{ field }}
+      <div class="container">
+        <form method="post" class="form-horizontal">
+          <div class="form-group">
+            {% if user.is_authenticated %}
+            {% csrf_token %}
+            {% for field in form %}
+            <p>
+              {{ field.label_tag }}<br>
+              {{ field }}
 
-         {% for error in field.errors %}
-     <p style="color: red">{{ error }}</p>
-     {% endfor %}
-     </p>
-     {% endfor %}
+              {% for error in field.errors %}
+            <p style="color: red">{{ error }}</p>
+            {% endfor %}
+            </p>
+            {% endfor %}
 
 
-     </div>
+          </div>
 
-      <div class="form-group">
-    <input type="submit" class="btn btn-primary" value="Submit" />
-     </div>
-    {% endif %}
-</form>
-</div>
-</center>
- </div>
-{% endblock %}
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Submit" />
+          </div>
+          {% endif %}
+        </form>
+      </div>
+    </center>
+  </div>
+  {% endblock %}
 
 
 

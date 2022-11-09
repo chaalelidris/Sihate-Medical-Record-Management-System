@@ -1,0 +1,52 @@
+{% load static%}
+<html>
+{% block title %}
+<title>Sihate | Ordonnance</title>
+{% endblock title %}
+
+<body>
+
+
+  <h1 align="left">Docteur </h1><br>
+  <h2 align="left">l'unité de médecine ESI-SBA<br>
+    P 73, Bureau de poste EL WIAM Sidi Bel Abbés 22012, Algérie<br>
+
+    Tell/: +213 48 74 94 52<br>
+
+    Fax /: +213 48 74 94 50<br>
+
+    Email: contact@esi-sba.dz
+
+  </h2>
+
+  <img align="right" src="C:\Users\FUJITSU/Desktop/GCM_PROJECT_DJANGO/GCM/GCM/static/images/logo_eco.jpg" width=82
+    alt="esi-sba" title="esi-sba"><br>
+  <br><br><br>
+  <div align="right">
+    <h1> <span style="text-decoration: underline;">Madame/Monsieur</span> :{{ordonnance.nom}} {{ordonnance.prenom}}</h1>
+    <h1> <span style="text-decoration: underline;">Age</span> :{{ordonnance.age}}</h1>
+    <h1><span style="text-decoration: underline;"> Date le</span> :{{ordonnance.date}}</h1>
+  </div><br><br>
+  <center>
+    <h1> <strong> <span style="text-decoration: underline;">
+          <FONT size="30pt">Ordonnance.</FONT>
+        </span></strong></h1>
+  </center><br><br>
+  <h1><strong>Medicament:</strong> </h1><br>
+  <h2>{{ ordonnance.medicament}}</h2>
+
+  <hr noshade style="width:300px; color:yellow; height:5px; text-align:left; border:1px solid blue;">
+  <h1><strong>Observation:</strong></h1><br>
+  <h2>{{ ordonnance.observation}} </h2>
+
+  <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+  <h1 align="center"><span style="text-decoration: underline;">Signature:</span></h1>
+  <style>
+    h2,
+    img {
+      display: inline;
+    }
+  </style>
+</body>
+
+</html>

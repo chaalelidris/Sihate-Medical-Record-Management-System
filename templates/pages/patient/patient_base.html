@@ -1,0 +1,262 @@
+{% if user.is_authenticated %}
+{% ifequal user.groups.all.0.name "Patients" %}
+
+{% load static %}
+
+<html>
+{% block title %}
+<title>Sihate | patient</title>
+{% endblock title %}
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- css -->
+<link rel="stylesheet" href="{% static 'css/ws.css' %}">
+<link rel="stylesheet" href="{% static 'css/w3-theme-blue-grey.css' %}">
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="{% static 'css/snakebar_style.css' %}">
+<link rel="stylesheet" href="{% static 'css/custom_scrol.css' %}">
+
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+<style>
+    html,
+    body,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5 {
+        font-family: "Raleway", sans-serif
+    }
+</style>
+
+<body class="w3-light-grey">
+
+
+
+
+
+
+
+    <!-- Navbar -->
+    <div class="w3-top" style="z-index:5">
+        <div class="w3-bar w3-apple-darkgray w3-left-align w3-large">
+
+            <a class="w3-bar-item w3-button  w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-apple-darkgray"
+                href="javascript:void(0);" onclick="w3_open()">
+                <i class="fa fa-bars"></i>
+            </a>
+
+            <a href="#" class="w3-bar-item ">
+                <img src="{% static 'images/logo_web.png'%}" width=82 alt="sihat_e" title="sihate">
+            </a>
+
+
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white" title="News">
+                <i class="fa fa-globe"></i>
+            </a>
+
+            <a href="#" class="w3-bar-item w3-button w3-hide-small w3-padding-large w3-hover-white"
+                title="Notifications">
+                <i class="fa fa-envelope"></i>
+
+
+            </a>
+            <div class="w3-bar-item  "
+                style="float: none;position: absolute;top: 50%;left: 50%;transform: translate(-50%, -50%);">
+                <span><i class="fa fa-user" aria-hidden="true"></i> Patient Space</span>
+            </div>
+
+            <div class="w3-dropdown-click w3-hide-small w3-apple-darkgray w3-right ">
+                <button onclick="myFunction()" class="w3-button w3-padding-large w3-hover-none" title="Account">
+                    {{user.username}}
+                    <i class="fa fa-angle-down"></i>
+                    <!-- <img src="images/account.png" class="w3-circle" style="height:23px;width:23px" alt="Avatar"> -->
+                </button>
+
+                <div id="profile_dropdown"
+                    class="w3-dropdown-content w3-card-4 w3-bar-block w3-animate-zoom w3-margin w3-medium"
+                    style="right:0;border-radius: 10px;overflow: hidden;">
+                    <a href="#" class="w3-bar-item w3-button "><i class="fa fa-cog fa-fw "
+                            style="color: #818181;"></i>Account
+                        settings </a>
+                    <a href="{%url 'logout'%}" class="w3-bar-item w3-button" style="color: red;"><i
+                            class="fa fa-sign-out"></i> Sign Out</a>
+                </div>
+            </div>
+
+            <!-- <div class="w3-dropdown-hover w3-hide-small ">
+
+        <button class="w3-button w3-padding-large" title="Notifications">
+          <i class="fa fa-bell"></i>
+          <span class="w3-badge w3-right w3-small w3-green">3</span>
+        </button>
+
+        <div class="w3-dropdown-content w3-card-4 w3-bar-block" style="width:300px">
+          <a href="#" class="w3-bar-item w3-button">One new friend request</a>
+          <a href="#" class="w3-bar-item w3-button">John Doe posted on your wall</a>
+          <a href="#" class="w3-bar-item w3-button">Jane likes your post</a>
+        </div>
+
+      </div> -->
+
+        </div>
+    </div>
+
+
+
+
+
+
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-collapse w3-animate-left"
+        style="z-index:4;width:300px;top: 53px; background-color: #f2f2f7;" id="mySidebar">
+        <br>
+        <div class="w3-container w3-row">
+            <div class="w3-col s4">
+                <img src="{%static 'images/image.png'%}" class="w3-circle" style="width:150px;margin-left:50px">
+            </div>
+        </div>
+        <hr>
+
+
+        <div class="w3-container">
+            <h2> <strong>Menu</strong> </h2>
+        </div>
+
+        <div id="side_menu">
+
+            <div class="w3-bar-block w3-margin "
+                style="background-color: #ffffff;border-radius: 10px;overflow: hidden;">
+                <a href="#" class="w3-bar-item w3-button w3-padding-0 w3-hide-large w3-dark-grey w3-hover-red"
+                    onclick="w3_close()" title="close menu"><i class="fa fa-remove fa-fw"></i>  Close
+                    Menu</a>
+                <a href="{% url 'rd' %}" class="w3-bar-item w3-button w3-padding w3-border-bottom btn_menu">
+                    <i class="fa fa-calendar fa-fw"></i> 
+                    Appointment
+                </a>
+                <a href="{% url 'consultation_list_patient' %}" class="w3-bar-item w3-button w3-padding btn_menu"><i
+                        class="fa fa-eye fa-fw"></i> 
+                    Medical examination</a>
+
+
+
+            </div>
+
+
+            <div class="w3-bar-block w3-margin "
+                style="background-color: #ffffff;border-radius: 10px;overflow: hidden;">
+
+                <a href="{%url 'patient_profile'%}" class="w3-bar-item w3-button w3-padding w3-border-bottom btn_menu">
+                    <i class="fa fa-angle-right w3-right w3-large" style="color: darkgrey;"></i><i
+                        class="fa fa-cog fa-fw"></i> 
+                    Account Settings</a>
+
+                <a href="{%url 'logout'%}" class="w3-bar-item w3-button w3-padding btn_menu" style="color: red;">
+                    <i class="fa fa-sign-out"></i> Sign Out</a>
+
+            </div>
+        </div>
+
+
+        <br><br><br><br><br><br>
+
+
+    </nav>
+
+
+
+
+
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
+        title="close side menu" id="myOverlay">
+    </div>
+
+
+
+    {%block pagecontent%}
+
+
+    {%endblock pagecontent%}
+
+
+
+    <!-- Add active class to the current button (highlight it) -->
+    <script>
+        var header = document.getElementById("side_menu");
+        var btns = header.getElementsByClassName("btn_menu");
+        for (var i = 0; i < btns.length; i++) {
+            btns[i].addEventListener("click", function () {
+                var current = document.getElementsByClassName(" w3-dark-grey");
+                if (current.length > 0) {
+                    current[0].className = current[0].className.replace(" w3-dark-grey",
+                        "");
+                }
+                this.className += " w3-dark-grey";
+            });
+        }
+    </script>
+
+
+
+
+
+    <!-- scripts -->
+    <script>
+        // Get the Sidebar
+        var mySidebar = document.getElementById("mySidebar");
+
+        // Get the DIV with overlay effect
+        var overlayBg = document.getElementById("myOverlay");
+
+        // Toggle between showing and hiding the sidebar, and add overlay effect
+        function w3_open() {
+            if (mySidebar.style.display === 'block') {
+                mySidebar.style.display = 'none';
+                overlayBg.style.display = "none";
+            } else {
+                mySidebar.style.display = 'block';
+                overlayBg.style.display = "block";
+            }
+        }
+
+        // Close the sidebar with the close button
+        function w3_close() {
+            mySidebar.style.display = "none";
+            overlayBg.style.display = "none";
+        }
+
+
+        /* acount button click dropdown */
+        function myFunction() {
+            var x = document.getElementById("profile_dropdown");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
+
+</body>
+
+</html>
+
+{%else%}
+<script>
+    window.location.href = "/login/";
+</script>
+{% endifequal %}
+
+{%else%}
+<script>
+
+    window.location.href = "/login/";
+</script>
+{%endif%}

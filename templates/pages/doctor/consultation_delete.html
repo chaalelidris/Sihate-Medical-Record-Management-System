@@ -1,0 +1,35 @@
+{%extends 'pages/doctor/doctor_base.html'%}
+{% load static %}
+
+
+{% block title %}
+<title>Sihate | doctor</title>
+{% endblock title %}
+
+
+
+
+
+{%block pagecontent%}
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h5><b><i class="fa fa-eye fa-fw"></i> Consultation </b></h5>
+  </header>
+
+  <center>
+    <div class="container" class="form-horizontal">
+      <form method="post">
+        {% if user.is_authenticated %}
+        {% csrf_token %}
+        <p>Are you sure you want to delete "{{ consultation.id_consultation }}" ?
+        <p>
+          <input type="submit" value="Submit" class="btn btn-danger" />
+          {% endif %}
+      </form>
+    </div>
+  </center>
+</div>
+{% endblock pagecontent %}

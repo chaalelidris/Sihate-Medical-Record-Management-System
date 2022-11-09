@@ -1,0 +1,48 @@
+{%extends 'pages/ESI/ESI_base.html'%}
+{% load static %}
+
+
+{% block title %}
+<title>Sihate | patient</title>
+{% endblock title %}
+
+
+
+
+{%block pagecontent%}
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+       <!-- Header -->
+       <header class="w3-container" style="padding-top:22px">
+              <h5><b><i class="fa fa-calendar"></i> Rendez-vous </b></h5>
+       </header>
+
+       <center>
+              <h1>Wellcome {{user.username}}</h1>
+       </center>
+
+
+</div>
+<!-- End page content -->
+
+
+<!-- snackbar -->
+<div id="snackbar">Wellcome {{user.username}} | Sihat_e</div>
+
+<!-- snackbar script -->
+<script>
+       myFunction();
+
+       function myFunction() {
+              var x = document.getElementById("snackbar");
+              x.className = "show";
+              setTimeout(function () {
+                     x.className = x.className.replace("show", "");
+              }, 3000);
+       }
+</script>
+
+
+{%endblock pagecontent%}

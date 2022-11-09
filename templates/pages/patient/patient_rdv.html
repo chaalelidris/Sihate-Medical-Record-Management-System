@@ -1,0 +1,106 @@
+{%extends 'pages/patient/patient_base.html'%}
+{% load static %}
+
+
+
+{% block title %}
+<title>Sihate | patient</title>
+<style>
+       .tableau-style {
+              border-collapse: collapse;
+              min-width: 400px;
+              width: auto;
+              box-shadow: 0 5px 50px rgba(0, 0, 0, 0.15);
+              cursor: pointer;
+              margin: 100px auto;
+              border: 2px solid midnightblue;
+              /* border: 1px solid #ddd;  */
+       }
+
+       thead tr {
+              background-color: midnightblue;
+              color: #fff;
+              text-align: left;
+       }
+
+       th,
+       td {
+              padding: 15px 20px;
+       }
+
+       tbody tr,
+       td,
+       th {
+              border: 1px solid #ddd;
+       }
+
+       tbody tr:nth-child(even) {
+              background-color: #f3f3f3;
+       }
+
+       .button {
+              font: bold 11px Arial;
+              text-decoration: none;
+              background-color: #EEEEEE;
+              color: #333333;
+              padding: 2px 6px 2px 6px;
+              border-top: 1px solid #CCCCCC;
+              border-right: 1px solid #333333;
+              border-bottom: 1px solid #333333;
+              border-left: 1px solid #CCCCCC;
+       }
+</style>
+{% endblock title %}
+
+
+
+
+{% block pagecontent %}
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+       <!-- Header -->
+       <header class="w3-container" style="padding-top:22px">
+              <h5><b><i class="fa fa-calendar"></i> Rendez-vous </b></h5>
+       </header>
+
+       <center>
+              <table class="tableau-style">
+
+                     <thead>
+                            <tr>
+                                   <th>User Id</th>
+                                   <th>Rdv Date</th>
+                                   <th>Rdv number</th>
+                                   <th>Edit</th>
+                                   <th>Delete</th>
+
+                            </tr>
+                     </thead>
+
+
+                     <tbody>
+                            {% for rdv in rdv %}
+                            <tr>
+                                   <td>{{ rdv.id_patient.get_full_name }}</td>
+                                   <td>{{ rdv.date }}</td>
+                                   <td>({{ rdv.num_rdv }} )</td>
+                                   <td><a href="{% url 'rd_edit' rdv.id %}" class="btn btn-primary"
+                                                 style="color: blue;"><strong>Edit</strong></a></td>
+                                   <td><a href="{% url 'rd_delete' rdv.id %}" class="btn btn-danger"
+                                                 style="color: red;"><strong>Delete</strong></a></td>
+
+
+                            </tr>
+                            {% endfor%}
+                     </tbody>
+
+              </table>
+              <a href="{% url 'rdv_neww'  %}"><button type="button"
+                            class="btn btn-primary"><strong>New</strong></button></a>
+
+
+
+       </center>
+
+</div>
+{% endblock pagecontent %}

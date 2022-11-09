@@ -1,0 +1,52 @@
+{%extends 'pages/patient/patient_base.html'%}
+{% load static %}
+
+
+
+{% block title %}
+<title>Sihate | patient</title>
+{% endblock title %}
+
+
+{% block pagecontent %}
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+
+       <header class="w3-container" style="padding-top:22px">
+              <h5><b><i class="fa fa-calendar"></i> Rendez-vous </b></h5>
+       </header>
+
+       {% block content %}
+       <center>
+
+              <div class="container">
+                     <form method="post" class="form-horizontal">
+                            <div class="form-group">
+                                   {% if user.is_authenticated %}
+                                   {% csrf_token %}
+                                   {% for field in form %}
+                                   <p>
+                                          {{ field.label_tag }}<br>
+                                          {{ field }}
+
+                                          {% for error in field.errors %}
+                                   <p style="color: red">{{ error }}</p>
+                                   {% endfor %}
+                                   </p>
+                                   {% endfor %}
+
+
+                            </div>
+
+                            <div class="form-group">
+                                   <input type="submit" class="btn btn-primary" value="Submit" />
+                            </div>
+                            {% endif %}
+                     </form>
+              </div>
+       </center>
+       {% endblock %}
+
+</div>
+
+{% endblock pagecontent %}

@@ -133,12 +133,16 @@
           <i class="fa fa-calendar fa-fw"></i> 
           Rendez-vous
         </a>
-        <a href="#" class="w3-bar-item w3-button w3-padding w3-border-bottom btn_menu"><i class="fa fa-eye fa-fw"></i> 
+        <a href="{% url 'rdv_annuelle' %}" class="w3-bar-item w3-button w3-padding w3-border-bottom btn_menu"><i
+            class="fa fa-calendar fa-fw"></i> 
+          Rendez-vous Annuelle</a>
+        <a href="{% url 'consultation_list'%}" class="w3-bar-item w3-button w3-padding w3-border-bottom btn_menu"><i
+            class="fa fa-eye fa-fw"></i> 
           Consultation</a>
         <a href="{% url 'patient_list'%}" class="w3-bar-item w3-button w3-padding w3-border-bottom btn_menu"><i
             class="fa fa-users fa-fw"></i>
           Patients</a>
-        <a href="#" class="w3-bar-item w3-button w3-padding w3-border-bottom btn_menu"><i
+        <a href="{% url 'Data'%}" class="w3-bar-item w3-button w3-padding w3-border-bottom btn_menu"><i
             class="fa fa-bar-chart fa-fw"></i> 
           Statistique</a>
         <a href="{% url 'ordonnance_list'%}" class="w3-bar-item w3-button w3-padding w3-border-bottom btn_menu"><i
@@ -176,7 +180,7 @@
 
     <!-- Header -->
     <header class="w3-container" style="padding-top:22px">
-      <h5><b><i class="fa fa-file fa-fw"></i> Ordonnance </b></h5>
+      <h5><b><i class="fa fa-file fa-fw"></i> Prescription </b></h5>
     </header>
 
     {% block content %}
@@ -185,9 +189,10 @@
         <form method="post">
           {% if user.is_authenticated %}
           {% csrf_token %}
-          <p>Are you sure you want to delete "{{ ordonnance.id_fiche }}" ?<p>
-              <input type="submit" value="Submit" class="btn btn-danger" />
-              {% endif %}
+          <p>Are you sure you want to delete "{{ ordonnance.id_ordonnance}}" ?
+          <p>
+            <input type="submit" value="Submit" class="btn btn-danger" />
+            {% endif %}
         </form>
       </div>
     </center>
