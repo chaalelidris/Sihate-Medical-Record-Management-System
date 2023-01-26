@@ -1,14 +1,13 @@
 from django.db import models
 
-# Create your models here.
+# prescription/models.
 
 
-class Ordonnance(models.Model):
+class Prescription(models.Model):
     id_ordonnance = models.AutoField(primary_key=True)
-    # date = models.DateTimeField(auto_now_add=True, blank=True)
     name_patient = models.ForeignKey(
-        "FichePatient",
-        related_name="ORD_patient",
+        "medicalfile.FichePatient",
+        related_name="fiche_patient",
         on_delete=models.CASCADE,
         default=None,
     )

@@ -1,61 +1,92 @@
-from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponse
+from .models import Prescription
+from .forms import PrescriptionForm
 
-# Create your views here.
-
-
-class OrdonnanceForm(forms.ModelForm):
-    class Meta:
-        model = Ordonnance
-        fields = ["name_patient", "date", "medicament", "observation"]
+# Prescription/views .
 
 
-def ordonnance_list(request, template_name="pages/doctor/ordonnance_list.html"):
-    ordonnance = Ordonnance.objects.all()
-    return render(request, template_name, {"ordonnance": ordonnance})
+@login_required()
+def prescription_pdf(request, id_ordonnance):
+    ordonnance = get_object_or_404(Prescription, id_ordonnance=id_ordonnance)
+
+    template_path = "pages/doctor/pdf_template.html"
+
+    context = {"ordonnance": ordonnance}
+
+    response = HttpResponse(content_type="application/pdf")
+
+    response["Content-Disposition"] = 'filename="ordonnance.pdf"'
+
+    template = get_template(template_path)
+
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+        return HttpResponse("We had some errors <pre>" + html + "</pre>")
+    return response
 
 
-def ordonnance(request, template_name="pages/doctor/ordonnance.html"):
-    form = OrdonnanceForm(request.POST or None)
+def prescription_list(request, template_name="pages/doctor/prescription_list.html"):
+    prescription = Prescription.objects.all()
+    return render(request, template_name, {"prescription": prescription})
+
+
+def prescription(request, template_name="pages/doctor/prescription.html"):
+    form = PrescriptionForm(request.POST or None)
 
     if form.is_valid():
-        ordonnance = form.save(commit=False)
-        ordonnance.save()
-        return redirect("ordonnance_list")
+        prescription = form.save(commit=False)
+        prescription.save()
+        return redirect("prescription_list")
     return render(request, template_name, {"form": form})
 
 
-def ordonnance_edit(request, id_ordonnance):
+def prescription_edit(request, id_prescription):
     # dictionary for initial data with
     # field names as keys
     context = {}
 
-    ordonnance = get_object_or_404(Ordonnance, id_ordonnance=id_ordonnance)
+    prescription = get_object_or_404(Prescription, id_prescription=id_prescription)
 
-    form = OrdonnanceForm(request.POST or None, instance=ordonnance)
+    form = PrescriptionForm(request.POST or None, instance=prescription)
 
     if form.is_valid():
 
         form.save()
-        return redirect("ordonnance_list")
+        return redirect("prescription_list")
 
     context["form"] = form
 
-    return render(request, "pages/doctor/ordonnance.html", context)
+    return render(request, "pages/doctor/prescription.html", context)
 
 
 @login_required
-def ordonnance_delete(request, id_ordonnance):
+def prescription_delete(request, id_prescription):
     # dictionary for initial data with
     # field names as keys
     context = {}
 
-    ordonnance = get_object_or_404(Ordonnance, id_ordonnance=id_ordonnance)
+    prescription = get_object_or_404(Prescription, id_prescription=id_prescription)
 
     if request.method == "POST":
 
-        ordonnance.delete()
+        prescription.delete()
 
-        return redirect("ordonnance_list")
+        return redirect("prescription_list")
 
-    return render(request, "pages/doctor/ordonnance_delete.html", context)
+    return render(request, "pages/doctor/prescription_delete.html", context)
+
+
+def prescription(request, template_name="pages/doctor/prescription.html"):
+    form = PrescriptionForm(request.POST or None)
+
+    if form.is_valid():
+        prescription = form.save(commit=False)
+        prescription.save()
+        return redirect("prescription_list")
+    return render(request, template_name, {"form": form})

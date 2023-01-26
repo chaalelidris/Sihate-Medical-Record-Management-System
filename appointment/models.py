@@ -1,10 +1,10 @@
 from django.db import models
-from django.contrib.auth import User
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 
-class appointment(models.Model):
+class Appointment(models.Model):
     id = models.AutoField(primary_key=True)
     id_medecin = models.ForeignKey(
         User,

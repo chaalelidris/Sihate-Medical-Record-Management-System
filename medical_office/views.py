@@ -1,9 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse
+from .forms import EditProfileForm
+from django.http import HttpResponseRedirect
 
 # Create your views here.
 
 
-def ESI(request):
+def medical_office(request):
     if request.user.groups.filter(name="ESI"):
         return render(request, "pages/ESI/ESI_dashboard.html")
     else:
@@ -11,7 +14,7 @@ def ESI(request):
         return redirect("../login")
 
 
-def ESI_profile(request):
+def medical_office_profile(request):
     user = request.user
     form = EditProfileForm(request.POST or None, instance=user)
     if request.method == "POST":

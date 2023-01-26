@@ -42,6 +42,11 @@ INSTALLED_APPS = [
     "home_page.apps.Home_pageConfig",
     "e_sante.apps.ESanteConfig",
     "doctor.apps.DoctorConfig",
+    "patient.apps.PatientConfig",
+    "medical_office.apps.MedicalOfficeConfig",
+    "appointment.apps.AppointmentConfig",
+    "medicalfile.apps.MedicalfileConfig",
+    "prescription.apps.PrescriptionConfig",
     "crispy_forms",
 ]
 

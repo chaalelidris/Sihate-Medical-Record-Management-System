@@ -1,4 +1,5 @@
 from django import forms
+from django.db.models import Count
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .models import Consultation
@@ -18,25 +19,19 @@ def doctor(request):
 def doctor_profile(request):
 
     user = request.user
-    form = EditProfileForm(request.POST or None, instance=request.user)
+    # edit profile
 
     if request.method == "POST":
+        pass
 
-        if form.is_valid():
+    return render(
+        request,
+        "pages/doctor/doctor_profile.html",
+    )
 
-            form.save()
-            new_password = form.cleaned_data.get("password")
-            if new_password:
-                user.set_password(new_password)
-                form.save(new_password)
 
-            return HttpResponseRedirect(reverse("doctor"))
-
-    context = {
-        "form": form,
-    }
-
-    return render(request, "pages/doctor/doctor_profile.html", context)
+def prescription_pdf():
+    pass
 
 
 def patient_list(request, template_name="pages/doctor/patient_list.html"):
@@ -44,17 +39,12 @@ def patient_list(request, template_name="pages/doctor/patient_list.html"):
     return render(request, template_name, {"fiche_patient": fiche_patient})
 
 
-class ConsultationForm(forms.ModelForm):
-    class Meta:
-        model = Consultation
-        fields = [
-            "id_consultation",
-            "id_patient",
-            "contenue",
-            "antecedant",
-            "traitement",
-            "date_consultation",
-        ]
+def consultation_list_patient(
+    request, template_name="pages/patient/consultation_list_patient.html"
+):
+    current_user = request.user
+    consultation = Consultation.objects.filter(id_patient=current_user.id)
+    return render(request, template_name, {"consultation": consultation})
 
 
 @login_required()
@@ -109,3 +99,33 @@ def consultation_delete(request, id_consultation):
         return redirect("consultation_list")
 
     return render(request, "pages/doctor/consultation_delete.html", context)
+
+
+@login_required()
+def Data(request):
+    if request.user.groups.filter(name="ESI"):
+        dataa = Consultation.objects.values("antecedant").annotate(
+            count=Count("id_consultation")
+        )
+        data = Consultation.objects.values("antecedant").distinct
+        return render(
+            request, "pages/ESI/statistics.html", {"data": data, "dataa": dataa}
+        )
+    elif request.user.groups.filter(name="doctor"):
+        dataa = Consultation.objects.values("antecedant").annotate(
+            count=Count("id_consultation")
+        )
+        data = Consultation.objects.values("antecedant").distinct
+        if request.method == "POST":
+            form = DataFrom(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect("/doctor/Statistique")
+        else:
+            form = DataFrom()
+        context = {
+            "data": data,
+            "dataa": dataa,
+            "form": form,
+        }
+        return render(request, "pages/doctor/statistics.html", context)
