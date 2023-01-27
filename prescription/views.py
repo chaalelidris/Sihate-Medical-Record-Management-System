@@ -1,6 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import get_template
 from django.http import HttpResponse
+from xhtml2pdf import pisa
+
 from .models import Prescription
 from .forms import PrescriptionForm
 

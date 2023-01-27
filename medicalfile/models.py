@@ -5,7 +5,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 # medicalfile/models.
 
 
-class FichePatient(models.Model):
+class MedicalFile(models.Model):
     SEX_FEMALE = "F"
     SEX_MALE = "M"
     SEX_UNSURE = "U"

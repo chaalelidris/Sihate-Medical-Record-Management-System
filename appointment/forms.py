@@ -1,18 +1,73 @@
 from django import forms
-from appointment.models import Appointment
+from django.contrib.auth.forms import UserChangeForm
+from django.contrib.auth.models import User
+
+from .models import Appointment
+from doctor.models import Consultation
 from medicalfile.models import MedicalFile
+
+
+class AppointmentForm(forms.ModelForm):
+    class Meta:
+        model = Appointment
+        fields = ["date", "num_rdv"]
 
 
 class PostForm(forms.ModelForm):
     class Meta:
         model = Appointment
-        fields = [
-            "date",
-        ]
+        fields = ["date"]
 
     def __init__(self, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
         self.fields["date"].widget.attrs["class"] = "datepicker"
+
+
+class DataFrom(forms.ModelForm):
+    class Meta:
+        model = Consultation
+        fields = "__all__"
+
+
+class EditProfileForm(UserChangeForm):
+    password = forms.CharField(
+        widget=forms.PasswordInput(
+            attrs={"class": "w3-input w3-border w3-round", "placeholder": "password"}
+        )
+    )
+
+    class Meta:
+        model = User
+        fields = (
+            "first_name",
+            "last_name",
+            "email",
+            "username",
+            "password",
+        )
+        widgets = {
+            "first_name": forms.TextInput(
+                attrs={
+                    "class": "w3-input w3-border w3-round",
+                    "placeholder": "first name",
+                }
+            ),
+            "last_name": forms.TextInput(
+                attrs={
+                    "class": "w3-input w3-border w3-round",
+                    "placeholder": "last name",
+                }
+            ),
+            "email": forms.EmailInput(
+                attrs={"class": "w3-input w3-border w3-round", "placeholder": "email"}
+            ),
+            "username": forms.TextInput(
+                attrs={
+                    "class": "w3-input w3-border w3-round",
+                    "placeholder": "username",
+                }
+            ),
+        }
 
 
 class medicalFileForm(forms.ModelForm):

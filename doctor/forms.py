@@ -13,3 +13,9 @@ class ConsultationForm(forms.ModelForm):
             "traitement",
             "date_consultation",
         ]
+
+
+class DataFrom(forms.ModelForm):
+    class Meta:
+        model = Consultation
+        fields = "__all__"

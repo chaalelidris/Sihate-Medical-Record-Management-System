@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "home_page.apps.Home_pageConfig",
-    "e_sante.apps.ESanteConfig",
     "doctor.apps.DoctorConfig",
     "patient.apps.PatientConfig",
     "medical_office.apps.MedicalOfficeConfig",

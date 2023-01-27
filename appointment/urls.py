@@ -1,23 +1,21 @@
 from django.urls import path, include
-from . import views
+from .views import (
+    appointment_list,
+    create_appointment,
+    edit_appointment,
+    delete_appointment,
+    yearly_appointment,
+)
 
 # Appointment urls
-urlpatterns = {
+urlpatterns = [
+    path("", appointment_list, name="appointment_list"),
+    path("create_appointment/", create_appointment, name="create_appointment"),
+    path("edit_appointment/<int:id>/", edit_appointment, name="edit_appointment"),
     path(
-        "create_appointment/",
-        views.create_appointment,
-        name="create_appointment",
-    ),
-    path("", views.appointment_list, name="appointment_list"),
-    path("edit/<int:id>/)", views.edit_appointment, name="edit_appointment"),
-    path(
-        "delete/<int:id>/)",
-        views.delete_appointment,
+        "delete_appointment/<int:id>/",
+        delete_appointment,
         name="delete_appointment",
     ),
-    path(
-        "yearly_appointment/",
-        views.yearly_appointment,
-        name="yearly_appointment",
-    ),
-}
+    path("yearly_appointment/", yearly_appointment, name="yearly_appointment"),
+]

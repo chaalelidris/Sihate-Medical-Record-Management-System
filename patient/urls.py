@@ -1,7 +1,7 @@
 from django.urls import path, include
-from . import views
+from .views import patient_profile
 
 urlpatterns = [
-    path("profile/", views.patient_profile, name="patient_profile"),
+    path("profile/", patient_profile, name="patient_profile"),
     path("appointment/", include("appointment.urls")),
 ]

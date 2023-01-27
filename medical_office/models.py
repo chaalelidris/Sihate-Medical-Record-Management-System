@@ -6,7 +6,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class Medical_office(models.Model):
-    id_cabinet = models.AutoField(primary_key=True)
+    id_office = models.AutoField(primary_key=True)
     Name = models.CharField(max_length=254)
     address = models.CharField(max_length=254)
     email = models.EmailField()

@@ -1,25 +1,19 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Appointment
+from .forms import PostForm, AppointmentForm
 
 # Create your views here.
-
-
-def newAppointment(request):
-    form = PostForm(request.POST)
+@login_required
+def create_appointment(request, template_name="pages/doctor/appointment_form.html"):
+    form = AppointmentForm(request.POST or None)
 
     if form.is_valid():
         appointment = form.save(commit=False)
-        appointment.id_patient = request.user.id
-        appointment.id_medecin = 1
-        appointment.num_appointment = 1
-        # WE NEED ID_PATIENT + ID_SEC + NUMERORDV IS STATIC PROBLEM
+        appointment.num_appointment = countAppointment()
         appointment.save()
-    context = {
-        "form": form,
-    }
-
-    return render(request, "pages/doctor/appointment_form", context)
+        return redirect("appointment_list")
+    return render(request, template_name, {"form": form})
 
 
 @login_required
@@ -28,26 +22,6 @@ def appointment_list(request):
     return render(
         request, "pages/doctor/appointment_list.html", {"appointment": appointment}
     )
-
-
-def countAppointment():
-    no = Appointment.objects.count()
-    if no == None:
-        return 1
-    else:
-        return no + 1
-
-
-@login_required
-def create_appointment(request, template_name="pages/doctor/appointment_form.html"):
-    form = AppointmentForm(request.POST or None)
-
-    if form.is_valid():
-        appointment = form.save(commit=False)
-        appointment.num_appointment = CountNumeroAppointment()
-        appointment.save()
-        return redirect("appointment_list")
-    return render(request, template_name, {"form": form})
 
 
 @login_required
@@ -81,7 +55,7 @@ def delete_appointment(request, id):
     if request.method == "POST":
 
         appointment.delete()
-        appointment.num_appointment = CountNumeroAppointment()
+        appointment.num_appointment = countAppointment()
 
         return redirect("appointment_list")
 
@@ -91,6 +65,31 @@ def delete_appointment(request, id):
 @login_required()
 def yearly_appointment(request):
     return render(request, "pages/doctor/appointment_annuelle.html")
+
+
+def countAppointment():
+    no = Appointment.objects.count()
+    if no == None:
+        return 1
+    else:
+        return no + 1
+
+
+def newAppointment(request):
+    form = PostForm(request.POST)
+
+    if form.is_valid():
+        appointment = form.save(commit=False)
+        appointment.id_patient = request.user.id
+        appointment.id_medecin = 1
+        appointment.num_appointment = 1
+        # WE NEED ID_PATIENT + ID_SEC + NUMERORDV IS STATIC PROBLEM
+        appointment.save()
+    context = {
+        "form": form,
+    }
+
+    return render(request, "pages/doctor/appointment_form", context)
 
 
 def appointment(request):
@@ -103,12 +102,12 @@ def appointment(request):
 
 @login_required
 def rd_create(request, template_name="pages/patient/rd_form.html"):
-    form = RdForm(request.POST or None)
+    form = AppointmentForm(request.POST or None)
 
     if form.is_valid():
         rdv = form.save(commit=False)
         rdv.id_patient = request.user
-        rdv.num_rdv = CountNumeroRdv()
+        rdv.num_rdv = countAppointment()
         rdv.save()
         return redirect("rd")
     return render(
@@ -123,12 +122,12 @@ def rd_update(request, id):
     # field names as keys
     context = {}
 
-    rdv = get_object_or_404(Rdv, id=id)
+    appointment = get_object_or_404(Appointment, id=id)
 
-    form = RdvForm(request.POST or None, instance=rdv)
+    form = AppointmentForm(request.POST or None, instance=appointment)
 
     if form.is_valid():
-        rdv.id_patient = request.user
+        appointment.id_patient = request.user
         form.save()
         return redirect("rd")
 
@@ -143,12 +142,12 @@ def rd_delete(request, id):
     # field names as keys
     context = {}
 
-    rdv = get_object_or_404(Rdv, id=id)
+    rdv = get_object_or_404(Appointment, id=id)
 
     if request.method == "POST":
         rdv.id_patient = request.user
         rdv.delete()
-        rdv.num_rdv = CountNumeroRdv()
+        rdv.num_rdv = countAppointment()
 
         return redirect("rd")
 

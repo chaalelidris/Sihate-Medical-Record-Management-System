@@ -1,12 +1,18 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.template.loader import get_template
+from django.http import HttpResponse
+from xhtml2pdf import pisa
 
-# Create your views here.
+from .forms import medicalFileForm
+from .models import MedicalFile
+
+# medicalfile/views.
 
 
 @login_required()
 def fiche_patient(request, template_name="pages/doctor/fiche_patient.html"):
-    form = fiche_patientForm(request.POST or None)
+    form = medicalFileForm(request.POST or None)
 
     if form.is_valid():
         fiche_patient = form.save(commit=False)
@@ -21,9 +27,9 @@ def fiche_patient_edit(request, id_fiche):
     # field names as keys
     context = {}
 
-    fiche_patient = get_object_or_404(FichePatient, id_fiche=id_fiche)
+    fiche_patient = get_object_or_404(MedicalFile, id_fiche=id_fiche)
 
-    form = fiche_patientForm(request.POST or None, instance=fiche_patient)
+    form = medicalFileForm(request.POST or None, instance=fiche_patient)
 
     if form.is_valid():
 
@@ -41,7 +47,7 @@ def fiche_patient_delete(request, id_fiche):
     # field names as keys
     context = {}
 
-    fiche_patient = get_object_or_404(FichePatient, id_fiche=id_fiche)
+    fiche_patient = get_object_or_404(MedicalFile, id_fiche=id_fiche)
 
     if request.method == "POST":
 
@@ -54,7 +60,7 @@ def fiche_patient_delete(request, id_fiche):
 
 @login_required()
 def fichePDF(request, id_fiche):
-    fiche_patient = get_object_or_404(FichePatient, id_fiche=id_fiche)
+    fiche_patient = get_object_or_404(MedicalFile, id_fiche=id_fiche)
 
     template_path = "pages/doctor/fiche_pdf.html"
 
@@ -63,30 +69,6 @@ def fichePDF(request, id_fiche):
     response = HttpResponse(content_type="application/pdf")
 
     response["Content-Disposition"] = 'filename="dossier medicale de patient.pdf"'
-
-    template = get_template(template_path)
-
-    html = template.render(context)
-
-    # create a pdf
-    pisa_status = pisa.CreatePDF(html, dest=response)
-    # if error then show some funy view
-    if pisa_status.err:
-        return HttpResponse("We had some errors <pre>" + html + "</pre>")
-    return response
-
-
-@login_required()
-def ViewPDF(request, id_ordonnance):
-    ordonnance = get_object_or_404(Ordonnance, id_ordonnance=id_ordonnance)
-
-    template_path = "pages/doctor/pdf_template.html"
-
-    context = {"ordonnance": ordonnance}
-
-    response = HttpResponse(content_type="application/pdf")
-
-    response["Content-Disposition"] = 'filename="ordonnance.pdf"'
 
     template = get_template(template_path)
 

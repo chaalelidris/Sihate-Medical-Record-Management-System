@@ -1,8 +1,5 @@
 import json
-from typing import NamedTuple
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
-from django.forms import forms
 from django.http.response import HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
@@ -31,14 +28,13 @@ def index(request):
         Subject = request.POST["Subject"]
         Message = request.POST["Message"]
 
-        # send email
-
-        send_mail(
-            Subject,  # subjetc
-            Message,  # message
-            Email,  # from
-            ["guerzizines@gmail.com"],  # to
-        )
+        # currently inavailable
+        """ send_mail(
+            Subject, 
+            Message,  
+            Email, 
+            ["chaalelidris8@gmail.com"],  
+        ) """
 
         messages.info(request, "contact")
         return render(request, "pages/index.html", {"Name": Name})

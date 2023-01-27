@@ -1,8 +1,9 @@
-from django import forms
 from django.db.models import Count
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from .forms import ConsultationForm, DataFrom
 from .models import Consultation
+from medicalfile.models import MedicalFile
 
 # Doctor views.
 
@@ -35,7 +36,7 @@ def prescription_pdf():
 
 
 def patient_list(request, template_name="pages/doctor/patient_list.html"):
-    fiche_patient = FichePatient.objects.all()
+    fiche_patient = MedicalFile.objects.all()
     return render(request, template_name, {"fiche_patient": fiche_patient})
 
 

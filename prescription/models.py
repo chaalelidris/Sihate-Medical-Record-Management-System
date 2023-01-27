@@ -6,7 +6,7 @@ from django.db import models
 class Prescription(models.Model):
     id_ordonnance = models.AutoField(primary_key=True)
     name_patient = models.ForeignKey(
-        "medicalfile.FichePatient",
+        "medicalfile.MedicalFile",
         related_name="fiche_patient",
         on_delete=models.CASCADE,
         default=None,
