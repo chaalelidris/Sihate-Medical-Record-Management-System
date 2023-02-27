@@ -50,4 +50,5 @@ To view statistics, click on the Statistics link on the navigation bar. The syst
 
 # Conclusion
 
-Sihate is an efficient and secure medical file management system that enables easy management of patients, doctors, medical files, appointments, consultations, and statistics. The system comes with an authentication system that ensures that only authorized users can access the system.
+Sihate is an efficient and secure medical file management system that enables easy management of patients, doctors, medical files, appointments, consultations, and statistics. The system comes with an authentication system that ensures that only authorized users can access the system
+Only admin can create users Doctors & Patients.
