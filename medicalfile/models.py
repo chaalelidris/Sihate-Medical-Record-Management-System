@@ -20,12 +20,13 @@ class MedicalFile(models.Model):
     h = "AB-"
 
     Celebataire = "celebataire"
-    Marié = "Marié"
-    Divorcé = "Divorcé"
-    veuf = "veuf"
+    Maried = "Maried"
+    Divorced = "Divorced"
+    Widower = "Widower"
 
     op = "Oui"
     opp = "Non"
+
     SEX_OPTIONS = ((SEX_FEMALE, "Female"), (SEX_MALE, "Male"), (SEX_UNSURE, "Unsure"))
     GROUP_SANGUIN_OPTIONS = [
         (a, "O+"),
@@ -38,25 +39,25 @@ class MedicalFile(models.Model):
         (h, "AB-"),
     ]
     SITUATION_OPTIONS = [
-        (Celebataire, "celebataire"),
-        (Marié, "Marié"),
-        (Divorcé, "Divorcé"),
-        (veuf, "veuf"),
+        (Celebataire, "Celebataire"),
+        (Maried, "Maried"),
+        (Divorced, "Divorced"),
+        (Widower, "Widower"),
     ]
     OPTIONS = [(op, "Oui"), (opp, "Non")]
-    id_fiche = models.AutoField(primary_key=True)
+    id_medical_file = models.AutoField(primary_key=True)
     id_patient = models.ForeignKey(
         User,
-        related_name="fich_patient",
+        related_name="patient_medical_file",
         on_delete=models.CASCADE,
     )
-    id_medecin = models.ForeignKey(
+    id_doctor = models.ForeignKey(
         User,
-        related_name="fich_med",
+        related_name="doctor_medical_file",
         on_delete=models.CASCADE,
     )
-    nom = models.CharField(max_length=254)
-    prenom = models.CharField(max_length=254)
+    firstname = models.CharField(max_length=254)
+    lastname = models.CharField(max_length=254)
     address = models.CharField(max_length=254)
     age = models.IntegerField()
     sexe = models.CharField(max_length=1, choices=SEX_OPTIONS, default=None)
@@ -68,23 +69,14 @@ class MedicalFile(models.Model):
     NSS = models.CharField(max_length=254)
     profession = models.CharField(max_length=254)
     motif_consultation = models.CharField(max_length=254)
-    nom_etablissement_universitaire = models.CharField(max_length=254)
-    date_naiss = models.DateField()
-    lieu_naiss = models.CharField(max_length=254)
+    establishment_name = models.CharField(max_length=254)
+    birthday = models.DateField()
+    birthday_location = models.CharField(max_length=254)
     situation = models.CharField(max_length=11, choices=SITUATION_OPTIONS, default=None)
-    filiére = models.CharField(max_length=254)
-    à_fumer = models.CharField(max_length=3, choices=OPTIONS, default=None)
-    à_chiquer = models.CharField(max_length=3, choices=OPTIONS, default=None)
-    à_prise = models.CharField(max_length=3, choices=OPTIONS, default=None)
-    nbr_cigarettes = models.IntegerField(blank=True)
-    nbr_boites = models.IntegerField(blank=True)
-    age_à_la_premiére_prise = models.IntegerField()
-    ancien_fumeur = models.CharField(max_length=3, choices=OPTIONS, default=None)
-    periode_exposition = models.IntegerField(blank=True)
-    Affections_congénitales = models.TextField(max_length=254)
-    Maladies_génerale = models.TextField(max_length=254)
-    Interventions_chirurgicales = models.TextField(max_length=254)
-    Réactions_allergique_aux_médicaments = models.TextField(max_length=254)
+    branch = models.CharField(max_length=254)
+    smocking = models.CharField(max_length=3, choices=OPTIONS, default=None)
+    general_maladies = models.TextField(max_length=254)
+    allergic_reactions_to_drugs = models.TextField(max_length=254)
 
     def __str__(self):
         return str(self.id_patient.username)

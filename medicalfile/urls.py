@@ -1,16 +1,22 @@
 from django.urls import path, include
 from . import views
 
+# medicalfile/urls
 urlpatterns = [
     path(
-        "fiche_patient_edit/<int:id_fiche>/",
-        views.fiche_patient_edit,
-        name="fiche_patient_edit",
+        "create_patient_medical_file/",
+        views.createPatientMedicalFileView,
+        name="create_patient_medical_file",
     ),
     path(
-        "fiche_patient_delete/<int:id_fiche>/",
-        views.fiche_patient_delete,
-        name="fiche_patient_delete",
+        "update_patient_medical_file/<int:id_medical_file>/",
+        views.updatePatientMedicalFileView,
+        name="edit_patient_medical_file",
     ),
-    path("fichePDF/<int:id_fiche>/", views.fichePDF, name="fichePDF"),
+    path(
+        "delete_patient_medical_file/<int:id_medical_file>/",
+        views.deletePatientMedicalFileView,
+        name="delete_patient_medical_file",
+    ),
+    path("fichePDF/<int:id_medical_file>/", views.fichePDF, name="fichePDF"),
 ]

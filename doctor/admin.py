@@ -1,6 +1,5 @@
 from django.contrib import admin
-from .models import Consultation, Facture
+from .models import Consultation
 
 # Register your models here.
 admin.site.register(Consultation)
-admin.site.register(Facture)

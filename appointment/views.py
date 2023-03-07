@@ -5,22 +5,27 @@ from .forms import PostForm, AppointmentForm
 
 # Create your views here.
 @login_required
-def create_appointment(request, template_name="pages/doctor/appointment_form.html"):
-    form = AppointmentForm(request.POST or None)
+def create_appointment(request):
 
-    if form.is_valid():
-        appointment = form.save(commit=False)
-        appointment.num_appointment = countAppointment()
-        appointment.save()
+    if request.POST:
+        form = AppointmentForm(request.POST)
+
+        if form.is_valid():
+            form.save()
         return redirect("appointment_list")
-    return render(request, template_name, {"form": form})
+
+    return render(
+        request, "pages/doctor/appointment/appointment_form.html", {"form": form}
+    )
 
 
 @login_required
 def appointment_list(request):
     appointment = Appointment.objects.all()
     return render(
-        request, "pages/doctor/appointment_list.html", {"appointment": appointment}
+        request,
+        "pages/doctor/appointment/appointment_list.html",
+        {"appointment": appointment},
     )
 
 
@@ -41,7 +46,7 @@ def edit_appointment(request, id):
 
     context["form"] = form
 
-    return render(request, "pages/doctor/appointment_form.html", context)
+    return render(request, "pages/doctor/appointment/appointment_form.html", context)
 
 
 @login_required
@@ -59,12 +64,14 @@ def delete_appointment(request, id):
 
         return redirect("appointment_list")
 
-    return render(request, "pages/doctor/appointment_confirm_delete.html", context)
+    return render(
+        request, "pages/doctor/appointment/appointment_confirm_delete.html", context
+    )
 
 
 @login_required()
 def yearly_appointment(request):
-    return render(request, "pages/doctor/appointment_annuelle.html")
+    return render(request, "pages/doctor/appointment/yearly_appointment.html")
 
 
 def countAppointment():
@@ -73,23 +80,6 @@ def countAppointment():
         return 1
     else:
         return no + 1
-
-
-def newAppointment(request):
-    form = PostForm(request.POST)
-
-    if form.is_valid():
-        appointment = form.save(commit=False)
-        appointment.id_patient = request.user.id
-        appointment.id_medecin = 1
-        appointment.num_appointment = 1
-        # WE NEED ID_PATIENT + ID_SEC + NUMERORDV IS STATIC PROBLEM
-        appointment.save()
-    context = {
-        "form": form,
-    }
-
-    return render(request, "pages/doctor/appointment_form", context)
 
 
 def appointment(request):

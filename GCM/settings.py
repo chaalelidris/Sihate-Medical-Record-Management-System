@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure--snucu^%1h*hj=$8oky3al$638_w7yqb(t26$9#b5&xyi3s=l!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["localhost"]
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # apps
     "home_page.apps.Home_pageConfig",
     "doctor.apps.DoctorConfig",
     "patient.apps.PatientConfig",
@@ -46,7 +47,9 @@ INSTALLED_APPS = [
     "appointment.apps.AppointmentConfig",
     "medicalfile.apps.MedicalfileConfig",
     "prescription.apps.PrescriptionConfig",
+    # Third party
     "crispy_forms",
+    "crispy_bootstrap5",
 ]
 
 MIDDLEWARE = [
@@ -140,8 +143,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = "/static/"
-STATIC_ROOT = os.path.join(BASE_DIR, "static")
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "GCM/static")]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
@@ -158,13 +161,19 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 env = environ.Env()
 environ.Env.read_env()
 
-# Previous settings ...
+# Sending email
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = env("EMAIL_HOST")
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
+
 # Custom setting. To email
 RECIPIENT_ADDRESS = env("RECIPIENT_ADDRESS")
+
+
+# django-crispy-forms
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"  # new
+CRISPY_TEMPLATE_PACK = "bootstrap5"  # new

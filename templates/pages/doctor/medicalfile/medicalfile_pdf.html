@@ -1,0 +1,149 @@
+{% load static%}
+<div>
+{% block title %}
+<title>Sihate | fiche patient</title>
+{% endblock title %}
+
+<body>
+<br><br><br><br><br><br><br><br><br>
+<center><h1><span style="text-decoration: underline;"><font size="15pt">Rèpublique Algérienne Démocratique & populaire</font></span> </h1></center>
+
+<h2 align="left">Office National des Oeuvres Universitaires <br>
+    Direction des Oeuvres Universitaire<br>
+
+    De la Wilaya de Sidi BelAbbes<br>
+
+    Residence Universitaire de 500 lits<br>
+
+    (ES_SILM)-Sidi Bel Abbes-
+
+</h2>
+
+<h1 align="right"> PHOTO</h1>
+     <br>
+<br><br><br>
+<center>
+<FONT size="30pt">Dossier Médicale
+<br>  -Etudiant-</FONT>
+
+</center>
+<br><br>
+<h1><strong><font size="15pt">Nom:</font></strong>  {{ patient_medical_file.firstname}}</h1>
+
+
+<h1><strong><font size="15pt">Prenom:</font></strong>  {{ patient_medical_file.lastname}}</h1>
+
+
+<h1><strong><font size="15pt">Age:</font></strong>   {{ patient_medical_file.age}} </h1>
+
+
+<h1><strong><font size="15pt">Service:</font></strong>   {{ patient_medical_file.profession}} </h1>
+
+
+<h1><strong><font size="15pt">Adresse:</font></strong>               {{ patient_medical_file.address}}</h1>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<center><h1><span style="text-decoration: underline;"><font size="15pt">Rèpublique Algérienne Démocratique & populaire</font></span> </h1></center>
+
+<center><h1><span style="text-decoration: underline;"><font size="15pt">Ministére de la Santé et de la Population</font></span> </h1></center><br>
+<center><h1><span style="text-decoration: underline;"><font size="15pt">Dossier Médicale de l'Etudiant</font> </span></h1><br></center>
+
+<div><strong><font size="15pt">N°Dossier:</font></strong> <font size="15pt">  {{ patient_medical_file.id_medical_file}}</font>  <strong><font size="15pt">Group Sanguin:</font></strong> <font size="15pt">  {{ patient_medical_file.group_sanguin}}</font>
+<strong><font size="15pt">N°De Securité Sociale:</font></strong> <font size="15pt">  {{ patient_medical_file.NSS}}</font></div>
+<div><strong><font size="15pt">Nom de l'etablissment universitaire:</font></strong> <font size="15pt">  {{ patient_medical_file.establishment_name}}</font></body></div>
+<div><strong><font size="15pt">Nom:</font></strong> <font size="15pt">  {{ patient_medical_file.firstname}}</font><strong><font size="15pt">Prenom:</font></strong> <font size="15pt">  {{ patient_medical_file.lastname}}</font></div>
+<div><strong><font size="15pt">Né(e) le:</font></strong> <font size="15pt">  {{ patient_medical_file.birthday}}</font><strong><font size="15pt">à:</font></strong> <font size="15pt">  {{ patient_medical_file.birthday_location}}</font></div>
+<div><strong><font size="15pt">Adresse:</font></strong> <font size="15pt">  {{ patient_medical_file.address}}</font><strong><font size="15pt">Situation de famille:</font></strong> <font size="15pt">  {{ patient_medical_file.situation}}</font></div>
+<div><strong><font size="15pt">branch:</font></strong> <font size="15pt">  {{ patient_medical_file.branch}}</font></div>
+<center><h1><span style="text-decoration: underline;"><font size="15pt">ANTECEDANT PERSONNELS </font></span> </h1><br></center>
+<h1>INTOXICATIONS</h1>
+<h1><span style="text-decoration: underline;"><font size="15pt">TABACS:</font></span> </h1>
+<div><strong><font size="15pt">à fumer:</font></strong> <font size="15pt">  {{ patient_medical_file.smocking}}</font><strong><font size="15pt">nombre de cigarettes(/j):</font></strong> <font size="15pt">  {{ patient_medical_file.nbr_cigarettes}}</font></div>
+<div><strong><font size="15pt">à chiquer:</font></strong> <font size="15pt">  {{ patient_medical_file.à_chiquer}}</font><strong><font size="15pt">nombre de boites(/j):</font></strong> <font size="15pt">  {{ patient_medical_file.nbr_boites}}</font></div>
+<div><strong><font size="15pt"> à prise:</font></strong> <font size="15pt">  {{ patient_medical_file.à_prise}}</font><strong><font size="15pt">nombre de boites(/j):</font></strong> <font size="15pt">  {{ patient_medical_file.nbr_boites}}</font></div>
+<div><strong><font size="15pt"> age à la premiére prise:</font></strong> <font size="15pt">  {{ patient_medical_file.age_à_la_premiére_prise}}</font><strong><font size="15pt">periode d'exposition(/j):</font></strong> <font size="15pt">  {{ patient_medical_file.periode_exposition}}</font></div>
+<div><strong><font size="15pt"> ancien fumeur?</font></strong> <font size="15pt">  {{ patient_medical_file.ancien_fumeur}}</font></div>
+<h1><span style="text-decoration: underline;"><font size="15pt">ALCOOL:</font></span> </h1>
+<h1><span style="text-decoration: underline;"><font size="15pt">MEDICAMENTS:(à preciser)</font></span> </h1>
+<h1><span style="text-decoration: underline;"><font size="15pt">AUTRES:(à preciser)</font></span> </h1>
+<center><h1><span style="text-decoration: underline;"><font size="15pt">ANTECEDANT MEDICO-CHIRURGICAUX </font></span></h1><br></center><br>
+<div><strong><font size="15pt">Affections congénitales:</font></strong> <font size="15pt">  {{ patient_medical_file.Affections_congénitales}}</font></div><br>
+<div><strong><font size="15pt"> Maladies génerale:</font></strong> <font size="15pt">  {{ patient_medical_file.general_maladies}}</font></div><br>
+<div><strong><font size="15pt">Interventions chirurgicales:</font></strong> <font size="15pt">  {{ patient_medical_file.Interventions_chirurgicales}}</font></div><br>
+<div><strong><font size="15pt">Réactions allergique aux médicaments:</font></strong> <font size="15pt">  {{ patient_medical_file.allergic_reactions_to_drugs}}</font></div><br>
+
+
+
+<center><h1><span style="text-decoration: underline;"><font size="15pt">EXPLORATION FONCTIONNELLES </font></span></h1><br></center>
+<style>
+table,
+td {
+    border: 1px solid #333;
+    width: 80%;"
+}
+thead{ width: 200px;}
+
+</style>
+<div>
+
+    <table align="center"  width = 80% height = 50%>
+    <thead>
+        <tr>
+            <th><font size="15pt">Fonctions Respiratoires</font></th>
+            <th><font size="15pt">Fonctions Circulatoires</font></th>
+            <th><font size="15pt">Fonctions Motrices</font></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>The table body</td>
+            <td>with two columns</td>
+            <td>with two columns</td>
+        </tr>
+    </tbody>
+</table>
+
+</div>
+
+<center><h1><span style="text-decoration: underline;"><font size="15pt">EXAMEN COMPLEMENTAIRES </font></span></h1><br></center>
+<div>
+
+    <table align="center"  width = 80% height = 50%>
+    <thead>
+        <tr>
+           <th><font size="9pt">Radiologies:</font></th>
+             <th>Resultat:</th>
+        </tr>
+
+
+
+
+    </thead>
+    <tbody>
+    <tr>
+           <td><font size="9pt">Biologiques:</font><br>
+                -sanguin
+                -urinaires</td>
+        <td> Resultat:<br>
+         Resultat:</td>
+
+        </tr>
+        <tr>
+            <td><font size="9pt">Autres:</font>
+            <br>
+                -hypatite virale
+                -syphilis
+                -H.I.V</td>
+            <td>
+                 Resultat:
+         Resultat:<br>
+         Resultat:   <br>
+            </td>
+
+        </tr>
+
+    </tbody>
+</table>
+
+</div>
+<center><h1><span style="text-decoration: underline;"><font size="15pt">ORIENTATIONS </font></span></h1><br></center>
+

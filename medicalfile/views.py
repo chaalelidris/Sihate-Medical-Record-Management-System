@@ -11,25 +11,29 @@ from .models import MedicalFile
 
 
 @login_required()
-def fiche_patient(request, template_name="pages/doctor/fiche_patient.html"):
+def createPatientMedicalFileView(
+    request, template_name="pages/doctor/patient_medical_file.html"
+):
     form = medicalFileForm(request.POST or None)
 
     if form.is_valid():
-        fiche_patient = form.save(commit=False)
-        fiche_patient.save()
+        patient_medical_file = form.save(commit=False)
+        patient_medical_file.save()
         return redirect("patient_list")
     return render(request, template_name, {"form": form})
 
 
 @login_required()
-def fiche_patient_edit(request, id_fiche):
+def updatePatientMedicalFileView(request, id_medical_file):
     # dictionary for initial data with
     # field names as keys
     context = {}
 
-    fiche_patient = get_object_or_404(MedicalFile, id_fiche=id_fiche)
+    patient_medical_file = get_object_or_404(
+        MedicalFile, id_medical_file=id_medical_file
+    )
 
-    form = medicalFileForm(request.POST or None, instance=fiche_patient)
+    form = medicalFileForm(request.POST or None, instance=patient_medical_file)
 
     if form.is_valid():
 
@@ -38,33 +42,37 @@ def fiche_patient_edit(request, id_fiche):
 
     context["form"] = form
 
-    return render(request, "pages/doctor/fiche_patient.html", context)
+    return render(request, "pages/doctor/patient_medical_file.html", context)
 
 
 @login_required
-def fiche_patient_delete(request, id_fiche):
+def deletePatientMedicalFileView(request, id_medical_file):
     # dictionary for initial data with
     # field names as keys
     context = {}
 
-    fiche_patient = get_object_or_404(MedicalFile, id_fiche=id_fiche)
+    patient_medical_file = get_object_or_404(
+        MedicalFile, id_medical_file=id_medical_file
+    )
 
     if request.method == "POST":
 
-        fiche_patient.delete()
+        patient_medical_file.delete()
 
         return redirect("patient_list")
 
-    return render(request, "pages/doctor/fiche_patient_delete.html", context)
+    return render(request, "pages/doctor/patient_medical_file_delete.html", context)
 
 
 @login_required()
-def fichePDF(request, id_fiche):
-    fiche_patient = get_object_or_404(MedicalFile, id_fiche=id_fiche)
+def fichePDF(request, id_medical_file):
+    patient_medical_file = get_object_or_404(
+        MedicalFile, id_medical_file=id_medical_file
+    )
 
     template_path = "pages/doctor/fiche_pdf.html"
 
-    context = {"fiche_patient": fiche_patient}
+    context = {"patient_medical_file": patient_medical_file}
 
     response = HttpResponse(content_type="application/pdf")
 

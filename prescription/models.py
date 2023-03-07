@@ -4,25 +4,25 @@ from django.db import models
 
 
 class Prescription(models.Model):
-    id_ordonnance = models.AutoField(primary_key=True)
-    name_patient = models.ForeignKey(
+    id_prescription = models.AutoField(primary_key=True)
+    patient = models.ForeignKey(
         "medicalfile.MedicalFile",
-        related_name="fiche_patient",
+        related_name="patient_medical_file",
         on_delete=models.CASCADE,
-        default=None,
     )
-    date = models.DateTimeField()
-    medicament = models.CharField(max_length=254)
+    medication = models.CharField(max_length=254)
+    duration = models.IntegerField()
     observation = models.TextField(max_length=254)
+    date_prescribed = models.DateTimeField()
 
     def __str__(self):
         return str(self.date)
 
-    def nom(self):
-        return self.name_patient.nom
+    def firstname(self):
+        return self.patient.firstname
 
-    def prenom(self):
-        return self.name_patient.prenom
+    def lastname(self):
+        return self.patient.lastname
 
     def age(self):
-        return self.name_patient.age
+        return self.patient.age

@@ -34,12 +34,18 @@ def prescription_pdf(request, id_ordonnance):
     return response
 
 
-def prescription_list(request, template_name="pages/doctor/prescription_list.html"):
+def PrescriptionListView(request):
     prescription = Prescription.objects.all()
-    return render(request, template_name, {"prescription": prescription})
+    return render(
+        request,
+        "pages/doctor/prescription/prescription_list.html",
+        {"prescription": prescription},
+    )
 
 
-def prescription(request, template_name="pages/doctor/prescription.html"):
+def PrescriptionCreateView(
+    request, template_name="pages/doctor/prescription/prescription.html"
+):
     form = PrescriptionForm(request.POST or None)
 
     if form.is_valid():
@@ -49,7 +55,7 @@ def prescription(request, template_name="pages/doctor/prescription.html"):
     return render(request, template_name, {"form": form})
 
 
-def prescription_edit(request, id_prescription):
+def PrescriptionUpdateView(request, id_prescription):
     # dictionary for initial data with
     # field names as keys
     context = {}
@@ -65,11 +71,11 @@ def prescription_edit(request, id_prescription):
 
     context["form"] = form
 
-    return render(request, "pages/doctor/prescription.html", context)
+    return render(request, "pages/doctor/prescription/prescription.html", context)
 
 
 @login_required
-def prescription_delete(request, id_prescription):
+def PrescriptionDeleteView(request, id_prescription):
     # dictionary for initial data with
     # field names as keys
     context = {}
@@ -82,14 +88,6 @@ def prescription_delete(request, id_prescription):
 
         return redirect("prescription_list")
 
-    return render(request, "pages/doctor/prescription_delete.html", context)
-
-
-def prescription(request, template_name="pages/doctor/prescription.html"):
-    form = PrescriptionForm(request.POST or None)
-
-    if form.is_valid():
-        prescription = form.save(commit=False)
-        prescription.save()
-        return redirect("prescription_list")
-    return render(request, template_name, {"form": form})
+    return render(
+        request, "pages/doctor/prescription/delete_prescription.html", context
+    )

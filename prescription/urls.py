@@ -1,22 +1,28 @@
 from django.urls import path, include
-from . import views
+from .views import (
+    PrescriptionListView,
+    PrescriptionCreateView,
+    PrescriptionUpdateView,
+    PrescriptionDeleteView,
+    prescription_pdf,
+)
 
 urlpatterns = [
+    path("", PrescriptionCreateView, name="prescription"),
+    path("prescription_list/", PrescriptionListView, name="prescription_list"),
     path(
-        "prescription_pdf/<int:id_ordonnance>/",
-        views.prescription_pdf,
-        name="prescription_pdf",
-    ),
-    path("", views.prescription, name="prescription"),
-    path("prescription_list/", views.prescription_list, name="prescription_list"),
-    path(
-        "prescription_edit/<int:id_ordonnance>/",
-        views.prescription_edit,
-        name="prescription_edit",
+        "prescription_update/<int:id_ordonnance>/",
+        PrescriptionUpdateView,
+        name="prescription_update",
     ),
     path(
         "prescription_delete/<int:id_ordonnance>/",
-        views.prescription_delete,
+        PrescriptionDeleteView,
         name="prescription_delete",
+    ),
+    path(
+        "prescription_pdf/<int:id_ordonnance>/",
+        prescription_pdf,
+        name="prescription_pdf",
     ),
 ]

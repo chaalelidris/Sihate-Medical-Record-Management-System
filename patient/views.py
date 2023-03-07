@@ -7,8 +7,8 @@ from .forms import EditProfileForm
 # patient/views.
 
 
-def patient(request):
-    if request.user.groups.filter(name="Patients"):
+def patientDashboardView(request):
+    if request.user.groups.filter(name="patient"):
         return render(request, "pages/patient/patient_dashboard.html")
     else:
         # messages.info(request, '')

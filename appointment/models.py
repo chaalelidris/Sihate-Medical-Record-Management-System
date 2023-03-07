@@ -5,21 +5,18 @@ from django.contrib.auth.models import User
 
 
 class Appointment(models.Model):
-    id = models.AutoField(primary_key=True)
-    id_medecin = models.ForeignKey(
-        User,
-        related_name="rdv_med",
-        on_delete=models.CASCADE,
-        default="3",
+    id_appointment = models.AutoField(primary_key=True)
+    id_doctor = models.ForeignKey(
+        User, related_name="appointment_doctor", on_delete=models.CASCADE, default="3"
     )
     id_patient = models.ForeignKey(
-        User,
-        related_name="rdv_patient",
-        on_delete=models.CASCADE,
+        User, related_name="appointment_patient", on_delete=models.CASCADE
     )
-    date = models.DateTimeField()
-
-    num_rdv = models.IntegerField(default="1")
+    date_appointment = models.DateTimeField()
+    reason_appointment = models.CharField(max_length=255)
+    location_appointment = models.CharField(max_length=255)
+    notes_appointment = models.TextField(blank=True)
+    is_confirmed = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.id_patient.username)

@@ -9,11 +9,10 @@ from django.contrib.auth import views as auth_views
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
-    # path("", TemplateView.as_view(template_name="base.html"), name="home"),
     path("", include("home_page.urls")),
     path("doctor/", include("doctor.urls")),
     path("patient/", include("patient.urls")),
-    # path("medical_office/", include("medical_office.urls")),
+    path("medical_office/", include("medical_office.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

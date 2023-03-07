@@ -1,9 +1,11 @@
 import json
 from django.contrib.auth import authenticate, login
-from django.http.response import HttpResponse, HttpResponseRedirect
+from django.http.response import HttpResponse
+from django.views.generic.base import TemplateView
+from django.core.mail import EmailMessage
+from django.conf import settings
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from django.core.mail import send_mail
 
 # from django.http import HttpResponse
 def user_login_mobile(request):
@@ -21,25 +23,24 @@ def user_login_mobile(request):
         return HttpResponse(content="Creds doesn't exists", status=400)
 
 
-def index(request):
-    if request.method == "POST":
-        Name = request.POST["Name"]
-        Email = request.POST["Email"]
-        Subject = request.POST["Subject"]
-        Message = request.POST["Message"]
+class HomeView(TemplateView):
+    template_name = "pages/index.html"
 
-        # currently inavailable
-        """ send_mail(
-            Subject, 
-            Message,  
-            Email, 
-            ["chaalelidris8@gmail.com"],  
-        ) """
+    def post(self, request):
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        message = request.POST.get("message")
 
-        messages.info(request, "contact")
-        return render(request, "pages/index.html", {"Name": Name})
-    else:
-        return render(request, "pages/index.html")
+        """ email = EmailMessage(
+            subject=f"{name} from doctor family.",
+            body=message,
+            from_email=settings.EMAIL_HOST_USER,
+            to=[settings.EMAIL_HOST_USER],
+            reply_to=[email],
+        )
+
+        email.send() """
+        return redirect("index")
 
 
 def user_login(request):
@@ -58,10 +59,10 @@ def user_login(request):
                 login(request, user)
                 if request.user.groups.filter(name="doctor"):
                     return redirect("../doctor/")
-                elif request.user.groups.filter(name="Patients"):
+                elif request.user.groups.filter(name="patient"):
                     return redirect("../patient/")
-                elif request.user.groups.filter(name="ESI"):
-                    return redirect("../ESI/")
+                elif request.user.groups.filter(name="office"):
+                    return redirect("../medical_office/")
                 else:
                     messages.info(request, "User unknown")
                     return render(request, "pages/login/login.html")

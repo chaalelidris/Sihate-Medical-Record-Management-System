@@ -7,8 +7,8 @@ from django.http import HttpResponseRedirect
 
 
 def medical_office(request):
-    if request.user.groups.filter(name="ESI"):
-        return render(request, "pages/ESI/ESI_dashboard.html")
+    if request.user.groups.filter(name="medical_office"):
+        return render(request, "pages/medical_office/medical_office_dashboard.html")
     else:
         # messages.info(request, '')
         return redirect("../login")
@@ -27,8 +27,8 @@ def medical_office_profile(request):
                 user.set_password(new_password)
                 form.save(new_password)
 
-            return HttpResponseRedirect(reverse("ESI"))
+            return HttpResponseRedirect(reverse("medical_office"))
 
     context = {"form": form}
 
-    return render(request, "pages/ESI/ESI_profile.html", context)
+    return render(request, "pages/medical_office/medical_office_profile.html", context)

@@ -1,15 +1,14 @@
 from django.db.models import Count
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .forms import ConsultationForm, DataFrom
+from .forms import ConsultationForm, UserUpdateForm
 from .models import Consultation
 from medicalfile.models import MedicalFile
 
 # Doctor views.
 
 
-def doctor(request):
-
+def doctorDashboardView(request):
     if request.user.groups.filter(name="doctor"):
         return render(request, "pages/doctor/doctor_dashboard.html")
     else:
@@ -17,27 +16,31 @@ def doctor(request):
         return redirect("../login")
 
 
-def doctor_profile(request):
-
+def profileView(request):
     user = request.user
-    # edit profile
 
     if request.method == "POST":
-        pass
+        form = UserUpdateForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect("doctor_profile")
+    else:
+        form = UserUpdateForm(instance=user)
 
-    return render(
-        request,
-        "pages/doctor/doctor_profile.html",
-    )
+    return render(request, "pages/doctor/doctor_profile.html", {"form": form})
 
 
 def prescription_pdf():
     pass
 
 
-def patient_list(request, template_name="pages/doctor/patient_list.html"):
-    fiche_patient = MedicalFile.objects.all()
-    return render(request, template_name, {"fiche_patient": fiche_patient})
+def patientListView(request):
+    patient_medical_file = MedicalFile.objects.all()
+    return render(
+        request,
+        "pages/doctor/patient/patient_list.html",
+        {"patient_medical_file": patient_medical_file},
+    )
 
 
 def consultation_list_patient(
@@ -49,13 +52,17 @@ def consultation_list_patient(
 
 
 @login_required()
-def consultation_list(request, template_name="pages/doctor/consultation_list.html"):
+def consultation_list(request):
     consultation = Consultation.objects.all()
-    return render(request, template_name, {"consultation": consultation})
+    return render(
+        request,
+        "pages/doctor/consultation/consultation_list.html",
+        {"consultation": consultation},
+    )
 
 
 @login_required()
-def consultation(request, template_name="pages/doctor/consultation.html"):
+def consultation(request, template_name="pages/doctor/consultation/consultation.html"):
     form = ConsultationForm(request.POST or None)
 
     if form.is_valid():
@@ -66,7 +73,7 @@ def consultation(request, template_name="pages/doctor/consultation.html"):
 
 
 @login_required()
-def consultation_edit(request, id_consultation):
+def updateConsultationView(request, id_consultation):
     # dictionary for initial data with
     # field names as keys
     context = {}
@@ -82,11 +89,11 @@ def consultation_edit(request, id_consultation):
 
     context["form"] = form
 
-    return render(request, "pages/doctor/consultation.html", context)
+    return render(request, "pages/doctor/consultaion/consultation.html", context)
 
 
 @login_required
-def consultation_delete(request, id_consultation):
+def deleteConsultationView(request, id_consultation):
     # dictionary for initial data with
     # field names as keys
     context = {}
@@ -99,34 +106,38 @@ def consultation_delete(request, id_consultation):
 
         return redirect("consultation_list")
 
-    return render(request, "pages/doctor/consultation_delete.html", context)
+    return render(
+        request, "pages/doctor/consultation/consultation_delete.html", context
+    )
 
 
 @login_required()
 def Data(request):
-    if request.user.groups.filter(name="ESI"):
-        dataa = Consultation.objects.values("antecedant").annotate(
+    if request.user.groups.filter(name="medical_office"):
+        statistics = Consultation.objects.values("diagnosis").annotate(
             count=Count("id_consultation")
         )
-        data = Consultation.objects.values("antecedant").distinct
+        data = Consultation.objects.values("diagnosis").distinct
         return render(
-            request, "pages/ESI/statistics.html", {"data": data, "dataa": dataa}
+            request,
+            "pages/medical_office/statistics.html",
+            {"data": data, "statistics": statistics},
         )
     elif request.user.groups.filter(name="doctor"):
-        dataa = Consultation.objects.values("antecedant").annotate(
+        statistics = Consultation.objects.values("diagnosis").annotate(
             count=Count("id_consultation")
         )
-        data = Consultation.objects.values("antecedant").distinct
+        data = Consultation.objects.values("diagnosis").distinct
         if request.method == "POST":
-            form = DataFrom(request.POST)
+            form = ConsultationForm(request.POST)
             if form.is_valid():
                 form.save()
-                return redirect("/doctor/Statistique")
+                return redirect("/doctor/statistique")
         else:
-            form = DataFrom()
+            form = ConsultationForm()
         context = {
             "data": data,
-            "dataa": dataa,
+            "statistics": statistics,
             "form": form,
         }
-        return render(request, "pages/doctor/statistics.html", context)
+        return render(request, "pages/doctor/statistics/statistics.html", context)
