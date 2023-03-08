@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Appointment
-from .forms import PostForm, AppointmentForm
+from .forms import AppointmentForm
 
 # Create your views here.
 @login_required
@@ -84,7 +84,7 @@ def countAppointment():
 
 def appointment(request):
     current_user = request.user
-    appointment = Appointment.objects.filter(id_patient=current_user.id)
+    appointment = Appointment.objects.filter(patientId=current_user.id)
     return render(
         request, "pages/patient/patient_rdv.html", {"appointment": appointment}
     )
@@ -96,7 +96,7 @@ def rd_create(request, template_name="pages/patient/rd_form.html"):
 
     if form.is_valid():
         rdv = form.save(commit=False)
-        rdv.id_patient = request.user
+        rdv.patientId = request.user
         rdv.num_rdv = countAppointment()
         rdv.save()
         return redirect("rd")
@@ -117,7 +117,7 @@ def rd_update(request, id):
     form = AppointmentForm(request.POST or None, instance=appointment)
 
     if form.is_valid():
-        appointment.id_patient = request.user
+        appointment.patientId = request.user
         form.save()
         return redirect("rd")
 
@@ -135,7 +135,7 @@ def rd_delete(request, id):
     rdv = get_object_or_404(Appointment, id=id)
 
     if request.method == "POST":
-        rdv.id_patient = request.user
+        rdv.patientId = request.user
         rdv.delete()
         rdv.num_rdv = countAppointment()
 

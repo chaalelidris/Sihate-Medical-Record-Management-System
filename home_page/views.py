@@ -1,45 +1,34 @@
-import json
 from django.contrib.auth import authenticate, login
-from django.http.response import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.generic.base import TemplateView
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.shortcuts import redirect, render
 from django.contrib import messages
-
-# from django.http import HttpResponse
-def user_login_mobile(request):
-    if request.method == "POST":
-        body = json.loads(request.body)
-
-        username = body.get("username", None)
-        password = body.get("password", None)
-
-        if username and password:
-            user = authenticate(request, username=username, password=password)
-            if user:
-                return HttpResponse(content="Logged in successfully", status=201)
-
-        return HttpResponse(content="Creds doesn't exists", status=400)
+from .forms import ContactusForm
 
 
-class HomeView(TemplateView):
+class homeView(TemplateView):
     template_name = "pages/index.html"
 
     def post(self, request):
-        name = request.POST.get("name")
-        email = request.POST.get("email")
-        message = request.POST.get("message")
+        contactForm = ContactusForm()
+        if request.method == "POST":
+            contactForm = forms.ContactusForm(request.POST)
+            if contactForm.is_valid():
+                name = contactForm.cleaned_data["Name"]
+                email = contactForm.cleaned_data["Email"]
+                message = contactForm.cleaned_data["Message"]
+                send_mail(
+                    str(name) + " || " + str(email),
+                    message,
+                    settings.EMAIL_HOST_USER,
+                    settings.EMAIL_RECEIVING_USER,
+                    fail_silently=False,
+                )
+                return render(request, "hospital/contactussuccess.html")
+        return render(request, "hospital/contactus.html", {"form": sub})
 
-        """ email = EmailMessage(
-            subject=f"{name} from doctor family.",
-            body=message,
-            from_email=settings.EMAIL_HOST_USER,
-            to=[settings.EMAIL_HOST_USER],
-            reply_to=[email],
-        )
-
-        email.send() """
         return redirect("index")
 
 

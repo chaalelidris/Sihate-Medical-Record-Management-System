@@ -4,9 +4,9 @@ from . import views
 # doctor/urls
 urlpatterns = [
     path("", views.doctorDashboardView, name="doctor_dashboard"),
-    path("profile/", views.profileView, name="doctor_profile"),
+    path("profile/", views.updateProfileView, name="doctor_profile"),
     path("patient_list", views.patientListView, name="patient_list"),
-    path("patient_list/medical_file/", include("medicalfile.urls")),
+    path("patient_list/medical_file/", include("medicalrecord.urls")),
     path("prescription/", include("prescription.urls")),
     path("consultation_list/", views.consultation_list, name="consultation_list"),
     path(

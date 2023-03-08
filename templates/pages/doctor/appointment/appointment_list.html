@@ -86,13 +86,15 @@
       <tbody>
         {% for appointment in appointment %}
         <tr>
-          <td>{{ appointment.id_patient.get_full_name }}</td>
+          <td>{{ appointment.patientId.get_full_name }}</td>
           <td>{{ appointment.date_appointment }}</td>
           <td>({{ appointment.location_appointment }} )</td>
-          <td><a href="{% url 'appointment_edit' appointment.id %}" class="btn btn-primary" style="color: blue;"><strong><span
+          <td><a href="{% url 'appointment_edit' appointment.id %}" class="btn btn-primary"
+              style="color: blue;"><strong><span
                   class="w3-button w3-indigo w3-margin-bottom w3-round-large w3-hover-indigo w3-hover-shadow">Edit</span></strong></a>
           </td>
-          <td><a href="{% url 'appointment_delete' appointment.id %}" class="btn btn-danger" style="color: red;"><strong><span
+          <td><a href="{% url 'appointment_delete' appointment.id %}" class="btn btn-danger"
+              style="color: red;"><strong><span
                   class="w3-button w3-red w3-margin-bottom w3-round-large w3-hover-red w3-hover-shadow">Delete</span></strong></a>
           </td>
 
@@ -103,7 +105,8 @@
 
     </table>
     <a href="{% url 'create_appointment'  %}"><span
-        class="w3-button w3-green w3-margin-bottom w3-round-large w3-hover-green w3-hover-shadow">Schedule appointment</span></a>
+        class="w3-button w3-green w3-margin-bottom w3-round-large w3-hover-green w3-hover-shadow">Schedule
+        appointment</span></a>
 
 
 

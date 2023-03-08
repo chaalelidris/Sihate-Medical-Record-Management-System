@@ -1,9 +1,8 @@
 from django.db.models import Count
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .forms import ConsultationForm, UserUpdateForm
-from .models import Consultation
-from medicalfile.models import MedicalFile
+from . import forms, models
+from medicalrecord.models import MedicalRecord
 
 # Doctor views.
 
@@ -16,18 +15,27 @@ def doctorDashboardView(request):
         return redirect("../login")
 
 
-def profileView(request):
-    user = request.user
+def updateProfileView(request, pk):
 
+    doctor = models.Doctor.objects.get(id=pk)
+    user = models.User.objects.get(id=doctor.user_id)
+
+    userForm = forms.DoctorUserForm(instance=user)
+    doctorForm = forms.DoctorForm(request.FILES, instance=doctor)
+    mydict = {"userForm": userForm, "doctorForm": doctorForm}
     if request.method == "POST":
-        form = UserUpdateForm(request.POST, instance=user)
-        if form.is_valid():
-            form.save()
+        userForm = forms.DoctorUserForm(request.POST, instance=user)
+        doctorForm = forms.DoctorForm(request.POST, request.FILES, instance=doctor)
+        if userForm.is_valid() and doctorForm.is_valid():
+            user = userForm.save()
+            user.set_password(user.password)
+            user.save()
+            doctor = doctorForm.save(commit=False)
+            doctor.status = True
+            doctor.save()
             return redirect("doctor_profile")
-    else:
-        form = UserUpdateForm(instance=user)
 
-    return render(request, "pages/doctor/doctor_profile.html", {"form": form})
+    return render(request, "pages/doctor/doctor_profile.html", context=mydict)
 
 
 def prescription_pdf():
@@ -35,7 +43,7 @@ def prescription_pdf():
 
 
 def patientListView(request):
-    patient_medical_file = MedicalFile.objects.all()
+    patient_medical_file = MedicalRecord.objects.all()
     return render(
         request,
         "pages/doctor/patient/patient_list.html",
@@ -47,7 +55,7 @@ def consultation_list_patient(
     request, template_name="pages/patient/consultation_list_patient.html"
 ):
     current_user = request.user
-    consultation = Consultation.objects.filter(id_patient=current_user.id)
+    consultation = Consultation.objects.filter(patientId=current_user.id)
     return render(request, template_name, {"consultation": consultation})
 
 

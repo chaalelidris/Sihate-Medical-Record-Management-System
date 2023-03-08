@@ -76,7 +76,7 @@
                             {% for consultation in consultation %}
                             <tr>
                                    <td>{{ consultation.id_consultation }}</td>
-                                   <td>{{ consultation.id_patient.get_full_name }} </td>
+                                   <td>{{ consultation.patientId.get_full_name }} </td>
                                    <td>{{ consultation.contenue }}</td>
                                    <td>{{ consultation.antecedant }}</td>
                                    <td>{{ consultation.traitement }}</td>

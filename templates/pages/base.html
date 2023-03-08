@@ -1,6 +1,4 @@
 {% load static %}
-
-
 <html lang="en" dir="ltr">
 
 <head>
@@ -10,126 +8,71 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="" name="Medical Record Managment System">
+    <meta content="" name="patient,doctor,medical,record,managment,prescription,appointment,office">
 
-    <!--js  -->
-    <script src="{%static 'js/jquery.min.js'%}"></script>
-    <script src="{%static 'js/jquery-1.12.4.js' %}"></script>
+    <!-- Favicons -->
+    <link href="{%static 'assets/img/logo/logo-sihate.png'%}" rel="icon">
+    <link href="{%static 'assets/img/logo/logo-sihate.png'%}" rel="apple-touch-icon">
 
-    <!--Chartjs CDN-->
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
 
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'assets/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
 
-    <!--css -->
-    <link rel="stylesheet" href="{%static 'css/ws.css'%}">
-    <link rel="stylesheet" href="{%static 'css/w3t.css'%}">
-    <link rel="stylesheet" href="{%static 'css/login_style.css'%}">
-    <link rel="stylesheet" href="{%static 'css/Home_style.css'%}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="shortcut icon" href="{%static 'images/icon.png'%}" />
-
+    <!-- Template Main CSS File -->
+    <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
 
 </head>
 
 <body>
+    <!------------------------------------------------------------------------------>
+    <!---------------------------------- Header ------------------------------------>
+    <!------------------------------------------------------------------------------>
 
-     {%block content%}
-     {%endblock content%}
+    {%include 'pages/parts/topbar_section.html'%}
+    {%include 'pages/parts/header_section.html'%}
 
-    <!-- Navbar (sit on top) -->
-    <div class="w3-top">
-        <div class="w3-bar w3-white w3-card " id="myNavbar">
-            <a href="#home" class=""> <img src="{%static 'images/logo_web.png'%}" width=140 alt="sihat_e"> </a>
-            <!-- Right-sided navbar links -->
-            <div class="w3-right w3-hide-small w3-hide-medium ">
-                <a href="#home" class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">
-                    Home</a>
-                <a href="#About"
-                    class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">About</a>
-                <a href="#Services"
-                    class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">
-                    Services</a>
-                <a href="#contact"
-                    class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">Contact</a>
-                <button onclick="window.location.href='login'"
-                    class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb"> Login</button>
-            </div>
-            <!-- Hide right-floated links on small screens and replace them with a menu icon -->
-            <a href="javascript:void(0)" class="w3-bar-item w3-button w3-right w3-hide-large " onclick="w3_open()">
-                <i class="fa fa-bars"></i>
-            </a>
-        </div>
-    </div>
+    <!------------------------------------------------------------------------------>
+    <!------------------------------ Block Content --------------------------------->
+    <!------------------------------------------------------------------------------>
+
+    {%block content%}
+    {%endblock content%}
+
+    <!------------------------------------------------------------------------------>
+    <!-------------------------- ArrowUp and Preloader ----------------------------->
+    <!------------------------------------------------------------------------------>
 
 
-    <!-- Sidebar on small screens when clicking the menu icon -->
-    <nav class="w3-sidebar w3-bar-block w3-white w3-card w3-animate-left  w3-hide-large" style="display:none"
-        id="mySidebar">
-        <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-small w3-padding-16"
-            style="background-color:rgb(249, 81, 68);color:white">Close ×</a>
-        <a href="#home" onclick="w3_close()"
-            class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">Home</a>
-        <a href="#About" onclick="w3_close()"
-            class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">About</a>
-        <a href="#Services" onclick="w3_close()"
-            class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">Services</a>
-        <a href="#contact" onclick="w3_close()"
-            class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb-1">Contact</a>
-        <button onclick="window.location.href='login'"
-            class="w3-bar-item w3-button w3-hover-none w3-padding-small i-margin w3-button-nb">Login</button>
-        <!-- onclick="document.getElementById('id01').style.display='block'" -->
-    </nav>
+    {%include 'pages/parts/preloader.html'%}
+    {%include 'pages/parts/arrowup.html'%}
 
 
-    {%include 'pages/parts/header.html'%}
-    {%include 'pages/parts/about.html'%}
-    {%include 'pages/parts/services.html'%}
-    {%include 'pages/parts/contact.html'%}
-    {%include 'pages/parts/footer.html'%}
+    <!------------------------------------------------------------------------------>
+    <!---------------------------------- footer ------------------------------------>
+    <!------------------------------------------------------------------------------>
 
-    <!--sidebar + login script  -->
-    <script>
-        //Toggle between showing and hiding the sidebar when clicking the menu icon
-        var mySidebar = document.getElementById("mySidebar");
 
-        function w3_open() {
-            if (mySidebar.style.display === 'block') {
-                mySidebar.style.display = 'none';
-            } else {
-                mySidebar.style.display = 'block';
-            }
-        }
+    {%include 'pages/parts/footer_section.html'%}
 
-        // Close the sidebar with the close button
-        function w3_close() {
-            mySidebar.style.display = "none";
-        }
-    </script>
 
-    <!-- jQuery script -->
-    <script>
-        $(document).ready(function () {
-            // fluid-input--focus
-            $(".fii1").focus(function () {
-                $(".fi1").addClass("fluid-input--focus");
-            });
+    <!------------------------------------------------------------------------------>
+    <!---------------------------------- scripts ----------------------------------->
+    <!------------------------------------------------------------------------------>
 
-            $(".fii1").blur(function () {
-                if ($(this).val().length === 0) {
-                    $(".fi1").removeClass("fluid-input--focus");
-                }
-            });
 
-            $(".fii2").focus(function () {
-                $(".fi2").addClass("fluid-input--focus");
-            });
-
-            $(".fii2").blur(function () {
-                if ($(this).val().length === 0) {
-                    $(".fi2").removeClass("fluid-input--focus");
-                }
-            });
-        });
-    </script>
+    {%include 'pages/parts/scripts.html'%}
 
 </body>
 

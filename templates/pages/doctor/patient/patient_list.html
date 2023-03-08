@@ -43,45 +43,54 @@
 {%block pagecontent%}
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:300px;margin-top:43px;">
-    <!-- Header -->
-    <header class="w3-container" style="padding-top:22px">
-      <h5><b><i class="fa fa-users fa-fw"></i> Dossier Médicale </b></h5>
-    </header>
+  <!-- Header -->
+  <header class="w3-container" style="padding-top:22px">
+    <h5><b><i class="fa fa-users fa-fw"></i> Dossier Médicale </b></h5>
+  </header>
 
-      <center>
-          <table class="tableau-style">
+  <center>
+    <table class="tableau-style">
 
-              <thead>
-              <tr>
-                  <th>Nom</th>
-                  <th>Prenom</th>
-                  <th>Age</th>
-                  <th>Sexe</th>
-                  <th>Edit</th>
-                  <th>Delete</th>
-                  <th>Imprimer</th>
-              </tr>
-              </thead>
-              <tbody>
-              {% for patient_medical_file in patient_medical_file %}
-              <tr>
-                  <td>{{ patient_medical_file.firstname }}</td>
-                  <td>{{ patient_medical_file.lastname }} </td>
-                  <td>{{ patient_medical_file.age }}</td>
-                  <td>{{ patient_medical_file.sexe }}</td>
-                  <td><a href="{% url 'patient_medical_file_edit' patient_medical_file.id_medical_file %}" class="btn btn-primary" style="color: RoyalBlue;"><strong><span class="w3-button w3-indigo w3-margin-bottom w3-round-large w3-hover-indigo w3-hover-shadow">Edit</span></strong> </a></td>
-                  <td><a href="{% url 'patient_medical_file_delete' patient_medical_file.id_medical_file %}" class="btn btn-danger"style="color: red;"><strong><span class="w3-button w3-red w3-margin-bottom w3-round-large w3-hover-red w3-hover-shadow">Delete</span></strong> </a></td>
-                  <td><a href="{% url 'fichePDF' patient_medical_file.id_medical_file %}" class="btn btn-primary"><span class="w3-button w3-grey w3-margin-bottom w3-round-large w3-hover-grey w3-hover-shadow">Print</span></a></td>
-              </tr>
-              {% endfor%}
-              </tbody>
-          </table>
-              <a href="{% url 'create_patient_medical_file'  %}" ><span class="w3-button w3-green w3-margin-bottom w3-round-large w3-hover-green w3-hover-shadow">New</span></a>
+      <thead>
+        <tr>
+          <th>Nom</th>
+          <th>Prenom</th>
+          <th>Age</th>
+          <th>Sexe</th>
+          <th>Edit</th>
+          <th>Delete</th>
+          <th>Imprimer</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for patient_medical_file in patient_medical_file %}
+        <tr>
+          <td>{{ patient_medical_file.firstname }}</td>
+          <td>{{ patient_medical_file.lastname }} </td>
+          <td>{{ patient_medical_file.age }}</td>
+          <td>{{ patient_medical_file.sexe }}</td>
+          <td><a href="{% url 'patient_medical_file_edit' patient_medical_file.medicalRecordId %}"
+              class="btn btn-primary" style="color: RoyalBlue;"><strong><span
+                  class="w3-button w3-indigo w3-margin-bottom w3-round-large w3-hover-indigo w3-hover-shadow">Edit</span></strong>
+            </a></td>
+          <td><a href="{% url 'patient_medical_file_delete' patient_medical_file.medicalRecordId %}"
+              class="btn btn-danger" style="color: red;"><strong><span
+                  class="w3-button w3-red w3-margin-bottom w3-round-large w3-hover-red w3-hover-shadow">Delete</span></strong>
+            </a></td>
+          <td><a href="{% url 'medicalRecordPdf' patient_medical_file.medicalRecordId %}" class="btn btn-primary"><span
+                class="w3-button w3-grey w3-margin-bottom w3-round-large w3-hover-grey w3-hover-shadow">Print</span></a>
+          </td>
+        </tr>
+        {% endfor%}
+      </tbody>
+    </table>
+    <a href="{% url 'create_patient_medical_file'  %}"><span
+        class="w3-button w3-green w3-margin-bottom w3-round-large w3-hover-green w3-hover-shadow">New</span></a>
 
-      </center>
+  </center>
 
 
 
 
 
-{% endblock pagecontent%}
+  {% endblock pagecontent%}

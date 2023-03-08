@@ -3,20 +3,24 @@ from django.contrib.auth.models import User
 
 # Create your models here.
 
-
+# ----------------------------------------------------------------------------
+# ---------------------------- Appointment model ----------------------------------
+# ----------------------------------------------------------------------------
 class Appointment(models.Model):
-    id_appointment = models.AutoField(primary_key=True)
-    id_doctor = models.ForeignKey(
-        User, related_name="appointment_doctor", on_delete=models.CASCADE, default="3"
+    doctorId = models.ForeignKey(
+        "doctor.Doctor",
+        related_name="appointment_doctor",
+        on_delete=models.CASCADE,
     )
-    id_patient = models.ForeignKey(
-        User, related_name="appointment_patient", on_delete=models.CASCADE
+    patientId = models.ForeignKey(
+        "patient.Patient",
+        related_name="appointment_patient",
+        on_delete=models.CASCADE,
     )
-    date_appointment = models.DateTimeField()
-    reason_appointment = models.CharField(max_length=255)
-    location_appointment = models.CharField(max_length=255)
-    notes_appointment = models.TextField(blank=True)
-    is_confirmed = models.BooleanField(default=False)
+    appointmentCreationDate = models.DateField(auto_now=True)
+    appointmentDate = models.DateTimeField()
+    description = models.TextField(max_length=500, default="No description")
+    status = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.id_patient.username)
+        return str(self.patientId.username)

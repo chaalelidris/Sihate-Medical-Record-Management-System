@@ -27,7 +27,7 @@ SECRET_KEY = "django-insecure--snucu^%1h*hj=$8oky3al$638_w7yqb(t26$9#b5&xyi3s=l!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = ["localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -45,11 +45,12 @@ INSTALLED_APPS = [
     "patient.apps.PatientConfig",
     "medical_office.apps.MedicalOfficeConfig",
     "appointment.apps.AppointmentConfig",
-    "medicalfile.apps.MedicalfileConfig",
+    "medicalrecord.apps.MedicalrecordConfig",
     "prescription.apps.PrescriptionConfig",
     # Third party
     "crispy_forms",
     "crispy_bootstrap5",
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [
@@ -142,14 +143,15 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_URL = "/static/"
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
+STATIC_URL = "/static/"
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
+
 LOGOUT_REDIRECT_URL = "/login/"
 LOGIN_URL = "/login/"
 

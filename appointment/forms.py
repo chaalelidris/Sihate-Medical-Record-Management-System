@@ -1,25 +1,17 @@
 from django import forms
 from django.contrib.auth.forms import UserChangeForm
 from django.contrib.auth.models import User
-
 from .models import Appointment
 
 
 class AppointmentForm(forms.ModelForm):
-    date_appointment = forms.DateTimeField(
-        widget=forms.widgets.DateTimeInput(
-            format="%d/%m/%Y %H:%M:%S",
-            attrs={"placeholder": "DD/MM/YY HH:MM:SS"},
-        )
-    )
-
     class Meta:
         model = Appointment
         fields = [
-            "id_doctor",
-            "date_appointment",
-            "reason_appointment",
-            "location_appointment",
+            "doctorId",
+            "patientId",
+            "appointmentDate",
+            "description",
         ]
 
 

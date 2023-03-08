@@ -81,7 +81,7 @@
                      <tbody>
                             {% for rdv in rdv %}
                             <tr>
-                                   <td>{{ rdv.id_patient.get_full_name }}</td>
+                                   <td>{{ rdv.patientId.get_full_name }}</td>
                                    <td>{{ rdv.date }}</td>
                                    <td>({{ rdv.num_rdv }} )</td>
                                    <td><a href="{% url 'rd_edit' rdv.id %}" class="btn btn-primary"

@@ -43,20 +43,21 @@
 {%block pagecontent%}
 
 <!-- !PAGE CONTENT! -->
- <header class="w3-container" style="padding-top:22px">
-      <h5><b><i class="fa fa-users fa-fw"></i> Dossier Médicale </b></h5>
-    </header>
+<header class="w3-container" style="padding-top:22px">
+  <h5><b><i class="fa fa-users fa-fw"></i> Dossier Médicale </b></h5>
+</header>
 
 <center>
-<div class="container" class="form-horizontal">
-<form method="post">
-    {% if user.is_authenticated %}
-    {% csrf_token %}
-    <p>Are you sure you want to delete "{{ patient_medical_file.id_medical_file}}" ?<p>
-    <input type="submit" value="Submit" class="btn btn-danger" />
-    {% endif %}
-</form>
-</div>
+  <div class="container" class="form-horizontal">
+    <form method="post">
+      {% if user.is_authenticated %}
+      {% csrf_token %}
+      <p>Are you sure you want to delete "{{ patient_medical_file.medicalRecordId}}" ?
+      <p>
+        <input type="submit" value="Submit" class="btn btn-danger" />
+        {% endif %}
+    </form>
+  </div>
 </center>
 
 {% endblock pagecontent%}
