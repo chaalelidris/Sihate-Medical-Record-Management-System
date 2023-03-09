@@ -1,11 +1,18 @@
-from django.contrib.auth import authenticate, login
-from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib import messages
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.forms import AuthenticationForm
+
 from django.views.generic.base import TemplateView
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.shortcuts import redirect, render
-from django.contrib import messages
+
 from .forms import ContactusForm
+
+
+# -------------------------------------------------------------------------------
+# ------------------------ Home view and Contact Form ---------------------------
+# -------------------------------------------------------------------------------
 
 
 class homeView(TemplateView):
@@ -32,7 +39,10 @@ class homeView(TemplateView):
         return redirect("index")
 
 
-def user_login(request):
+# -------------------------------------------------------------------------------
+# -------------------------------- User Login  ----------------------------------
+# -------------------------------------------------------------------------------
+def userLoginView(request):
     if request.method == "POST":
         username = request.POST["username"]
         password = request.POST["password"]
@@ -46,11 +56,11 @@ def user_login(request):
 
             elif user.is_active:
                 login(request, user)
-                if request.user.groups.filter(name="doctor"):
+                if is_doctor(user):
                     return redirect("../doctor/")
-                elif request.user.groups.filter(name="patient"):
+                elif is_patient(user):
                     return redirect("../patient/")
-                elif request.user.groups.filter(name="office"):
+                elif is_admin(user):
                     return redirect("../medical_office/")
                 else:
                     messages.info(request, "User unknown")
@@ -65,3 +75,18 @@ def user_login(request):
             return render(request, "pages/login/login.html")
     else:
         return render(request, "pages/login/login.html")
+
+
+# -------------------------------------------------------------------------------
+# ---------- for checking user is doctor, patient or admin (by sumit) -----------
+# -------------------------------------------------------------------------------
+def is_admin(user):
+    return user.groups.filter(name="admin").exists()
+
+
+def is_doctor(user):
+    return user.groups.filter(name="doctor").exists()
+
+
+def is_patient(user):
+    return user.groups.filter(name="patient").exists()

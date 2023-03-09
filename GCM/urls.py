@@ -13,9 +13,7 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("", include("home_page.urls")),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
-    path("doctor/", include("doctor.urls")),
-    path("patient/", include("patient.urls")),
-    path("medical_office/", include("medical_office.urls")),
+    path("profile/", include("users.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 """ urlpatterns += [

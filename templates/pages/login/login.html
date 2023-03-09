@@ -1,4 +1,5 @@
 {%extends 'pages/base.html'%}
+{% load widget_tweaks %}
 {%load static%}
 
 
@@ -11,42 +12,39 @@
 <section class="mt-5">
 
   <div class="container mt-5">
-    <form action="" method="post">
-      {% csrf_token %}
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">@</span>
-        <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-          aria-describedby="basic-addon1">
-      </div>
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">@</span>
-        <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-          aria-describedby="basic-addon1">
-      </div>
-      <div class="input-group mb-3">
-        <span class="input-group-text" id="basic-addon1">@</span>
-        <input type="text" class="form-control" placeholder="Username" aria-label="Username"
-          aria-describedby="basic-addon1">
-      </div>
+    <div class="row">
 
-      <!------------------------------------------------------------------------------>
-      <!---------------------------------- messages ---------------------------------->
-      <!------------------------------------------------------------------------------>
+      <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-floating mb-3">
+          {% render_field userForm.first_name class="form-control" id="floatingUsername" placeholder="First Name" %}
+          <label for="floatingUsername">Username</label>
+        </div>
+        <div class="form-floating mb-3">
+          {% render_field userForm.password class="form-control" id="floatingPassword" placeholder="Password" %}
+          <label for="floatingPassword">Password</label>
+        </div>
 
-      {%for message in messages%}
-      <span style="background-color: #ff0000; color: cornsilk;border-radius: 2px;padding: 0px 4px 0px 4px;">{{message}}
-      </span>
-      {%endfor %}
+        <!------------------------------------------------------------------------------>
+        <!---------------------------------- messages ---------------------------------->
+        <!------------------------------------------------------------------------------>
 
-      <!------------------------------------------------------------------------------>
-      <!------------------------------------ Submit ---------------------------------->
-      <!------------------------------------------------------------------------------>
+        {%for message in messages%}
+        <span
+          style="background-color: #ff0000; color: cornsilk;border-radius: 2px;padding: 0px 4px 0px 4px;">{{message}}
+        </span>
+        {%endfor %}
 
-      <div class="d-grid gap-2">
-        <button class="btn btn-primary" type="submit" type="button">Login</button>
-      </div> <!-- end submit -->
+        <!------------------------------------------------------------------------------>
+        <!------------------------------------ Submit ---------------------------------->
+        <!------------------------------------------------------------------------------>
 
-    </form>
+        <div class="d-grid gap-2">
+          <button class="btn btn-primary" type="submit" type="button">Login</button>
+        </div> <!-- end submit -->
+
+      </form>
+    </div>
   </div>
 </section>
 

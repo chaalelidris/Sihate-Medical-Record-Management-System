@@ -8,12 +8,12 @@ from django.contrib.auth.models import User
 # ----------------------------------------------------------------------------
 class Appointment(models.Model):
     doctorId = models.ForeignKey(
-        "doctor.Doctor",
+        "users.Doctor",
         related_name="appointment_doctor",
         on_delete=models.CASCADE,
     )
     patientId = models.ForeignKey(
-        "patient.Patient",
+        "users.Patient",
         related_name="appointment_patient",
         on_delete=models.CASCADE,
     )

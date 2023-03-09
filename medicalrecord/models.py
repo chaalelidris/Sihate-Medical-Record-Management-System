@@ -46,12 +46,12 @@ class MedicalRecord(models.Model):
     ]
     OPTIONS = [(op, "Oui"), (opp, "Non")]
     patientId = models.ForeignKey(
-        "patient.Patient",
+        "users.Patient",
         related_name="patient_medical_file",
         on_delete=models.CASCADE,
     )
     doctorId = models.ForeignKey(
-        "doctor.Doctor",
+        "users.Doctor",
         related_name="doctor_medical_file",
         on_delete=models.CASCADE,
     )

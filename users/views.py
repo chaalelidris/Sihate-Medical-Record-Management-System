@@ -4,7 +4,10 @@ from django.contrib.auth.decorators import login_required
 from . import forms, models
 from medicalrecord.models import MedicalRecord
 
-# Doctor views.
+
+# ---------------------------------------------------------------------------------------------
+# --------------------------------------- Doctor views ----------------------------------------
+# ---------------------------------------------------------------------------------------------
 
 
 def doctorDashboardView(request):
@@ -36,10 +39,6 @@ def updateProfileView(request, pk):
             return redirect("doctor_profile")
 
     return render(request, "pages/doctor/doctor_profile.html", context=mydict)
-
-
-def prescription_pdf():
-    pass
 
 
 def patientListView(request):
@@ -149,3 +148,68 @@ def Data(request):
             "form": form,
         }
         return render(request, "pages/doctor/statistics/statistics.html", context)
+
+
+# ---------------------------------------------------------------------------------------------
+# -------------------------------------------------------**End Doctor views** -----------------
+# ---------------------------------------------------------------------------------------------
+
+
+# ---------------------------------------------------------------------------------------------
+# ----------------- Patient views -------------------------------------------------------------
+# ---------------------------------------------------------------------------------------------
+
+
+def patientDashboardView(request):
+    if request.user.groups.filter(name="patient"):
+        return render(request, "pages/patient/patient_dashboard.html")
+    else:
+        # messages.info(request, '')
+        return redirect("../login")
+
+
+def patientProfileView(request):
+    user = request.user
+    form = EditProfileForm(request.POST or None, instance=user)
+    if request.method == "POST":
+        if form.is_valid():
+
+            form.save()
+
+            new_password = form.cleaned_data.get("password")
+            if new_password:
+                user.set_password(new_password)
+                form.save(new_password)
+
+            return HttpResponseRedirect(reverse("patient"))
+
+    context = {"form": form}
+
+    return render(request, "pages/patient/patient_profile.html", context)
+
+
+# ---------------------------------------------------------------------------------------------
+# -------------------------------------------------------**End Patient views** ----------------
+# ---------------------------------------------------------------------------------------------
+
+
+# ---------------------------------------------------------------------------------------------
+# ----------------- MedicalOffice views ---------------------------------------------------------
+# ---------------------------------------------------------------------------------------------
+
+
+def medical_office(request):
+    if request.user.groups.filter(name="medical_office"):
+        return render(request, "pages/medical_office/medical_office_dashboard.html")
+    else:
+        # messages.info(request, '')
+        return redirect("../login")
+
+
+def medicalOfficeProvileView(request):
+    return render(request, "pages/medical_office/medical_office_dashboard.html")
+
+
+# ---------------------------------------------------------------------------------------------
+# ------------------------------------------------------- **End MedicalOffice** -----------------
+# ---------------------------------------------------------------------------------------------

@@ -41,9 +41,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # apps
     "home_page.apps.Home_pageConfig",
-    "doctor.apps.DoctorConfig",
-    "patient.apps.PatientConfig",
-    "medical_office.apps.MedicalOfficeConfig",
+    "users.apps.UsersConfig",
     "appointment.apps.AppointmentConfig",
     "medicalrecord.apps.MedicalrecordConfig",
     "prescription.apps.PrescriptionConfig",
@@ -179,3 +177,9 @@ RECIPIENT_ADDRESS = env("RECIPIENT_ADDRESS")
 # django-crispy-forms
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"  # new
 CRISPY_TEMPLATE_PACK = "bootstrap5"  # new
+
+
+# ---------------------------------------------------------------------------
+# --------------------------------Custom User--------------------------------
+# ---------------------------------------------------------------------------
+AUTH_USER_MODEL = "users.User"
