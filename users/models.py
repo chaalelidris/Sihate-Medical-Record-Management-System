@@ -26,26 +26,31 @@ class Doctor(User):
         ("Anesthesiologists", "Anesthesiologists"),
         ("Colon and Rectal Surgeons", "Colon and Rectal Surgeons"),
     ]
-    profile_pic = models.ImageField(
-        upload_to="profile_pic/DoctorProfilePic/", null=True, blank=True
-    )
+
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20, null=True)
     department = models.CharField(
         max_length=50, choices=departments, default="Generalist"
     )
+    profile_pic = models.ImageField(
+        upload_to="profile_pic/DoctorProfilePic/", null=True, blank=True
+    )
     status = models.BooleanField(default=False)
 
+    class Meta:
+        verbose_name = "Doctor"
+        verbose_name_plural = "Doctors"
+
     def __str__(self):
-        return f"{self.get_name} ({self.department})"
+        return "{} ({})".format(self.first_name, self.department)
 
     @property
     def get_name(self):
-        return self.user.first_name + " " + self.user.last_name
+        return self.first_name + " " + self.last_name
 
     @property
     def get_id(self):
-        return self.user.id
+        return self.id
 
     @property
     def is_doctor(self):
@@ -58,27 +63,33 @@ class Doctor(User):
 
 
 class Patient(User):
-    profile_pic = models.ImageField(
-        upload_to="profile_pic/PatientProfilePic/", null=True, blank=True
-    )
+
+    assigned_doctor_id = models.PositiveIntegerField(null=True)
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20, null=False)
     symptoms = models.CharField(max_length=100, null=False)
-    assignedDoctorId = models.PositiveIntegerField(null=True)
-    admitDate = models.DateField(auto_now=True)
+    admit_date = models.DateField(auto_now=True)
+    profile_pic = models.ImageField(
+        upload_to="profile_pic/PatientProfilePic/", null=True, blank=True
+    )
     status = models.BooleanField(default=False)
+
+    class Meta:
+        verbose_name = "Patient"
+        verbose_name_plural = "Patients"
 
     @property
     def get_name(self):
-        return self.user.first_name + " " + self.user.last_name
+        return self.first_name + " " + self.last_name
 
     @property
     def get_id(self):
-        return self.user.id
+        return self.id
 
     def __str__(self):
-        return self.user.first_name + " (" + self.symptoms + ")"
+        return self.first_name + " (" + self.symptoms + ")"
 
+    @property
     def is_patient(self):
         return True
 
@@ -89,12 +100,16 @@ class Patient(User):
 
 
 class OfficeManager(User):
-    Name = models.CharField(max_length=254)
+    name = models.CharField(max_length=254)
     address = models.CharField(max_length=254)
     phone_number = PhoneNumberField(blank=True)
 
+    class Meta:
+        verbose_name = "OfficeManager"
+        verbose_name_plural = "OfficeManagers"
+
     def __str__(self):
-        return str(self.Name)
+        return str(self.name)
 
     @property
     def is_officemanager(self):

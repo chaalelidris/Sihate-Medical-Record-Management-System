@@ -1,0 +1,95 @@
+{%extends 'pages/base.html'%}
+{% load widget_tweaks %}
+{%load static%}
+
+
+{%block title %}
+<title>Login | Sihat_e</title>
+{%endblock title %}
+
+
+{%block content%}
+<section class="mt-5">
+    <div class="container overflow-hidden border rounded-4 mt-5 p-0">
+        <div class="p-3 mb-4 text-center" style="background-image: linear-gradient(to bottom, #007bff, #007bff)">
+            <h2 class="text-white">Register as a patient</h2>
+        </div>
+        <form class="container" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        {% render_field form.username id=form.username.id_for_label class="form-control" %}
+                        <label for="{{ form.username.id_for_label }}">Username</label>
+                        {% if form.username.errors %}
+                        <div class="invalid-feedback">{{ form.username.errors|first }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {% render_field form.first_name id=form.first_name.id_for_label class="form-control" %}
+                        <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                        {% if form.first_name.errors %}
+                        <div class="invalid-feedback">{{ form.first_name.errors|first }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {% render_field form.last_name id=form.last_name.id_for_label class="form-control" %}
+                        <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                        {% if form.last_name.errors %}
+                        <div class="invalid-feedback">{{ form.last_name.errors|first }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {% render_field form.email id=form.email.id_for_label class="form-control" %}
+                        <label for="{{ form.email.id_for_label }}">Email</label>
+                        {% if form.email.errors %}
+                        <div class="invalid-feedback">{{ form.email.errors|first }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {% render_field form.profile_pic id=form.profile_pic.id_for_label class="form-control" %}
+                        <label for="{{ form.profile_pic.id_for_label }}">Profile Picture</label>
+                        {% if form.profile_pic.errors %}
+                        <div class="invalid-feedback">{{ form.profile_pic.errors|first }}</div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        {% render_field form.address id=form.address.id_for_label class="form-control" %}
+                        <label for="{{ form.address.id_for_label }}">Address</label>
+                        {% if form.address.errors %}
+                        <div class="invalid-feedback">{{ form.address.errors|first }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {% render_field form.mobile id=form.mobile.id_for_label class="form-control" %}
+                        <label for="{{ form.mobile.id_for_label }}">Mobile</label>
+                        {% if form.mobile.errors %}
+                        <div class="invalid-feedback">{{ form.mobile.errors|first }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {% render_field form.symptoms id=form.symptoms.id_for_label class="form-control" %}
+                        <label for="{{ form.symptoms.id_for_label }}">Symptoms</label>
+                        {% if form.symptoms.errors %}
+                        <div class="invalid-feedback">{{ form.symptoms.errors|first }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {% render_field form.password id=form.password.id_for_label class="form-control" %}
+                        <label for="{{ form.password.id_for_label }}">Symptoms</label>
+                        {% if form.password.errors %}
+                        <div class="invalid-feedback">{{ form.password.errors|first }}</div>
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+            <button type="submit" class="btn btn-lg btn-primary rounded-pill ">Submit</button>
+        </form>
+
+    </div>
+</section>
+
+{%endblock content%}

@@ -3,11 +3,13 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 
 from django.views.generic.base import TemplateView
+from django.views.generic.edit import CreateView
 from django.core.mail import EmailMessage
 from django.conf import settings
 from django.shortcuts import redirect, render
-
+from django.urls import reverse_lazy
 from .forms import ContactusForm
+from users import forms as users_forms
 
 
 # -------------------------------------------------------------------------------
@@ -80,39 +82,32 @@ def login_view(request):
 
 def doctor_signup_view(request):
     if request.method == "POST":
-        form = DoctorSignupForm(request.POST)
+        form = users_forms.DoctorSignupForm(request.POST, request.FILES)
+        print(form)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.is_doctor = True
-            user.save()
-            doctor = Doctor.objects.create(
-                user=user, specialty=form.cleaned_data["specialty"]
-            )
-            doctor.save()
+            user = form.save()
+            messages.success(request, f"Account created for {user.username}!")
             return redirect("doctor_view")
     else:
-        form = DoctorSignupForm()
-    return render(request, "doctor_signup.html", {"form": form})
+        form = users_forms.DoctorSignupForm()
+    return render(request, "pages/register/doctor_signup.html", {"form": form})
 
 
 def patient_signup_view(request):
     if request.method == "POST":
-        form = PatientSignupForm(request.POST)
+        form = users_forms.PatientSignupForm(request.POST, request.FILES)
         if form.is_valid():
-            user = form.save(commit=False)
-            user.is_patient = True
-            user.save()
-            patient = Patient.objects.create(user=user, age=form.cleaned_data["age"])
-            patient.save()
+            user = form.save()
+            messages.success(request, f"Account created for {user.username}!")
             return redirect("patient_view")
     else:
-        form = PatientSignupForm()
-    return render(request, "patient_signup.html", {"form": form})
+        form = users_forms.PatientSignupForm()
+    return render(request, "pages/register/patient_signup.html", {"form": form})
 
 
 def officemanager_signup_view(request):
     if request.method == "POST":
-        form = OfficeManagerSignupForm(request.POST)
+        form = users_forms.OfficeManagerSignupForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save(commit=False)
             user.is_officemanager = True
@@ -123,5 +118,5 @@ def officemanager_signup_view(request):
             officemanager.save()
             return redirect("officemanager_view")
     else:
-        form = OfficeManagerSignupForm()
-    return render(request, "officemanager_signup.html", {"form": form})
+        form = users_forms.OfficeManagerSignupForm()
+    return render(request, "pages\register\officemanager_signup.html", {"form": form})

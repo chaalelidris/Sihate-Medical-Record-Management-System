@@ -12,19 +12,19 @@ from . import models
 class DoctorSignupForm(UserCreationForm):
     department = forms.ChoiceField(choices=models.Doctor.departments)
 
-    class Meta(UserCreationForm.Meta):
+    class Meta:
         model = models.Doctor
         fields = (
             "username",
             "first_name",
             "last_name",
+            "profile_pic",
             "email",
             "address",
             "mobile",
             "department",
-            "password1",
-            "password2",
         )
+        widgets = {"password": forms.PasswordInput()}
 
 
 # ---------------------------------------------------------------------------
@@ -36,19 +36,19 @@ class PatientSignupForm(UserCreationForm):
     symptoms = forms.CharField(max_length=100, required=True)
     mobile = forms.CharField(max_length=20, required=True)
 
-    class Meta(UserCreationForm.Meta):
+    class Meta:
         model = models.Patient
         fields = (
             "username",
             "first_name",
             "last_name",
+            "profile_pic",
             "email",
             "address",
             "mobile",
             "symptoms",
-            "password1",
-            "password2",
         )
+        widgets = {"password": forms.PasswordInput()}
 
 
 # ---------------------------------------------------------------------------
@@ -57,7 +57,7 @@ class PatientSignupForm(UserCreationForm):
 class OfficeManagerSignupForm(UserCreationForm):
     phone_number = forms.CharField(max_length=20, required=False)
 
-    class Meta(UserCreationForm.Meta):
+    class Meta:
         model = models.OfficeManager
         fields = (
             "username",
@@ -66,9 +66,8 @@ class OfficeManagerSignupForm(UserCreationForm):
             "email",
             "address",
             "phone_number",
-            "password1",
-            "password2",
         )
+        widgets = {"password": forms.PasswordInput()}
 
 
 # ---------------------------------------------------------------------------

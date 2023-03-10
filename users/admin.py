@@ -3,26 +3,19 @@ from django.contrib.auth.admin import UserAdmin
 from . import models
 
 
-admin.site.register(models.Consultation)
-
-
 class DoctorAdmin(UserAdmin):
-    list_display = ("username", "get_name", "department", "status")
-    list_filter = ("department", "status")
-    search_fields = ("username", "first_name", "last_name")
     fieldsets = (
-        (None, {"fields": ("username", "password")}),
+        (None, {"fields": ("username", "email", "password")}),
         (
             "Personal info",
             {
                 "fields": (
                     "first_name",
                     "last_name",
-                    "email",
+                    "profile_pic",
                     "address",
                     "mobile",
                     "department",
-                    "status",
                 )
             },
         ),
@@ -40,8 +33,31 @@ class DoctorAdmin(UserAdmin):
         ),
         ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
+    add_fieldsets = (
+        (
+            None,
+            {
+                "classes": ("wide",),
+                "fields": (
+                    "username",
+                    "first_name",
+                    "last_name",
+                    "profile_pic",
+                    "email",
+                    "password1",
+                    "password2",
+                    "address",
+                    "mobile",
+                    "department",
+                ),
+            },
+        ),
+    )
 
 
+admin.site.register(models.User)
 admin.site.register(models.Doctor, DoctorAdmin)
 admin.site.register(models.Patient)
 admin.site.register(models.OfficeManager)
+
+admin.site.register(models.Consultation)

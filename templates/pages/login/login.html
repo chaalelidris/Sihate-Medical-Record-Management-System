@@ -19,10 +19,16 @@
         <div class="form-floating mb-3">
           {% render_field form.username class="form-control" id="floatingUsername" placeholder="First Name" %}
           <label for="floatingUsername">Username</label>
+          {% if form.username.errors %}
+          <small class="text-danger">{{ form.username.errors|first }}</small>
+          {% endif %}
         </div>
         <div class="form-floating mb-3">
           {% render_field form.password class="form-control" id="floatingPassword" placeholder="Password" %}
           <label for="floatingPassword">Password</label>
+          {% if form.password.errors %}
+          <small class="text-danger">{{ form.password.errors|first }}</small>
+          {% endif %}
         </div>
 
         <!------------------------------------------------------------------------------>
@@ -30,10 +36,19 @@
         <!------------------------------------------------------------------------------>
 
         {%for message in messages%}
-        <span
-          style="background-color: #ff0000; color: cornsilk;border-radius: 2px;padding: 0px 4px 0px 4px;">{{message}}
-        </span>
+        <div class="alert alert-success d-flex align-items-center" role="alert">
+          <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:">
+            <use xlink:href="#check-circle-fill" />
+          </svg>
+          <div>
+            {{message}}
+          </div>
+        </div>
         {%endfor %}
+
+
+        <p>Don't have an account? Register as <a href="{% url 'patient_signup_view' %}">Patient</a> Or Register as <a
+            href="{% url 'doctor_signup_view' %}"> Doctor</a> </p>
 
         <!------------------------------------------------------------------------------>
         <!------------------------------------ Submit ---------------------------------->

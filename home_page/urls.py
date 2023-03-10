@@ -8,10 +8,10 @@ urlpatterns = [
     # ----------------------- Authentication ----------------------------
     # -------------------------------------------------------------------
     path("login/", views.login_view, name="login"),
-    path("signup/", views.doctor_signup_view, name="doctor_signup_view"),
-    path("signup/", views.patient_signup_view, name="patient_signup_view"),
+    path("signup/doctor/", views.doctor_signup_view, name="doctor_signup_view"),
+    path("signup/patient", views.patient_signup_view, name="patient_signup_view"),
     path(
-        "signup/",
+        "signup/office_manager",
         views.officemanager_signup_view,
         name="officemanager_signup_view",
     ),
