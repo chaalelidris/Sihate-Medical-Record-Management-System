@@ -17,11 +17,11 @@
       <form action="" method="post">
         {% csrf_token %}
         <div class="form-floating mb-3">
-          {% render_field userForm.first_name class="form-control" id="floatingUsername" placeholder="First Name" %}
+          {% render_field form.username class="form-control" id="floatingUsername" placeholder="First Name" %}
           <label for="floatingUsername">Username</label>
         </div>
         <div class="form-floating mb-3">
-          {% render_field userForm.password class="form-control" id="floatingPassword" placeholder="Password" %}
+          {% render_field form.password class="form-control" id="floatingPassword" placeholder="Password" %}
           <label for="floatingPassword">Password</label>
         </div>
 

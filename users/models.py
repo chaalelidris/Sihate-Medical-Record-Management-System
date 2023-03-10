@@ -1,30 +1,31 @@
-from django.db import models
 from django.contrib.auth.models import AbstractUser
+from django.db import models
+
+# ----------------Import PhoneNumberField ------------------
 from phonenumber_field.modelfields import PhoneNumberField
 
-
+# ----------------------------------------------------------------------------
+# ---------------------------- User models -----------------------------------
+# ----------------------------------------------------------------------------
 class User(AbstractUser):
-    def __str__(self):
-        return self.username
+    pass
 
 
 # ----------------------------------------------------------------------------
 # ---------------------------- Doctor models ---------------------------------
 # ----------------------------------------------------------------------------
 
-departments = [
-    ("Cardiologist", "Cardiologist"),
-    ("Generalist", "Generalist"),
-    ("Dermatologists", "Dermatologists"),
-    ("Emergency Medicine Specialists", "Emergency Medicine Specialists"),
-    ("Allergists/Immunologists", "Allergists/Immunologists"),
-    ("Anesthesiologists", "Anesthesiologists"),
-    ("Colon and Rectal Surgeons", "Colon and Rectal Surgeons"),
-]
 
-
-class Doctor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class Doctor(User):
+    departments = [
+        ("Cardiologist", "Cardiologist"),
+        ("Generalist", "Generalist"),
+        ("Dermatologists", "Dermatologists"),
+        ("Emergency Medicine Specialists", "Emergency Medicine Specialists"),
+        ("Allergists/Immunologists", "Allergists/Immunologists"),
+        ("Anesthesiologists", "Anesthesiologists"),
+        ("Colon and Rectal Surgeons", "Colon and Rectal Surgeons"),
+    ]
     profile_pic = models.ImageField(
         upload_to="profile_pic/DoctorProfilePic/", null=True, blank=True
     )
@@ -35,6 +36,9 @@ class Doctor(models.Model):
     )
     status = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f"{self.get_name} ({self.department})"
+
     @property
     def get_name(self):
         return self.user.first_name + " " + self.user.last_name
@@ -43,8 +47,9 @@ class Doctor(models.Model):
     def get_id(self):
         return self.user.id
 
-    def __str__(self):
-        return "{} ({})".format(self.user.first_name, self.department)
+    @property
+    def is_doctor(self):
+        return True
 
 
 # --------------------------------------------------------------------------------------------
@@ -52,8 +57,7 @@ class Doctor(models.Model):
 # --------------------------------------------------------------------------------------------
 
 
-class Patient(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+class Patient(User):
     profile_pic = models.ImageField(
         upload_to="profile_pic/PatientProfilePic/", null=True, blank=True
     )
@@ -75,21 +79,26 @@ class Patient(models.Model):
     def __str__(self):
         return self.user.first_name + " (" + self.symptoms + ")"
 
+    def is_patient(self):
+        return True
+
 
 # ---------------------------------------------------------------------------------------------
-# ------------------------------------- Office Admin Models -----------------------------------
+# ------------------------------------- Office Manager Models -----------------------------------
 # ---------------------------------------------------------------------------------------------
 
 
-class MedicalOffice(models.Model):
+class OfficeManager(User):
     Name = models.CharField(max_length=254)
     address = models.CharField(max_length=254)
-    email = models.EmailField()
-    tel = PhoneNumberField(blank=True)
-    fax = PhoneNumberField(blank=True)
+    phone_number = PhoneNumberField(blank=True)
 
     def __str__(self):
         return str(self.Name)
+
+    @property
+    def is_officemanager(self):
+        return True
 
 
 # ---------------------------------------------------------------------------------------------

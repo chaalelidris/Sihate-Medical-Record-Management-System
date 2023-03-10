@@ -1,7 +1,7 @@
 from django.db.models import Count
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from . import forms, models
+from django.contrib.auth.decorators import user_passes_test
+from .. import forms, models
 from medicalrecord.models import MedicalRecord
 
 
@@ -10,15 +10,12 @@ from medicalrecord.models import MedicalRecord
 # ---------------------------------------------------------------------------------------------
 
 
-def doctorDashboardView(request):
-    if request.user.groups.filter(name="doctor"):
-        return render(request, "pages/doctor/doctor_dashboard.html")
-    else:
-        # messages.info(request, '')
-        return redirect("../login")
+@user_passes_test(lambda u: u.is_authenticated and u.is_doctor)
+def doctor_view(request):
+    return render(request, "pages/doctor/doctor_dashboard.html")
 
 
-def updateProfileView(request, pk):
+def doctor_profile_view(request, pk):
 
     doctor = models.Doctor.objects.get(id=pk)
     user = models.User.objects.get(id=doctor.user_id)
@@ -41,7 +38,7 @@ def updateProfileView(request, pk):
     return render(request, "pages/doctor/doctor_profile.html", context=mydict)
 
 
-def patientListView(request):
+def patient_list_view(request):
     patient_medical_file = MedicalRecord.objects.all()
     return render(
         request,
@@ -50,16 +47,17 @@ def patientListView(request):
     )
 
 
-def consultation_list_patient(
-    request, template_name="pages/patient/consultation_list_patient.html"
-):
-    current_user = request.user
-    consultation = Consultation.objects.filter(patientId=current_user.id)
-    return render(request, template_name, {"consultation": consultation})
+def patient_details_view(request):
+    patient = Patient.objects.all()
+    return render(
+        request,
+        "pages/doctor/patient/patient.html",
+        {"patient_medical_file": patient},
+    )
 
 
-@login_required()
-def consultation_list(request):
+@user_passes_test(lambda u: u.is_authenticated and u.is_doctor)
+def consultation_list_view(request):
     consultation = Consultation.objects.all()
     return render(
         request,
@@ -68,8 +66,10 @@ def consultation_list(request):
     )
 
 
-@login_required()
-def consultation(request, template_name="pages/doctor/consultation/consultation.html"):
+@user_passes_test(lambda u: u.is_authenticated and u.is_doctor)
+def consultation_view(
+    request, template_name="pages/doctor/consultation/consultation.html"
+):
     form = ConsultationForm(request.POST or None)
 
     if form.is_valid():
@@ -79,7 +79,7 @@ def consultation(request, template_name="pages/doctor/consultation/consultation.
     return render(request, template_name, {"form": form})
 
 
-@login_required()
+@user_passes_test(lambda u: u.is_authenticated and u.is_doctor)
 def updateConsultationView(request, id_consultation):
     # dictionary for initial data with
     # field names as keys
@@ -99,8 +99,8 @@ def updateConsultationView(request, id_consultation):
     return render(request, "pages/doctor/consultaion/consultation.html", context)
 
 
-@login_required
-def deleteConsultationView(request, id_consultation):
+@user_passes_test(lambda u: u.is_authenticated and u.is_doctor)
+def delete_consultation_view(request, id_consultation):
     # dictionary for initial data with
     # field names as keys
     context = {}
@@ -118,8 +118,8 @@ def deleteConsultationView(request, id_consultation):
     )
 
 
-@login_required()
-def Data(request):
+@user_passes_test(lambda u: u.is_authenticated and u.is_doctor)
+def statistics_view(request):
     if request.user.groups.filter(name="medical_office"):
         statistics = Consultation.objects.values("diagnosis").annotate(
             count=Count("id_consultation")
@@ -152,64 +152,4 @@ def Data(request):
 
 # ---------------------------------------------------------------------------------------------
 # -------------------------------------------------------**End Doctor views** -----------------
-# ---------------------------------------------------------------------------------------------
-
-
-# ---------------------------------------------------------------------------------------------
-# ----------------- Patient views -------------------------------------------------------------
-# ---------------------------------------------------------------------------------------------
-
-
-def patientDashboardView(request):
-    if request.user.groups.filter(name="patient"):
-        return render(request, "pages/patient/patient_dashboard.html")
-    else:
-        # messages.info(request, '')
-        return redirect("../login")
-
-
-def patientProfileView(request):
-    user = request.user
-    form = EditProfileForm(request.POST or None, instance=user)
-    if request.method == "POST":
-        if form.is_valid():
-
-            form.save()
-
-            new_password = form.cleaned_data.get("password")
-            if new_password:
-                user.set_password(new_password)
-                form.save(new_password)
-
-            return HttpResponseRedirect(reverse("patient"))
-
-    context = {"form": form}
-
-    return render(request, "pages/patient/patient_profile.html", context)
-
-
-# ---------------------------------------------------------------------------------------------
-# -------------------------------------------------------**End Patient views** ----------------
-# ---------------------------------------------------------------------------------------------
-
-
-# ---------------------------------------------------------------------------------------------
-# ----------------- MedicalOffice views ---------------------------------------------------------
-# ---------------------------------------------------------------------------------------------
-
-
-def medical_office(request):
-    if request.user.groups.filter(name="medical_office"):
-        return render(request, "pages/medical_office/medical_office_dashboard.html")
-    else:
-        # messages.info(request, '')
-        return redirect("../login")
-
-
-def medicalOfficeProvileView(request):
-    return render(request, "pages/medical_office/medical_office_dashboard.html")
-
-
-# ---------------------------------------------------------------------------------------------
-# ------------------------------------------------------- **End MedicalOffice** -----------------
 # ---------------------------------------------------------------------------------------------

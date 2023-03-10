@@ -1,33 +1,40 @@
 from django.urls import path, include
-from . import views
+from .views import doctors, officemanager, patients
 
 # -----------------------------------------------------------------------------------------
 # --------------------------------------- Doctor Urls -------------------------------------
 # -----------------------------------------------------------------------------------------
 urlpatterns = [
-    path("", views.doctorDashboardView, name="doctor_dashboard"),
-    path("profile/", views.updateProfileView, name="doctor_profile"),
-    path("patient_list", views.patientListView, name="patient_list"),
-    path("patient_list/medical_file/", include("medicalrecord.urls")),
-    path("prescription/", include("prescription.urls")),
-    path("consultation_list/", views.consultation_list, name="consultation_list"),
+    path("doctor/", doctors.doctor_view, name="doctor_view"),
+    path("doctor/profile/", doctors.doctor_profile_view, name="doctor_profile_view"),
+    path("doctor/patient_list/", doctors.patient_list_view, name="patient_list_view"),
     path(
-        "consultation_list_patient/",
-        views.consultation_list_patient,
-        name="consultation_list_patient",
+        "doctor/patient_list/patient/",
+        doctors.patient_details_view,
+        name="patient_details_view",
     ),
-    path("consultation/", views.consultation, name="consultation"),
+    path("doctor/patient_list/patient/medical_record/", include("medicalrecord.urls")),
+    path("doctor/patient_list/patient/prescription/", include("prescription.urls")),
     path(
-        "consultation_edit/<int:id_consultation>/",
-        views.updateConsultationView,
+        "doctor/patient_list/patient/consultation_list/",
+        doctors.consultation_list_view,
+        name="consultation_list_view",
+    ),
+    path(
+        "doctor/patient_list/patient/consultation_list/consultation/",
+        doctors.consultation_view,
+        name="consultation_view",
+    ),
+    path(
+        "doctor/update_consultation/<int:id_consultation>/",
+        doctors.updateConsultationView,
         name="consultation_edit",
     ),
     path(
-        "consultation_delete/<int:id_consultation>/",
-        views.deleteConsultationView,
+        "doctor/delete_consultation/<int:id_consultation>/",
+        doctors.delete_consultation_view,
         name="consultation_delete",
     ),
-    path("statistique/", views.Data, name="Data"),
 ]
 
 # -----------------------------------------------------------------------------------------
@@ -35,16 +42,30 @@ urlpatterns = [
 # -----------------------------------------------------------------------------------------
 
 urlpatterns += [
-    path("", views.patientDashboardView, name="patient_dashboard"),
-    path("profile/", views.patientProfileView, name="patient_profile"),
+    path("patient", patients.patientDashboardView, name="patient_view"),
+    path("profile/", patients.patientProfileView, name="patient_profile"),
     path("appointment/", include("appointment.urls")),
 ]
 
 # -----------------------------------------------------------------------------------------
-# ---------------------------------- MedicalOffice Urls -------------------------------------
+# ---------------------------------- OfficeManager Urls -------------------------------------
 # -----------------------------------------------------------------------------------------
 
 urlpatterns += [
-    path("profile/", views.medicalOfficeProvileView, name="medical_office_profile"),
-    path("appointment/", include("appointment.urls")),
+    path(
+        "office_manager/",
+        officemanager.office_manager_view,
+        name="office_manager_view",
+    ),
+    path(
+        "office_manager/profile/",
+        officemanager.office_manager_profile_view,
+        name="office_manager_profile_view",
+    ),
+    path("office_manager/appointment/", include("appointment.urls")),
+    path(
+        "office_manager/statistics/",
+        officemanager.statistics_view,
+        name="statistics_view",
+    ),
 ]

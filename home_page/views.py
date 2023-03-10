@@ -42,51 +42,86 @@ class homeView(TemplateView):
 # -------------------------------------------------------------------------------
 # -------------------------------- User Login  ----------------------------------
 # -------------------------------------------------------------------------------
-def userLoginView(request):
+def login_view(request):
     if request.method == "POST":
-        username = request.POST["username"]
-        password = request.POST["password"]
-
+        username = request.POST.get("username")
+        password = request.POST.get("password")
         user = authenticate(request, username=username, password=password)
-        if user is not None:
 
+        if user is not None:
             if user.is_superuser:
                 login(request, user)
                 return redirect("../admin/")
 
             elif user.is_active:
-                login(request, user)
-                if is_doctor(user):
-                    return redirect("../doctor/")
-                elif is_patient(user):
-                    return redirect("../patient/")
-                elif is_admin(user):
-                    return redirect("../medical_office/")
+
+                if user.is_doctor:
+                    login(request, user)
+                    return redirect("doctor_view")
+                elif user.is_patient:
+                    login(request, user)
+                    return redirect("patient_view")
+                elif user.is_officemanager:
+                    login(request, user)
+                    return redirect("officemanager_view")
                 else:
                     messages.info(request, "User unknown")
-                    return render(request, "pages/login/login.html")
-
+                    form = AuthenticationForm()
             else:
                 messages.info(request, "User unknown please contact admin !")
-                return render(request, "pages/login/login.html")
-
+                form = AuthenticationForm()
         else:
             messages.info(request, "Username or Password is incorrect")
-            return render(request, "pages/login/login.html")
+            form = AuthenticationForm()
     else:
-        return render(request, "pages/login/login.html")
+        form = AuthenticationForm()
+    return render(request, "pages/login/login.html", {"form": form})
 
 
-# -------------------------------------------------------------------------------
-# ---------- for checking user is doctor, patient or admin (by sumit) -----------
-# -------------------------------------------------------------------------------
-def is_admin(user):
-    return user.groups.filter(name="admin").exists()
+def doctor_signup_view(request):
+    if request.method == "POST":
+        form = DoctorSignupForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_doctor = True
+            user.save()
+            doctor = Doctor.objects.create(
+                user=user, specialty=form.cleaned_data["specialty"]
+            )
+            doctor.save()
+            return redirect("doctor_view")
+    else:
+        form = DoctorSignupForm()
+    return render(request, "doctor_signup.html", {"form": form})
 
 
-def is_doctor(user):
-    return user.groups.filter(name="doctor").exists()
+def patient_signup_view(request):
+    if request.method == "POST":
+        form = PatientSignupForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_patient = True
+            user.save()
+            patient = Patient.objects.create(user=user, age=form.cleaned_data["age"])
+            patient.save()
+            return redirect("patient_view")
+    else:
+        form = PatientSignupForm()
+    return render(request, "patient_signup.html", {"form": form})
 
 
-def is_patient(user):
-    return user.groups.filter(name="patient").exists()
+def officemanager_signup_view(request):
+    if request.method == "POST":
+        form = OfficeManagerSignupForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.is_officemanager = True
+            user.save()
+            officemanager = OfficeManager.objects.create(
+                user=user, phone_number=form.cleaned_data["phone_number"]
+            )
+            officemanager.save()
+            return redirect("officemanager_view")
+    else:
+        form = OfficeManagerSignupForm()
+    return render(request, "officemanager_signup.html", {"form": form})
