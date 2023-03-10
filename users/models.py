@@ -102,7 +102,10 @@ class Patient(User):
 class OfficeManager(User):
     name = models.CharField(max_length=254)
     address = models.CharField(max_length=254)
-    phone_number = PhoneNumberField(blank=True)
+    mobile = PhoneNumberField(blank=True)
+    profile_pic = models.ImageField(
+        upload_to="profile_pic/OfficeManagerProfilePic/", null=True, blank=True
+    )
 
     class Meta:
         verbose_name = "OfficeManager"
