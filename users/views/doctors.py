@@ -1,8 +1,9 @@
 from django.db.models import Count
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib import messages
 from .. import forms, models
-from medicalrecord.models import MedicalRecord
+from medical_records.models import MedicalRecord
 
 
 # ---------------------------------------------------------------------------------------------
@@ -12,9 +13,14 @@ from medicalrecord.models import MedicalRecord
 
 @user_passes_test(lambda u: u.is_authenticated and u.is_doctor)
 def doctor_view(request):
-    return render(request, "pages/doctor/doctor_dashboard.html")
+    doctor = models.Doctor.objects.get(id=request.user.id)
 
+    context = {"doctor": doctor}
+    return render(
+        request, "profiles/users/doctor/dashboard/doctor_dashboard.html", context
+    )
 
+@user_passes_test(lambda u: u.is_authenticated and u.is_doctor)
 def doctor_profile_view(request, pk):
 
     doctor = models.Doctor.objects.get(id=pk)
@@ -35,23 +41,25 @@ def doctor_profile_view(request, pk):
             doctor.save()
             return redirect("doctor_profile")
 
-    return render(request, "pages/doctor/doctor_profile.html", context=mydict)
+    return render(request, "profiles/users/doctor/doctor_profile.html", context=mydict)
 
 
+@user_passes_test(lambda u: u.is_authenticated and u.is_doctor)
 def patient_list_view(request):
     patient_medical_file = MedicalRecord.objects.all()
     return render(
         request,
-        "pages/doctor/patient/patient_list.html",
+        "profiles/users/doctor/patient/patient_list.html",
         {"patient_medical_file": patient_medical_file},
     )
 
 
+@user_passes_test(lambda u: u.is_authenticated and u.is_doctor)
 def patient_details_view(request):
     patient = Patient.objects.all()
     return render(
         request,
-        "pages/doctor/patient/patient.html",
+        "profiles/users/doctor/patient/patient.html",
         {"patient_medical_file": patient},
     )
 
@@ -61,14 +69,14 @@ def consultation_list_view(request):
     consultation = Consultation.objects.all()
     return render(
         request,
-        "pages/doctor/consultation/consultation_list.html",
+        "profiles/users/doctor/consultation/consultation_list.html",
         {"consultation": consultation},
     )
 
 
 @user_passes_test(lambda u: u.is_authenticated and u.is_doctor)
 def consultation_view(
-    request, template_name="pages/doctor/consultation/consultation.html"
+    request, template_name="profiles/users/doctor/consultation/consultation.html"
 ):
     form = ConsultationForm(request.POST or None)
 
@@ -96,7 +104,9 @@ def updateConsultationView(request, id_consultation):
 
     context["form"] = form
 
-    return render(request, "pages/doctor/consultaion/consultation.html", context)
+    return render(
+        request, "profiles/users/doctor/consultaion/consultation.html", context
+    )
 
 
 @user_passes_test(lambda u: u.is_authenticated and u.is_doctor)
@@ -114,7 +124,7 @@ def delete_consultation_view(request, id_consultation):
         return redirect("consultation_list")
 
     return render(
-        request, "pages/doctor/consultation/consultation_delete.html", context
+        request, "profiles/users/doctor/consultation/consultation_delete.html", context
     )
 
 
@@ -127,7 +137,7 @@ def statistics_view(request):
         data = Consultation.objects.values("diagnosis").distinct
         return render(
             request,
-            "pages/medical_office/statistics.html",
+            "medical_office/statistics.html",
             {"data": data, "statistics": statistics},
         )
     elif request.user.groups.filter(name="doctor"):
@@ -147,7 +157,9 @@ def statistics_view(request):
             "statistics": statistics,
             "form": form,
         }
-        return render(request, "pages/doctor/statistics/statistics.html", context)
+        return render(
+            request, "profiles/users/doctor/statistics/statistics.html", context
+        )
 
 
 # ---------------------------------------------------------------------------------------------

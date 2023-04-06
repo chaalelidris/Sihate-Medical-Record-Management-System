@@ -37,12 +37,13 @@ class PatientSignupForm(UserCreationForm):
             "first_name",
             "last_name",
             "profile_pic",
+            "sexe",
+            "age",
             "email",
             "address",
             "mobile",
             "symptoms",
         )
-        widgets = {"password": forms.PasswordInput()}
 
 
 # ---------------------------------------------------------------------------

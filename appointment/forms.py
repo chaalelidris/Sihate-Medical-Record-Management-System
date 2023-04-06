@@ -8,19 +8,15 @@ class AppointmentForm(forms.ModelForm):
     class Meta:
         model = Appointment
         fields = [
-            "doctorId",
-            "patientId",
-            "appointmentDate",
+            "doctor",
+            "patient",
+            "appointment_date",
             "description",
         ]
 
 
 class EditProfileForm(UserChangeForm):
-    password = forms.CharField(
-        widget=forms.PasswordInput(
-            attrs={"class": "w3-input w3-border w3-round", "placeholder": "password"}
-        )
-    )
+    password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
         model = User
@@ -31,26 +27,3 @@ class EditProfileForm(UserChangeForm):
             "username",
             "password",
         )
-        widgets = {
-            "first_name": forms.TextInput(
-                attrs={
-                    "class": "w3-input w3-border w3-round",
-                    "placeholder": "first name",
-                }
-            ),
-            "last_name": forms.TextInput(
-                attrs={
-                    "class": "w3-input w3-border w3-round",
-                    "placeholder": "last name",
-                }
-            ),
-            "email": forms.EmailInput(
-                attrs={"class": "w3-input w3-border w3-round", "placeholder": "email"}
-            ),
-            "username": forms.TextInput(
-                attrs={
-                    "class": "w3-input w3-border w3-round",
-                    "placeholder": "username",
-                }
-            ),
-        }

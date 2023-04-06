@@ -11,7 +11,7 @@ from .. import forms, models
 @user_passes_test(lambda u: u.is_authenticated and u.is_officemanager)
 def office_manager_view(request):
     if request.user.groups.filter(name="office_manager"):
-        return render(request, "pages/medical_office/medical_office_dashboard.html")
+        return render(request, "medical_office/medical_office_dashboard.html")
     else:
         # messages.info(request, '')
         return redirect("login")
@@ -19,7 +19,7 @@ def office_manager_view(request):
 
 @user_passes_test(lambda u: u.is_authenticated and u.is_officemanager)
 def office_manager_profile_view(request):
-    return render(request, "pages/medical_office/medical_office_dashboard.html")
+    return render(request, "medical_office/medical_office_dashboard.html")
 
 
 @user_passes_test(lambda u: u.is_authenticated and u.is_officemanager)
@@ -31,7 +31,7 @@ def statistics_view(request):
         data = Consultation.objects.values("diagnosis").distinct
         return render(
             request,
-            "pages/medical_office/statistics.html",
+            "medical_office/statistics.html",
             {"data": data, "statistics": statistics},
         )
     elif request.user.groups.filter(name="doctor"):
@@ -51,7 +51,9 @@ def statistics_view(request):
             "statistics": statistics,
             "form": form,
         }
-        return render(request, "pages/doctor/statistics/statistics.html", context)
+        return render(
+            request, "profiles/users/doctor/statistics/statistics.html", context
+        )
 
 
 # ---------------------------------------------------------------------------------------------

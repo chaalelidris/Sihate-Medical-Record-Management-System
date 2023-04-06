@@ -13,7 +13,7 @@ urlpatterns = [
         doctors.patient_details_view,
         name="patient_details_view",
     ),
-    path("doctor/patient_list/patient/medical_record/", include("medicalrecord.urls")),
+    path("doctor/patient_list/patient/medical_record/", include("medical_records.urls")),
     path("doctor/patient_list/patient/prescription/", include("prescription.urls")),
     path(
         "doctor/patient_list/patient/consultation_list/",
@@ -42,8 +42,8 @@ urlpatterns = [
 # -----------------------------------------------------------------------------------------
 
 urlpatterns += [
-    path("patient", patients.patientDashboardView, name="patient_view"),
-    path("profile/", patients.patientProfileView, name="patient_profile"),
+    path("patient", patients.patient_view, name="patient_view"),
+    path("profile/", patients.patient_profile_view, name="patient_profile"),
     path("appointment/", include("appointment.urls")),
 ]
 

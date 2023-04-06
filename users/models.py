@@ -8,7 +8,9 @@ from phonenumber_field.modelfields import PhoneNumberField
 # ---------------------------- User models -----------------------------------
 # ----------------------------------------------------------------------------
 class User(AbstractUser):
-    pass
+    is_doctor = models.BooleanField("doctor status", default=False)
+    is_patient = models.BooleanField("patient status", default=False)
+    is_office_manager = models.BooleanField("office manager status", default=False)
 
 
 # ----------------------------------------------------------------------------
@@ -26,7 +28,7 @@ class Doctor(User):
         ("Anesthesiologists", "Anesthesiologists"),
         ("Colon and Rectal Surgeons", "Colon and Rectal Surgeons"),
     ]
-
+    patients = models.ManyToManyField("Patient", related_name="doctors")
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20, null=True)
     department = models.CharField(
@@ -52,10 +54,6 @@ class Doctor(User):
     def get_id(self):
         return self.id
 
-    @property
-    def is_doctor(self):
-        return True
-
 
 # --------------------------------------------------------------------------------------------
 # --------------------------------------- Patient models -------------------------------------
@@ -64,7 +62,14 @@ class Doctor(User):
 
 class Patient(User):
 
-    assigned_doctor_id = models.PositiveIntegerField(null=True)
+    SEX_FEMALE = "F"
+    SEX_MALE = "M"
+    SEX_UNSURE = "U"
+
+    SEX_OPTIONS = ((SEX_FEMALE, "Female"), (SEX_MALE, "Male"))
+
+    age = models.IntegerField(default=None)
+    sexe = models.CharField(max_length=1, choices=SEX_OPTIONS, default=None)
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20, null=False)
     symptoms = models.CharField(max_length=100, null=False)
@@ -89,10 +94,6 @@ class Patient(User):
     def __str__(self):
         return self.first_name + " (" + self.symptoms + ")"
 
-    @property
-    def is_patient(self):
-        return True
-
 
 # ---------------------------------------------------------------------------------------------
 # ------------------------------------- Office Manager Models -----------------------------------
@@ -114,10 +115,6 @@ class OfficeManager(User):
     def __str__(self):
         return str(self.name)
 
-    @property
-    def is_officemanager(self):
-        return True
-
 
 # ---------------------------------------------------------------------------------------------
 # ------------------------------------- consultation Models -----------------------------------
@@ -125,20 +122,16 @@ class OfficeManager(User):
 
 
 class Consultation(models.Model):
-    doctorId = models.ForeignKey(
-        "users.Doctor",
-        related_name="conssultation_doctor",
+    appointment = models.ForeignKey(
+        "appointment.Appointment",
+        related_name="appointments",
         on_delete=models.CASCADE,
+        default="",
     )
-    patientId = models.ForeignKey(
-        "users.Patient",
-        related_name="consultation_patient",
-        on_delete=models.CASCADE,
-    )
-    consultationDate = models.DateTimeField()
+    consultation_date = models.DateTimeField()
     notes = models.TextField(max_length=254)
     diagnosis = models.TextField()
     treatment = models.TextField()
 
     def __str__(self):
-        return str(self.patientId.username)
+        return str(self.patient_id.username)

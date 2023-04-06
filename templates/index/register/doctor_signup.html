@@ -1,0 +1,101 @@
+{%extends 'index/base.html'%}
+{% load widget_tweaks %}
+{%load static%}
+
+
+{%block title %}
+<title>Login | Sihat_e</title>
+{%endblock title %}
+
+
+{%block content%}
+<section class="mt-5">
+    <div class="container overflow-hidden border rounded-4 mt-5 p-0">
+        <div class="p-3 mb-4 text-center" style="background-image: linear-gradient(to bottom, #007bff, #007bff)">
+            <h2 class="text-white">Register as a doctor</h2>
+        </div>
+        <form class="container" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        {% render_field form.username id=form.username.id_for_label class="form-control" placeholder="Username"%}
+                        <label for="{{ form.username.id_for_label }}">Username</label>
+                        {% if form.username.errors %}
+                        <small class="text-danger">{{ form.username.errors|first }}</small>
+                        {% endif %}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {% render_field form.first_name id=form.first_name.id_for_label class="form-control" placeholder="First Name"%}
+                        <label for="{{ form.first_name.id_for_label }}">First Name</label>
+                        {% if form.first_name.errors %}
+                        <small class="text-danger">{{ form.first_name.errors|first }}</small>
+                        {% endif %}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {% render_field form.last_name id=form.last_name.id_for_label class="form-control" placeholder="Last Name"%}
+                        <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                        {% if form.last_name.errors %}
+                        <small class="text-danger">{{ form.last_name.errors|first }}</small>
+                        {% endif %}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {% render_field form.email id=form.email.id_for_label class="form-control" placeholder="Email"%}
+                        <label for="{{ form.email.id_for_label }}">Email</label>
+                        {% if form.email.errors %}
+                        <small class="text-danger">{{ form.email.errors|first }}</small>
+                        {% endif %}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {% render_field form.profile_pic id=form.profile_pic.id_for_label class="form-control" placeholder="Profile Picture"%}
+                        <label for="{{ form.profile_pic.id_for_label }}">Profile Picture</label>
+                        {% if form.profile_pic.errors %}
+                        <small class="text-danger">{{ form.profile_pic.errors|first }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        {% render_field form.address id=form.address.id_for_label class="form-control" placeholder="Address"%}
+                        <label for="{{ form.address.id_for_label }}">Address</label>
+                        {% if form.address.errors %}
+                        <small class="text-danger">{{ form.address.errors|first }}</small>
+                        {% endif %}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {% render_field form.mobile id=form.mobile.id_for_label class="form-control" placeholder="Mobile"%}
+                        <label for="{{ form.mobile.id_for_label }}">Mobile</label>
+                        {% if form.mobile.errors %}
+                        <small class="text-danger">{{ form.mobile.errors|first }}</small>
+                        {% endif %}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {% render_field form.department id=form.department.id_for_label class="form-control" placeholder="Department"%}
+                        <label for="{{ form.department.id_for_label }}">Department</label>
+                        {% if form.department.errors %}
+                        <small class="text-danger">{{ form.department.errors|first }}</small>
+                        {% endif %}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {% render_field form.password1 id=form.password1.id_for_label class="form-control" placeholder="Password"%}
+                        <label for="{{ form.password1.id_for_label }}">Password</label>
+                        {% if form.password1.errors %}
+                        <small class="text-danger">{form.password1.errors}</small>
+                        {% endif %}
+                    </div>
+                    <div class="form-floating mb-3">
+                        {% render_field form.password2 id=form.password2.id_for_label class="form-control" placeholder="Confirm password"%}
+                        <label for="{{ form.password2.id_for_label }}">Confirm password</label>
+                        {% if form.password2.errors %}
+                        <small class="text-danger">{{form.password2.errors}}</small>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-lg btn-primary rounded-pill ">Submit</button>
+        </form>
+
+    </div>
+</section>
+
+{%endblock content%}

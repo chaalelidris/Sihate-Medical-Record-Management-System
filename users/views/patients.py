@@ -10,16 +10,17 @@ from .. import forms, models
 
 
 @user_passes_test(lambda u: u.is_authenticated and u.is_patient)
-def patientDashboardView(request):
-    if request.user.groups.filter(name="patient"):
-        return render(request, "pages/patient/patient_dashboard.html")
-    else:
-        # messages.info(request, '')
-        return redirect("../login")
+def patient_view(request):
+    patient = models.Patient.objects.get(id=request.user.id)
+
+    context = {"patient": patient}
+    return render(
+        request, "profiles/users/patient/dashboard/patient_dashboard.html", context
+    )
 
 
 @user_passes_test(lambda u: u.is_authenticated and u.is_patient)
-def patientProfileView(request):
+def patient_profile_view(request):
     user = request.user
     form = EditProfileForm(request.POST or None, instance=user)
     if request.method == "POST":
@@ -36,15 +37,15 @@ def patientProfileView(request):
 
     context = {"form": form}
 
-    return render(request, "pages/patient/patient_profile.html", context)
+    return render(request, "patient/patient_profile.html", context)
 
 
 @user_passes_test(lambda u: u.is_authenticated and u.is_patient)
 def consultation_list_patient(
-    request, template_name="pages/patient/consultation_list_patient.html"
+    request, template_name="patient/consultation_list_patient.html"
 ):
     current_user = request.user
-    consultation = Consultation.objects.filter(patientId=current_user.id)
+    consultation = Consultation.objects.filter(patient_id=current_user.id)
     return render(request, template_name, {"consultation": consultation})
 
 

@@ -14,7 +14,7 @@ from .forms import PrescriptionForm
 def prescription_pdf(request, id_ordonnance):
     ordonnance = get_object_or_404(Prescription, id_ordonnance=id_ordonnance)
 
-    template_path = "pages/doctor/pdf_template.html"
+    template_path = "profiles/users/doctor/pdf_template.html"
 
     context = {"ordonnance": ordonnance}
 
@@ -38,13 +38,13 @@ def PrescriptionListView(request):
     prescription = Prescription.objects.all()
     return render(
         request,
-        "pages/doctor/prescription/prescription_list.html",
+        "profiles/users/doctor/prescription/prescription_list.html",
         {"prescription": prescription},
     )
 
 
 def PrescriptionCreateView(
-    request, template_name="pages/doctor/prescription/prescription.html"
+    request, template_name="profiles/users/doctor/prescription/prescription.html"
 ):
     form = PrescriptionForm(request.POST or None)
 
@@ -71,7 +71,9 @@ def PrescriptionUpdateView(request, id_prescription):
 
     context["form"] = form
 
-    return render(request, "pages/doctor/prescription/prescription.html", context)
+    return render(
+        request, "profiles/users/doctor/prescription/prescription.html", context
+    )
 
 
 @login_required
@@ -89,5 +91,5 @@ def PrescriptionDeleteView(request, id_prescription):
         return redirect("prescription_list")
 
     return render(
-        request, "pages/doctor/prescription/delete_prescription.html", context
+        request, "profiles/users/doctor/prescription/delete_prescription.html", context
     )

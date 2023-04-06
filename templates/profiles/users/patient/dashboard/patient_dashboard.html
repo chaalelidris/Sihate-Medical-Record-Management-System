@@ -1,0 +1,149 @@
+{%extends 'profiles/patient/patient_base.html'%} {% load static %} {% block
+title %} Patient dashboard {% endblock title %} {%block content%}
+<!-- !PAGE CONTENT! -->
+
+{% include 'profiles/doctor/includes/welcome_toast.html' %}
+
+<div class="py-4">
+  <div class="dropdown">
+    <button
+      class="btn btn-gray-800 d-inline-flex align-items-center me-2 dropdown-toggle"
+      data-bs-toggle="dropdown"
+      aria-haspopup="true"
+      aria-expanded="false"
+    >
+      <svg
+        class="icon icon-xs me-2"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+        ></path>
+      </svg>
+      New Task
+    </button>
+    <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1">
+      <a class="dropdown-item d-flex align-items-center" href="#">
+        <svg
+          class="dropdown-icon text-gray-400 me-2"
+          fill="currentColor"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"
+          ></path>
+        </svg>
+        Add User
+      </a>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 col-sm-6 col-xl-4 mb-4">
+    <div class="card border-0 bg-indigo shadow">
+      <div class="card-body">
+        <div class="row d-block d-xl-flex align-items-center">
+          <div class="col-12 col-xl-7 px-xl-0">
+            <div class="d-none d-sm-block">
+              <h2 class="h6 text-gray-200 mb-0">Patients</h2>
+              <h3 class="fw-extrabold mb-2 text-white">00</h3>
+            </div>
+
+            <div class="small d-flex mt-1">
+              <div class="text-warning">Assigned to you</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 col-xl-4 mb-4">
+    <div class="card border-0 bg-success shadow">
+      <div class="card-body">
+        <div class="row d-block d-xl-flex align-items-center">
+          <div class="col-12 col-xl-7 px-xl-0">
+            <div class="d-none d-sm-block">
+              <h2 class="h6 text-white mb-0">Appointments</h2>
+              <h3 class="fw-extrabold text-white mb-2">00</h3>
+            </div>
+
+            <div class="small d-flex mt-1">
+              <div>Shuduled</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-12 col-sm-6 col-xl-4 mb-4">
+    <div class="card border-0 bg-yellow-200 shadow">
+      <div class="card-body">
+        <div class="row d-block d-xl-flex align-items-center">
+          <div class="col-12 col-xl-7 px-xl-0">
+            <div class="d-none d-sm-block">
+              <h2 class="h6 text-gray-600 mb-0">Medical records</h2>
+              <h3 class="fw-extrabold mb-2">00</h3>
+            </div>
+
+            <div class="small d-flex mt-1">
+              <div>Elaborated</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-12 mb-4">
+        <div class="card border-0 shadow">
+          <div class="card-header">
+            <div class="row align-items-center">
+              <div class="col">
+                <h2 class="fs-5 fw-bold mb-0">Recent patients</h2>
+              </div>
+              <div class="col text-end">
+                <a href="#" class="btn btn-sm btn-primary">See all</a>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th class="border-bottom" scope="col">Full name</th>
+                  <th class="border-bottom" scope="col">picture</th>
+                  <th class="border-bottom" scope="col">address</th>
+                  <th class="border-bottom" scope="col">mobile</th>
+                  <th class="border-bottom" scope="col">Symptoms</th>
+                  <th class="border-bottom" scope="col">admit_date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th class="text-gray-900" scope="row">dddd</th>
+                  <th class="text-gray-900" scope="row">dddd</th>
+                  <th class="text-gray-900" scope="row">dddd</th>
+                  <th class="text-gray-900" scope="row">dddd</th>
+                  <th class="text-gray-900" scope="row">dddd</th>
+                  <th class="text-gray-900" scope="row">dddd</th>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%endblock content%}

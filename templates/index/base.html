@@ -1,0 +1,79 @@
+{% load static %}
+<html lang="en" dir="ltr">
+
+<head>
+    
+    <title>{% block title %}{% endblock title %}</title>
+    
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta content="" name="Medical Record Managment System">
+    <meta content="" name="patient,doctor,medical,record,managment,prescription,appointment,office">
+
+    <!-- Favicons -->
+    <link href="{%static 'assets/main/img/logo/logo-sihate.png'%}" rel="icon">
+    <link href="{%static 'assets/main/img/logo/logo-sihate.png'%}" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="{% static 'assets/main/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/main/vendor/animate.css/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/main/vendor/aos/aos.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/main/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/main/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/main/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/main/vendor/glightbox/css/glightbox.min.css' %}" rel="stylesheet">
+    <link href="{% static 'assets/main/vendor/swiper/swiper-bundle.min.css' %}" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="{% static 'assets/main/css/style.css' %}" rel="stylesheet">
+
+</head>
+
+<body>
+    <!------------------------------------------------------------------------------>
+    <!---------------------------------- Header ------------------------------------>
+    <!------------------------------------------------------------------------------>
+
+    {%include 'index/includes/topbar_section.html'%}
+    {%include 'index/includes/header_section.html'%}
+
+    <!------------------------------------------------------------------------------>
+    <!------------------------------ Block Content --------------------------------->
+    <!------------------------------------------------------------------------------>
+
+    {%block content%}
+    {%endblock content%}
+
+    <!------------------------------------------------------------------------------>
+    <!-------------------------- ArrowUp and Preloader ----------------------------->
+    <!------------------------------------------------------------------------------>
+
+
+    {%include 'index/includes/preloader.html'%}
+    {%include 'index/includes/arrowup.html'%}
+
+
+    <!------------------------------------------------------------------------------>
+    <!---------------------------------- footer ------------------------------------>
+    <!------------------------------------------------------------------------------>
+
+
+    {%include 'index/includes/footer_section.html'%}
+
+
+    <!------------------------------------------------------------------------------>
+    <!---------------------------------- scripts ----------------------------------->
+    <!------------------------------------------------------------------------------>
+
+
+    {%include 'index/includes/scripts.html'%}
+
+</body>
+
+</html>

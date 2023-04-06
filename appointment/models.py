@@ -7,20 +7,21 @@ from django.contrib.auth.models import User
 # ---------------------------- Appointment model ----------------------------------
 # ----------------------------------------------------------------------------
 class Appointment(models.Model):
-    doctorId = models.ForeignKey(
+
+    doctor = models.ForeignKey(
         "users.Doctor",
         related_name="appointment_doctor",
         on_delete=models.CASCADE,
     )
-    patientId = models.ForeignKey(
+    patient = models.ForeignKey(
         "users.Patient",
         related_name="appointment_patient",
         on_delete=models.CASCADE,
     )
-    appointmentCreationDate = models.DateField(auto_now=True)
-    appointmentDate = models.DateTimeField()
+    created_at = models.DateTimeField(auto_now=True)
+    appointment_date = models.DateTimeField()
     description = models.TextField(max_length=500, default="No description")
     status = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.patientId.username)
+        return str(self.patient_id.username)

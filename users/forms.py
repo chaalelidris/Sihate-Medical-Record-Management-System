@@ -34,7 +34,7 @@ class DoctorSignupForm(UserCreationForm):
 
 class PatientSignupForm(UserCreationForm):
     symptoms = forms.CharField(max_length=100, required=True)
-    mobile = forms.CharField(max_length=20, required=True)
+    mobile = forms.CharField(max_length=20, required=False)
 
     class Meta:
         model = models.Patient
@@ -43,12 +43,13 @@ class PatientSignupForm(UserCreationForm):
             "first_name",
             "last_name",
             "profile_pic",
+            "sexe",
+            "age",
             "email",
             "address",
             "mobile",
             "symptoms",
         )
-        widgets = {"password": forms.PasswordInput()}
 
 
 # ---------------------------------------------------------------------------
