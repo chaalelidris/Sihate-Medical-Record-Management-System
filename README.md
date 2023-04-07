@@ -1,10 +1,10 @@
-# SIHATE - Medical File Management System
+# SIHATE - Medical File Management System 🏥
 
 Sihate is a medical file management system that enables efficient and secure management of patients, doctors, and medical files. The system comes with an authentication system that ensures that only authorized users can access the system.
 
-# Features
+# Features 💡
 
-## Patient management:
+## Patient management🧍‍♂️:
  Add, update, and delete patient information.
 ## Doctor management: 
 Add, update, and delete doctor information.
