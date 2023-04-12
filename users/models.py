@@ -16,8 +16,6 @@ class User(AbstractUser):
 # ----------------------------------------------------------------------------
 # ---------------------------- Doctor models ---------------------------------
 # ----------------------------------------------------------------------------
-
-
 class Doctor(User):
     departments = [
         ("Cardiologist", "Cardiologist"),
@@ -28,7 +26,7 @@ class Doctor(User):
         ("Anesthesiologists", "Anesthesiologists"),
         ("Colon and Rectal Surgeons", "Colon and Rectal Surgeons"),
     ]
-    patients = models.ManyToManyField("Patient", related_name="doctors")
+    patients = models.ManyToManyField("users.Patient", related_name="patients")
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20, null=True)
     department = models.CharField(
@@ -44,7 +42,7 @@ class Doctor(User):
         verbose_name_plural = "Doctors"
 
     def __str__(self):
-        return "{} ({})".format(self.first_name, self.department)
+        return "{} ({})".format(self.username, self.department)
 
     @property
     def get_name(self):
@@ -83,6 +81,9 @@ class Patient(User):
         verbose_name = "Patient"
         verbose_name_plural = "Patients"
 
+    def __str__(self):
+        return self.username + " (" + self.symptoms + ")"
+
     @property
     def get_name(self):
         return self.first_name + " " + self.last_name
@@ -90,14 +91,6 @@ class Patient(User):
     @property
     def get_id(self):
         return self.id
-
-    def __str__(self):
-        return self.first_name + " (" + self.symptoms + ")"
-
-
-# ---------------------------------------------------------------------------------------------
-# ------------------------------------- Office Manager Models -----------------------------------
-# ---------------------------------------------------------------------------------------------
 
 
 class OfficeManager(User):
@@ -114,24 +107,3 @@ class OfficeManager(User):
 
     def __str__(self):
         return str(self.name)
-
-
-# ---------------------------------------------------------------------------------------------
-# ------------------------------------- consultation Models -----------------------------------
-# ---------------------------------------------------------------------------------------------
-
-
-class Consultation(models.Model):
-    appointment = models.ForeignKey(
-        "appointment.Appointment",
-        related_name="appointments",
-        on_delete=models.CASCADE,
-        default="",
-    )
-    consultation_date = models.DateTimeField()
-    notes = models.TextField(max_length=254)
-    diagnosis = models.TextField()
-    treatment = models.TextField()
-
-    def __str__(self):
-        return str(self.patient_id.username)

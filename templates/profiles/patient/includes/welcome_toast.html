@@ -1,0 +1,16 @@
+{% extends 'profiles/patient/includes/parts/toast.html' %} 
+
+{% block title %} Patient dashboard {% endblock title %} 
+
+
+{% block body %}
+
+{% if messages %} 
+{% for message in messages %} 
+{{message}}
+{% endfor %}
+{% endif %}
+
+{{patient.first_name}} {{patient.last_name}}.
+
+{% endblock body %}

@@ -1,0 +1,33 @@
+{%extends 'profiles/doctor/index.html'%} {% load static %}
+
+<html>
+  {% block title %}
+  <title>Sihate | doctor</title>
+  {% endblock title %} {% block pagecontent %}
+  <div class="w3-main" style="margin-left: 300px; margin-top: 43px">
+    <!-- Header -->
+    <header class="w3-container" style="padding-top: 22px">
+      <h5>
+        <b><i class="fa fa-calendar"></i> Rendez-vous/delete </b>
+      </h5>
+      <hr />
+    </header>
+
+    <center>
+      <div class="w3-container w3-card-4 w3-margin w3-round-large w3-white">
+        <form method="post">
+          {% csrf_token %}
+          <p>Are you sure you want to delete "{{ Rdv.id }}" ?</p>
+          <p>
+            <input
+              type="submit"
+              value="Submit"
+              class="w3-button w3-red w3-round w3-hover-red"
+            />
+          </p>
+        </form>
+      </div>
+    </center>
+  </div>
+  {% endblock pagecontent%}
+</html>

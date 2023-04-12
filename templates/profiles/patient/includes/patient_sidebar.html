@@ -1,0 +1,24 @@
+{% extends 'profiles/patient/includes/parts/sidebar.html' %} 
+
+{% block profile_pic %}
+
+<img
+  class="rounded-circle"
+  src="{{doctor.profile_pic.url}}"
+  alt="Doctor picture"
+/>
+
+{% endblock profile_pic %} 
+
+{% block username %}{{doctor.username}}{% endblock username %}
+
+{% block sidebar_items %} 
+
+  {% include "profiles/patient/includes/sidebar_items/dashboard.html" %} 
+  {% include "profiles/patient/includes/sidebar_items/doctors.html" %} 
+  {% include "profiles/patient/includes/sidebar_items/appointments.html" %} 
+  {% include "profiles/patient/includes/sidebar_items/medical_records.html" %} 
+  {% include "profiles/patient/includes/parts/sidebar_devider.html" %} 
+  {% include "profiles/patient/includes/sidebar_items/profile.html" %} 
+
+{% endblock sidebar_items %}

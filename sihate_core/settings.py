@@ -41,15 +41,11 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # apps
     "home_page.apps.Home_pageConfig",
-    #USERS & AUTH
-    "authentication.apps.AuthenticationConfig",
+    # USERS & AUTH
     "users.apps.UsersConfig",
-    "doctors.apps.DoctorsConfig",
-    "patients.apps.PatientsConfig",
-    "medical_office.apps.MedicalOfficeConfig",
+    # MEDICAL RECORD
     "appointment.apps.AppointmentConfig",
     "medical_records.apps.MedicalrecordsConfig",
-    "prescription.apps.PrescriptionConfig",
     # Third party
     "crispy_forms",
     "crispy_bootstrap5",

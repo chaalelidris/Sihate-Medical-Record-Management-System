@@ -16,7 +16,7 @@ def create_appointment(request):
 
     return render(
         request,
-        "profiles/users/doctor/appointment/appointment_form.html",
+        "profiles/doctor/appointment/appointment_form.html",
         {"form": form},
     )
 
@@ -26,7 +26,7 @@ def appointment_list(request):
     appointment = Appointment.objects.all()
     return render(
         request,
-        "profiles/users/doctor/appointment/appointment_list.html",
+        "profiles/doctor/appointment/appointment_list.html",
         {"appointment": appointment},
     )
 
@@ -49,7 +49,7 @@ def edit_appointment(request, id):
     context["form"] = form
 
     return render(
-        request, "profiles/users/doctor/appointment/appointment_form.html", context
+        request, "profiles/doctor/appointment/appointment_form.html", context
     )
 
 
@@ -70,14 +70,14 @@ def delete_appointment(request, id):
 
     return render(
         request,
-        "profiles/users/doctor/appointment/appointment_confirm_delete.html",
+        "profiles/doctor/appointment/appointment_confirm_delete.html",
         context,
     )
 
 
 @login_required()
 def yearly_appointment(request):
-    return render(request, "profiles/users/doctor/appointment/yearly_appointment.html")
+    return render(request, "profiles/doctor/appointment/yearly_appointment.html")
 
 
 def countAppointment():

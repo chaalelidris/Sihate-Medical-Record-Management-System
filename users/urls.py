@@ -1,71 +1,61 @@
 from django.urls import path, include
-from .views import doctors, officemanager, patients
+from django.contrib.auth import views as auth_views
+from .views import doctor_views, office_manager_views, patient_views, user_views
+
+# -----------------------------------------------------------------------------------------
+# --------------------------------------- Auth Urls ---------------------------------------
+# -----------------------------------------------------------------------------------------
+urlpatterns = [
+    path("signup/doctor/", user_views.doctor_signup_view, name="doctor_signup_view"),
+    path("signup/patient", user_views.patient_signup_view, name="patient_signup_view"),
+    path(
+        "signup/office_manager",
+        user_views.officemanager_signup_view,
+        name="officemanager_signup_view",
+    ),
+    path("login/", user_views.login_view, name="login"),
+    path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+]
 
 # -----------------------------------------------------------------------------------------
 # --------------------------------------- Doctor Urls -------------------------------------
 # -----------------------------------------------------------------------------------------
-urlpatterns = [
-    path("doctor/", doctors.doctor_view, name="doctor_view"),
-    path("doctor/profile/", doctors.doctor_profile_view, name="doctor_profile_view"),
-    path("doctor/patient_list/", doctors.patient_list_view, name="patient_list_view"),
+urlpatterns += [
     path(
-        "doctor/patient_list/patient/",
-        doctors.patient_details_view,
-        name="patient_details_view",
+        "doctor/dashboard/",
+        doctor_views.doctor_dashboard_view,
+        name="doctor_dashboard_view",
     ),
-    path("doctor/patient_list/patient/medical_record/", include("medical_records.urls")),
-    path("doctor/patient_list/patient/prescription/", include("prescription.urls")),
+    # path('doctor/profile/', doctor_views.doctor_profile, name='doctor_profile'),
+    # path('doctor/appointments/', doctor_views.appointments, name='appointments'),
+    # path('doctor/prescriptions/', doctor_views.prescriptions, name='prescriptions'),
+    # path('doctor/patients/', doctor_views.patients, name='patients'),
+    # path('doctor/patient/<int:patient_id>/', doctor_views.patient_detail, name='patient_detail'),
+]
+
+# -----------------------------------------------------------------------------------------
+# --------------------------------------- Patient Urls -------------------------------------
+# -----------------------------------------------------------------------------------------
+urlpatterns += [
     path(
-        "doctor/patient_list/patient/consultation_list/",
-        doctors.consultation_list_view,
-        name="consultation_list_view",
-    ),
-    path(
-        "doctor/patient_list/patient/consultation_list/consultation/",
-        doctors.consultation_view,
-        name="consultation_view",
-    ),
-    path(
-        "doctor/update_consultation/<int:id_consultation>/",
-        doctors.updateConsultationView,
-        name="consultation_edit",
-    ),
-    path(
-        "doctor/delete_consultation/<int:id_consultation>/",
-        doctors.delete_consultation_view,
-        name="consultation_delete",
+        "patient/dashboard/",
+        patient_views.patient_dashboard_view,
+        name="patient_dashboard_view",
     ),
 ]
 
 # -----------------------------------------------------------------------------------------
-# ------------------------------------ Patient Urls ---------------------------------------
+# --------------------------------------- Manager Urls -------------------------------------
 # -----------------------------------------------------------------------------------------
-
-urlpatterns += [
-    path("patient", patients.patient_view, name="patient_view"),
-    path("profile/", patients.patient_profile_view, name="patient_profile"),
-    path("appointment/", include("appointment.urls")),
-]
-
-# -----------------------------------------------------------------------------------------
-# ---------------------------------- OfficeManager Urls -------------------------------------
-# -----------------------------------------------------------------------------------------
-
 urlpatterns += [
     path(
-        "office_manager/",
-        officemanager.office_manager_view,
-        name="office_manager_view",
+        "manager/dashboard/",
+        office_manager_views.manager_dashboard_view,
+        name="manager_dashboard_view",
     ),
-    path(
-        "office_manager/profile/",
-        officemanager.office_manager_profile_view,
-        name="office_manager_profile_view",
-    ),
-    path("office_manager/appointment/", include("appointment.urls")),
-    path(
-        "office_manager/statistics/",
-        officemanager.statistics_view,
-        name="statistics_view",
-    ),
+    # path("manager/", views.doctor_list, name="doctor_list"),
+    # path("manager/<int:pk>/", views.doctor_detail, name="doctor_detail"),
+    # path("manager/<int:pk>/update/", views.doctor_update, name="doctor_update"),
+    # path("manager/<int:pk>/delete/", views.doctor_delete, name="doctor_delete"),
+    # path("manager/create/", views.doctor_create, name="doctor_create"),
 ]

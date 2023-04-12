@@ -1,0 +1,79 @@
+{%extends 'profiles/doctor/index.html'%} {% load static %} {% block title
+%}
+<title>Sihate | doctor</title>
+{% endblock title %} {%block pagecontent %}
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left: 300px; margin-top: 43px">
+  <!-- Header -->
+  <header class="w3-container" style="padding-top: 22px">
+    <h5>
+      <b><i class="fa fa-eye fa-fw"></i>Medical examination </b>
+    </h5>
+  </header>
+
+  <center>
+    <table class="tableau-style">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Id Patient</th>
+          <th>Date consultation</th>
+          <th width="30%">Notes</th>
+          <th>Diagnosis</th>
+          <th>Treatment</th>
+          <th>Edit</th>
+          <th>Delete</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for consultation in consultation %}
+        <tr>
+          <td>{{ consultation.id_consultation }}</td>
+          <td>{{ consultation.patient_id }}</td>
+          <td>{{ consultation.date_consultation }}</td>
+          <td>{{ consultation.notes }}</td>
+          <td>{{ consultation.diagnosis }}</td>
+          <td>{{ consultation.treatment }}</td>
+          <td>
+            <a
+              href="{% url 'consultation_edit' consultation.id_consultation %}"
+              class="btn btn-primary"
+              style="color: RoyalBlue"
+              ><strong
+                ><span
+                  class="w3-button w3-indigo w3-margin-bottom w3-round-large w3-hover-indigo w3-hover-shadow"
+                  >Edit</span
+                ></strong
+              >
+            </a>
+          </td>
+          <td>
+            <a
+              href="{% url 'consultation_delete' consultation.id_consultation %}"
+              class="btn btn-danger"
+              style="color: red"
+              ><strong
+                ><span
+                  class="w3-button w3-red w3-margin-bottom w3-round-large w3-hover-red w3-hover-shadow"
+                  >Delete</span
+                ></strong
+              >
+            </a>
+          </td>
+        </tr>
+        {% endfor%}
+      </tbody>
+    </table>
+    <a href="{% url 'consultation'  %}"
+      ><span
+        class="w3-button w3-green w3-margin-bottom w3-round-large w3-hover-green w3-hover-shadow"
+        >New</span
+      ></a
+    >
+    <br />
+    <br />
+    <br />
+  </center>
+</div>
+
+{% endblock pagecontent %}

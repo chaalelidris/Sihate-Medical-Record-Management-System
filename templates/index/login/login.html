@@ -1,0 +1,71 @@
+{%extends 'index/base.html'%}
+{% load widget_tweaks %}
+{%load static%}
+
+{%block title %}
+Login | Sihat_e
+{%endblock title %}
+
+
+{%block content%}
+
+<section class="mt-5">
+
+  <!------------------------------------------------------------------------------>
+  <!------------------------------------ Log in ---------------------------------->
+  <!------------------------------------------------------------------------------>
+
+  <div class="col-md-10 mx-auto col-lg-5 mt-5">
+    <form method="post" class="p-4 p-md-5 border rounded-3 bg-light shadow-lg">
+      {% csrf_token %}
+      <img class="d-block mx-auto mb-5" src="{% static 'assets/main/img/logo/logo-sihate.png' %}" alt="logo-sihate"
+        width="80" />
+      <h1 class="text-center">Login</h1>
+
+      <div class="form-floating mb-3">
+        {% render_field form.username class="form-control" id="floatingUsername" placeholder="First Name" %}
+        <label for="floatingUsername">Username</label>
+        {% if form.username.errors %}
+        <small class="text-danger">{{ form.username.errors }}</small>
+        {% endif %}
+      </div>
+
+      <div class="form-floating mb-3">
+        {% render_field form.password class="form-control" id="floatingPassword" placeholder="Password" %}
+        <label for="floatingPassword">Password</label>
+        {% if form.password.errors %}
+        <small class="text-danger">{{ form.password.errors }}</small>
+        {% endif %}
+      </div>
+
+      <!------------------------------------------------------------------------------>
+      <!---------------------------------- messages ---------------------------------->
+      <!------------------------------------------------------------------------------>
+
+      {% if messages %} 
+      {% for message in messages %}
+      <div
+        class="alert {% if message.tags == 'error' %}alert-danger{% elif message.tags == 'warning' %}alert-warning{% else %}alert-info{% endif %}">
+        {{ message }}
+      </div>
+      {% endfor %}
+      {% endif %}
+
+      <!------------------------------------------------------------------------------>
+      <!------------------------------------ Submit ---------------------------------->
+      <!------------------------------------------------------------------------------>
+
+      <button class="w-100 btn btn-lg btn-primary" type="submit">
+        Log in
+      </button>
+      <hr class="my-4" />
+      <small class="text-muted">Don't have an account? Register as
+        <a href="{% url 'patient_signup_view' %}">Patient</a> Or Register as
+        <a href="{% url 'doctor_signup_view' %}"> Doctor</a>
+      </small>
+    </form>
+  </div>
+
+</section>
+
+{%endblock content%}

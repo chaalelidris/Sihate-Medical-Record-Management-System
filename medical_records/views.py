@@ -12,7 +12,7 @@ from .models import MedicalRecord
 
 @login_required()
 def createPatientMedicalRecordView(
-    request, template_name="profiles/users/doctor/patient_medical_file.html"
+    request, template_name="profiles/doctor/patient_medical_file.html"
 ):
     form = medicaRecordForm(request.POST or None)
 
@@ -42,7 +42,7 @@ def updatePatientMedicalRecordView(request, medicalRecordId):
 
     context["form"] = form
 
-    return render(request, "profiles/users/doctor/patient_medical_file.html", context)
+    return render(request, "profiles/doctor/patient_medical_file.html", context)
 
 
 @login_required
@@ -62,7 +62,7 @@ def deletePatientMedicalRecordView(request, medicalRecordId):
         return redirect("patient_list")
 
     return render(
-        request, "profiles/users/doctor/patient_medical_file_delete.html", context
+        request, "profiles/doctor/patient_medical_file_delete.html", context
     )
 
 
@@ -72,7 +72,7 @@ def medicalRecordPdf(request, medicalRecordId):
         MedicalRecord, medicalRecordId=medicalRecordId
     )
 
-    template_path = "profiles/users/doctor/fiche_pdf.html"
+    template_path = "profiles/doctor/fiche_pdf.html"
 
     context = {"patient_medical_file": patient_medical_file}
 
