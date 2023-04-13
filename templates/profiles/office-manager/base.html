@@ -1,0 +1,53 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <!-- Primary Meta Tags -->
+
+  <title>Dashboard - {% block title %}{% endblock %} | Sihate</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <meta name="title" content="Sihate - Medical records managment" />
+  <meta name="description"
+    content="Sihate medical records managment system for doctors, medical office managers, doctors" />
+  <meta name="keywords" content="" />
+  <link rel="canonical" href="" />
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="" />
+  <meta property="og:title" content="Sihate - Medical records managment" />
+  <meta property="og:description" content="" />
+  <meta property="og:image" content="" />
+
+  <!-- Favicon -->
+
+  <link type="text/css" href="{%static 'assets/profile/vendor/sweetalert2/dist/sweetalert2.min.css' %}"
+    rel="stylesheet" />
+
+  <link type="text/css" href="{%static 'assets/profile/vendor/notyf/notyf.min.css' %}" rel="stylesheet" />
+  <link type="text/css" href="{%static 'assets/profile/css/volt.css' %}" rel="stylesheet" />
+
+  <!-- Specific Page JS goes HERE  -->
+  {% block stylesheets %}{% endblock stylesheets %}
+</head>
+
+<body>
+  {% block sidebar %}{% endblock sidebar %}
+
+  <main class="content">
+    {% include 'profiles/doctor/includes/parts/navigation.html' %}
+
+    {% block content %}{% endblock content %}
+
+    {% include 'profiles/doctor/includes/parts/footer.html' %}
+  </main>
+
+  {% include 'profiles/doctor/includes/parts/scripts.html' %}
+
+  {% block javascripts %}{% endblock javascripts %}
+</body>
+
+</html>

@@ -7,7 +7,7 @@ class PatientAdmin(UserAdmin):
     list_display = (
         "username",
         "age",
-        "sexe",
+        "gender",
         "address",
         "mobile",
         "symptoms",
@@ -15,7 +15,7 @@ class PatientAdmin(UserAdmin):
         "profile_pic",
         "status",
     )
-    list_filter = ("sexe", "admit_date", "status")
+    list_filter = ("gender", "admit_date", "status")
     fieldsets = (
         (None, {"fields": ("username", "password")}),
         (
@@ -25,7 +25,7 @@ class PatientAdmin(UserAdmin):
                     "first_name",
                     "last_name",
                     "age",
-                    "sexe",
+                    "gender",
                     "address",
                     "mobile",
                     "symptoms",
@@ -55,7 +55,16 @@ class DoctorAdmin(UserAdmin):
     list_filter = ("department", "status")
     fieldsets = (
         (None, {"fields": ("username", "password")}),
-        ("Personal Info", {"fields": ("first_name", "last_name", "email")}),
+        (
+            "Personal Info",
+            {
+                "fields": (
+                    "first_name",
+                    "last_name",
+                    "email",
+                )
+            },
+        ),
         ("Contact Info", {"fields": ("address", "mobile")}),
         (
             "Permissions",
@@ -69,7 +78,16 @@ class DoctorAdmin(UserAdmin):
                 )
             },
         ),
-        ("Other", {"fields": ("department", "profile_pic", "status", "patients")}),
+        (
+            "Other",
+            {
+                "fields": (
+                    "department",
+                    "profile_pic",
+                    "status",
+                )
+            },
+        ),
     )
     add_fieldsets = (
         (

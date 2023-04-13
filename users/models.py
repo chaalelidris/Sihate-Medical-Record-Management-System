@@ -27,6 +27,7 @@ class Doctor(User):
         ("Colon and Rectal Surgeons", "Colon and Rectal Surgeons"),
     ]
     patients = models.ManyToManyField("users.Patient", related_name="patients")
+
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20, null=True)
     department = models.CharField(
@@ -59,15 +60,12 @@ class Doctor(User):
 
 
 class Patient(User):
-
-    SEX_FEMALE = "F"
-    SEX_MALE = "M"
-    SEX_UNSURE = "U"
-
-    SEX_OPTIONS = ((SEX_FEMALE, "Female"), (SEX_MALE, "Male"))
+    GENDER_FEMALE = "F"
+    GENDER_MALE = "M"
+    GENDER_OPTIONS = ((GENDER_FEMALE, "Female"), (GENDER_MALE, "Male"))
 
     age = models.IntegerField(default=None)
-    sexe = models.CharField(max_length=1, choices=SEX_OPTIONS, default=None)
+    gender = models.CharField(max_length=1, choices=GENDER_OPTIONS, default=None)
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20, null=False)
     symptoms = models.CharField(max_length=100, null=False)

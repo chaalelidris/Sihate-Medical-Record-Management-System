@@ -3,6 +3,9 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from . import models as users_models
 
 
+# ---------------------------------------------------------------------------
+# -------------------------- for doctor related form -----------------------
+# ---------------------------------------------------------------------------
 class DoctorSignupForm(UserCreationForm):
     department = forms.ChoiceField(choices=users_models.Doctor.departments)
 
@@ -21,6 +24,27 @@ class DoctorSignupForm(UserCreationForm):
         widgets = {"password": forms.PasswordInput()}
 
 
+class DoctorUpdateForm(UserChangeForm):
+    class Meta:
+        model = users_models.Doctor
+        fields = (
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "mobile",
+            "profile_pic",
+            "department",
+            "address",
+        )
+
+    def clean_mobile(self):
+        mobile = self.cleaned_data["mobile"]
+        if len(mobile) != 10:
+            raise forms.ValidationError("Mobile number must be 10 digits long.")
+        return mobile
+
+
 # ---------------------------------------------------------------------------
 # -------------------------- for patient related form -----------------------
 # ---------------------------------------------------------------------------
@@ -37,7 +61,7 @@ class PatientSignupForm(UserCreationForm):
             "first_name",
             "last_name",
             "profile_pic",
-            "sexe",
+            "gender",
             "age",
             "email",
             "address",
