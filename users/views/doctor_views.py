@@ -32,6 +32,10 @@ def doctor_profile_view(request):
     if request.method == "POST":
         form = forms.DoctorUpdateForm(request.POST, request.FILES, instance=doctor)
         if form.is_valid():
+            # Delete old profile pic if it exists
+            if doctor.profile_pic:
+                doctor.profile_pic.delete()
+
             form.save()
             messages.success(request, "Your profile has been updated!")
             return redirect("doctor_profile_view")
