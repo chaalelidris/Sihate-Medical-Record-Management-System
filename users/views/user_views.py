@@ -7,9 +7,38 @@ from django.shortcuts import redirect, render
 
 from .. import forms, models as users_models
 
+# -------------------------------------------------------------------------------
+# -------------------------------- Redirect user  -------------------------------
+# -------------------------------------------------------------------------------
 
+# -----------for checking user is doctor , patient or manager
+def is_patient(user):
+    return user.is_patient
+
+
+def is_doctor(user):
+    return user.is_doctor
+
+
+def is_manager(user):
+    return user.is_office_manager
+
+
+# ---------AFTER ENTERING CREDENTIALS WE CHECK WHETHER USERNAME AND PASSWORD IS OF ADMIN,DOCTOR OR PATIENT
+def user_view(request):
+    if is_manager(request.user):
+        return redirect("manager_dashboard_view")
+    elif is_doctor(request.user):
+        return redirect("doctor_dashboard_view")
+    elif is_patient(request.user):
+        return redirect("patient_dashboard_view")
+
+
+# -------------------------------------------------------------------------------
 # -------------------------------- User Login  ----------------------------------
 # -------------------------------------------------------------------------------
+
+
 def login_view(request):
     if request.method == "POST":
         form = AuthenticationForm(request=request, data=request.POST)
@@ -19,19 +48,15 @@ def login_view(request):
             user = authenticate(request=request, username=username, password=password)
             if user is not None:
                 if user.is_active:
-                    if users_models.Doctor.objects.filter(username=username).exists():
+                    if is_doctor(user):
                         login(request, user)
                         return redirect("doctor_dashboard_view")
 
-                    elif users_models.Patient.objects.filter(
-                        username=username
-                    ).exists():
+                    elif is_patient(user):
                         login(request, user)
                         return redirect("patient_dashboard_view")
 
-                    elif users_models.OfficeManager.objects.filter(
-                        username=username
-                    ).exists():
+                    elif is_manager(user):
                         login(request, user)
                         return redirect("manager_dashboard_view")
 

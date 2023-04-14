@@ -1,109 +1,212 @@
-{%extends 'patient/index.html'%} {% load static %} {% block title %}
-<title>Sihate | profile</title>
-{% endblock title %} {%block pagecontent%}
+{%extends 'profiles/patient/index.html'%}
+{% load widget_tweaks %}
+{% load static %}
 
-<!-- !PAGE CONTENT! -->
 
-<div class="w3-main" style="margin-left: 300px; margin-top: 43px">
-  <!--profile  -->
-  <div>
-    <header class="w3-container" style="padding-top: 22px">
-      <h5>
-        <b><i class="fa fa-cog fa-fw"></i> Account Settings </b>
-      </h5>
-      <hr />
-    </header>
-    <br />
-    <section class="w3-container">
-      <form
-        method="POST"
-        action="{% url 'doctor_profile_' %}"
-        class="w3-padding w3-round-large w3-card-4"
-        style="
-          background: rgb(2, 0, 36);
-          background: linear-gradient(
-            315deg,
-            rgba(2, 0, 36, 1) 0%,
-            rgba(9, 9, 121, 1) 23%,
-            rgba(0, 212, 255, 1) 100%
-          );
-        "
-        enctype="multipart/form-data"
-      >
-        <div class="w3-row-padding">
-          <h2 class=""><strong>personal informations</strong></h2>
-          <p>Please edit your profile settings.</p>
-          <br />
-        </div>
-        {% csrf_token %}
+{% block title%} Patient profile {% endblock title %}
 
-        <div class="w3-row-padding">
-          <center>
-            <img
-              style="border-radius: 50%"
-              src="{%static 'images/doctor.png'%}"
-              alt="doctor"
-              width="12%"
-            />
-          </center>
-          <br />
-        </div>
 
-        {% csrf_token %}
+<!-- PAGE CONTENT! -->
+{% block content %}
+{% include 'profiles/patient/includes/welcome_toast.html' %}
 
-        <!-- <div class="w3-row-padding">
+<div class="row">
+    <div class="col-12 col-xl-8">
+        <div class="card card-body border-0 shadow mb-4">
+            <h2 class="h5 mb-4">General information</h2>
+            <form method="post" action="{% url 'patient_profile_view' %}">
+                {% csrf_token %}
 
-                    <div class="w3-half">
-                        <label>Email</label>
-                        <input class="w3-input w3-border w3-round" name="first" type="email" placeholder="email">
+                {% if form.errors %}
+                <small class="text-danger">{{ form.errors }}</small>
+                {% endif %}
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div>
+                            <label for="username">Username</label>
+                            {% render_field form.username class="form-control" id="username" placeholder="Enter your username" %}
+                            {% if form.username.errors %}
+                            <small class="text-danger">{{ form.username.errors }}</small>
+                            {% endif %}
+                        </div>
                     </div>
-
-                    <div class="w3-half">
-                        <label>Gender</label>
-                        <select class="w3-select w3-border" name="option">
-
-                            <option value="1" selected>Male</option>
-                            <option value="2">Female</option>
-
-                        </select>
+                    <div class="col-md-6 mb-3">
+                        <div>
+                            <label for="last_name">Email</label>
+                            {% render_field form.email class="form-control" id="last_name" type="text" placeholder="Also your email" %}
+                            {% if form.email.errors %}
+                            <small class="text-danger">{{ form.email.errors }}</small>
+                            {% endif %}
+                        </div>
                     </div>
-                </div> -->
+                </div>
 
-        <div class="w3-row-padding">
-          {%for field in form %}
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div>
+                            <label for="first_name">First Name</label>
+                            {% render_field form.first_name class="form-control" id="first_name" placeholder="Enter your first name" %}
+                            {% if form.first_name.errors %}
+                            <small class="text-danger">{{ form.first_name.errors }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div>
+                            <label for="last_name">Last Name</label>
+                            {% render_field form.last_name class="form-control" id="last_name" type="text" placeholder="Also your last name" %}
+                            {% if form.last_name.errors %}
+                            <small class="text-danger">{{ form.last_name.errors }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
 
-          <div class="w3-half">
-            <label for="{{field.id_for_label}}">{{field.html_name}}</label>
-            {{field}}
-            <br />
-          </div>
-          {%endfor%}
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="phone">Mobile</label>
+                            {% render_field form.mobile class="form-control" id="phone" type="number" placeholder="+12-345 678 910" %}
+                            {% if form.mobile.errors %}
+                            <small class="text-danger">{{ form.mobile.errors }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="symptoms">Symptoms</label>
+                            {% render_field form.symptoms class="form-control" id="symptoms"  placeholder="What are you symptoms ?" %}
+                            {% if form.symptoms.errors %}
+                            <small class="text-danger">{{ form.symptoms.errors }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="age">Age</label>
+                            {% render_field form.age class="form-control" id="age" type="number" placeholder="Enter you age" %}
+                            {% if form.age.errors %}
+                            <small class="text-danger">{{ form.age.errors }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <div class="form-group">
+                            <label for="gender">Gender</label>
+                            {% render_field form.gender class="form-control" id="gender"  placeholder="Select Gender" %}
+                            {% if form.gender.errors %}
+                            <small class="text-danger">{{ form.gender.errors }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="h5 my-4">Location</h2>
+                <div class="row">
+                    <div class="col-sm-9 mb-3">
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            {% render_field form.address class="form-control" id="address" type="text" placeholder="Enter your home address" %}
+                            {% if form.address.errors %}
+                            <small class="text-danger">{{ form.address.errors }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+                <h2 class="h5 my-4">Profile picture</h2>
+                <div class="row">
+                    <div class="form-floating mb-3">
+                        {% render_field form.profile_pic class="form-control" type="file" placeholder="Profile Picture"%}
+                        {% if form.profile_pic.errors %}
+                        <small class="text-danger">{{ form.profile_pic.errors|first }}</small>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="mt-3">
+                    <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Save all</button>
+                </div>
+            </form>
         </div>
+    </div>
+    <div class="col-12 col-xl-4">
+        <div class="row">
+            <div class="col-12 mb-4">
+                <div class="card shadow border-0 text-center p-0">
+                    <div class="profile-cover rounded-top" data-background="/static/assets/img/profile-cover.jpg"></div>
+                    <div class="card-body pb-5">
 
-        <div class="w3-row-padding">
-          <div class="w3-half">
-            <br />
-            <button class="w3-btn w3-blue w3-round" style="margin-bottom: 12px">
-              Edit and Save
-            </button>
-            <p class="w3-red">
-              if you change password you will be logged out !
-            </p>
-          </div>
+                        {% if patient.profile_pic %}
+                        <img src="{{patient.profile_pic.url}}" class="avatar-xl rounded-circle mx-auto mt-n7 mb-4"
+                            alt="Patient picture" />
+                        {% else %}
+                        <img src="{% static 'assets/profile/img/default/default_profile_picture.png' %}"
+                            class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Default profile picture" />
+                        {% endif %}
+
+                        <h4 class="h3">
+                            {{patient.get_name}}
+                        </h4>
+                        <h5 class="fw-normal">
+                            {{ patient.username }}
+                        </h5>
+                        <p class="text-gray mb-4">
+                            {{ patient.email }}
+                        </p>
+                        <a class="btn btn-sm btn-gray-800 d-inline-flex align-items-center me-2" href="#">
+                            <svg class="icon icon-xs me-1" fill="currentColor" viewBox="0 0 20 20"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z">
+                                </path>
+                            </svg>
+                            Connect
+                        </a>
+                        <a class="btn btn-sm btn-secondary" href="#">Send Message</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+                <div class="card card-body border-0 shadow mb-4">
+                    <h2 class="h5 mb-4">Select profile photo</h2>
+                    <div class="d-flex align-items-center">
+                        
+                        <!-- Avatar -->
+                        <div class="me-3">
+                            {% if patient.profile_pic %}
+                            <img src="{{patient.profile_pic.url}}" class="rounded avatar-xl" alt="Patient picture" />
+                            {% else %}
+                            <img src="{% static 'assets/profile/img/default/default_profile_picture.png' %}"
+                                class="rounded avatar-xl" alt="Default profile picture" />
+                            {% endif %}
+                        </div>
+                        <div class="file-field">
+                            <div class="d-flex justify-content-xl-center ms-xl-3">
+                                <div class="d-flex">
+                                    <svg class="icon text-gray-500 me-2" fill="currentColor" viewBox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M8 4a3 3 0 00-3 3v4a5 5 0 0010 0V7a1 1 0 112 0v4a7 7 0 11-14 0V7a5 5 0 0110 0v4a3 3 0 11-6 0V7a1 1 0 012 0v4a1 1 0 102 0V7a3 3 0 00-3-3z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <div class="d-md-block text-left">
+
+                                        <div class="fw-normal text-dark mb-1">Choose Image</div>
+                                        <div class="text-gray small">JPG, GIF or PNG. Max size of 800K</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        {% if messages %}
-        <ul class="messages">
-          {% for message in messages %}
-          <li class="{{ message.tags }}">{{ message }}</li>
-          {% endfor %}
-        </ul>
-        {% endif %}
-      </form>
-    </section>
-  </div>
+    </div>
 </div>
 
-<!-- End page content -->
-
-{%endblock pagecontent%}
+{%endblock content%}

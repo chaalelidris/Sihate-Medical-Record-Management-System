@@ -1,5 +1,5 @@
 <li class="nav-item {% if 'profile' in segment %} active {% endif %}">
-    <a href="" class="nav-link">
+    <a href="{% url 'patient_profile_view' %}" class="nav-link">
         <span class="sidebar-icon">
             {% block sidebar_item_icon %}{% endblock sidebar_item_icon %}
         </span>

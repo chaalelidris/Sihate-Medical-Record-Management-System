@@ -15,3 +15,32 @@ def patient_dashboard_view(request):
 
     context = {"patient": patient}
     return render(request, "profiles/patient/dashboard/patient_dashboard.html", context)
+
+
+# PROFILE VIEW
+@user_passes_test(lambda u: u.is_authenticated and u.is_patient)
+def patient_profile_view(request):
+    patient = models.Patient.objects.get(id=request.user.id)
+
+    if request.method == "POST":
+        form = forms.PatientUpdateForm(request.POST, request.FILES, instance=patient)
+        if form.is_valid():
+            # Delete old profile pic if it exists
+            if patient.profile_pic:
+                patient.profile_pic.delete()
+
+            form.save()
+            messages.success(request, "Your profile has been updated!")
+            return redirect("patient_profile_view")
+        else:
+            messages.error(
+                request, "There was an error updating your profile. Please try again."
+            )
+    else:
+        form = forms.PatientUpdateForm(instance=patient)
+
+    context = {
+        "form": form,
+        "patient": patient,
+    }
+    return render(request, "profiles/patient/profile/patient_profile.html", context)

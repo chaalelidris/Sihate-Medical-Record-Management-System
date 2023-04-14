@@ -38,6 +38,10 @@ class DoctorUpdateForm(UserChangeForm):
             "address",
         )
 
+        widgets = {
+            "profile_pic": forms.ClearableFileInput(attrs={"multiple": False}),
+        }
+
     def clean_mobile(self):
         mobile = self.cleaned_data["mobile"]
         if len(mobile) != 10:
@@ -68,3 +72,30 @@ class PatientSignupForm(UserCreationForm):
             "mobile",
             "symptoms",
         )
+
+
+class PatientUpdateForm(UserChangeForm):
+    class Meta:
+        model = users_models.Patient
+        fields = (
+            "username",
+            "first_name",
+            "last_name",
+            "profile_pic",
+            "gender",
+            "age",
+            "email",
+            "address",
+            "mobile",
+            "symptoms",
+        )
+
+        widgets = {
+            "profile_pic": forms.ClearableFileInput(attrs={"multiple": False}),
+        }
+
+    def clean_mobile(self):
+        mobile = self.cleaned_data["mobile"]
+        if len(mobile) != 10:
+            raise forms.ValidationError("Mobile number must be 10 digits long.")
+        return mobile

@@ -1,9 +1,10 @@
 {% extends 'profiles/patient/includes/parts/sidebar.html' %} 
+{% load static %}
 
 {% block profile_pic %}
 
-{% if doctor.profile_pic %}
-<img src="{{doctor.profile_pic.url}}" class="rounded-circle" alt="Doctor picture" />
+{% if patient.profile_pic %}
+<img src="{{patient.profile_pic.url}}" class="rounded-circle" alt="patient picture" />
 {% else %}
 <img src="{% static 'assets/profile/img/default/default_profile_picture.png' %}" class="rounded-circle"
   alt="Default profile picture" />
@@ -11,7 +12,7 @@
 
 {% endblock profile_pic %} 
 
-{% block username %}{{doctor.username}}{% endblock username %}
+{% block username %}{{patient.username}}{% endblock username %}
 
 {% block sidebar_items %} 
 

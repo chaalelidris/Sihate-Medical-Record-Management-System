@@ -161,8 +161,16 @@
           <a class="nav-link dropdown-toggle pt-1 px-0" href="#" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
             <div class="media d-flex align-items-center">
+              
               <!-- PROFILE PIC -->
-              <img class="avatar rounded-circle" alt="Image placeholder" src="{{ patient.profile_pic.url }}">
+              {% if patient.profile_pic %}
+              <img src="{{ patient.profile_pic.url }}" class="avatar rounded-circle" alt="Image placeholder" />
+              {% else %}
+              <img src="{% static 'assets/profile/img/default/default_profile_picture.png' %}" class="avatar rounded-circle"
+                alt="Default profile picture" />
+              {% endif %}
+
+
               <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
                 <span class="mb-0 font-small fw-bold text-gray-900">
                   <strong>Current User:</strong> {{ request.user.username }}

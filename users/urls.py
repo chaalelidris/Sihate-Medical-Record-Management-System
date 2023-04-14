@@ -15,6 +15,7 @@ urlpatterns = [
     ),
     path("login/", user_views.login_view, name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
+    path("", user_views.user_view, name="user_view"),
 ]
 
 # -----------------------------------------------------------------------------------------
@@ -43,6 +44,11 @@ urlpatterns += [
         "patient/dashboard/",
         patient_views.patient_dashboard_view,
         name="patient_dashboard_view",
+    ),
+    path(
+        "patient/profile/",
+        patient_views.patient_profile_view,
+        name="patient_profile_view",
     ),
 ]
 
