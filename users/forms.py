@@ -73,8 +73,17 @@ class PatientSignupForm(UserCreationForm):
             "symptoms",
         )
 
+    def clean_mobile(self):
+        mobile = self.cleaned_data["mobile"]
+        if len(mobile) != 10:
+            raise forms.ValidationError("Mobile number must be 10 digits long.")
+        return mobile
+
 
 class PatientUpdateForm(UserChangeForm):
+    symptoms = forms.CharField(max_length=100, required=True)
+    mobile = forms.CharField(max_length=20, required=True)
+
     class Meta:
         model = users_models.Patient
         fields = (
@@ -89,10 +98,6 @@ class PatientUpdateForm(UserChangeForm):
             "mobile",
             "symptoms",
         )
-
-        widgets = {
-            "profile_pic": forms.ClearableFileInput(attrs={"multiple": False}),
-        }
 
     def clean_mobile(self):
         mobile = self.cleaned_data["mobile"]

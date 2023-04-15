@@ -27,15 +27,17 @@
                         {% endif %}
                     </div>
                 </div>
+                
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        {% render_field form.last_name id=form.last_name.id_for_label class="form-control" %}
-                        <label for="{{ form.last_name.id_for_label }}">Last Name</label>
-                        {% if form.last_name.errors %}
-                        <small class="text-danger">{{ form.last_name.errors|first }}</small>
+                        {% render_field form.email id=form.email.id_for_label class="form-control" %}
+                        <label for="{{ form.email.id_for_label }}">Email</label>
+                        {% if form.email.errors %}
+                        <small class="text-danger">{{ form.email.errors|first }}</small>
                         {% endif %}
                     </div>
                 </div>
+                
             </div>
 
             <div class="row">
@@ -50,10 +52,10 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        {% render_field form.email id=form.email.id_for_label class="form-control" %}
-                        <label for="{{ form.email.id_for_label }}">Email</label>
-                        {% if form.email.errors %}
-                        <small class="text-danger">{{ form.email.errors|first }}</small>
+                        {% render_field form.last_name id=form.last_name.id_for_label class="form-control" %}
+                        <label for="{{ form.last_name.id_for_label }}">Last Name</label>
+                        {% if form.last_name.errors %}
+                        <small class="text-danger">{{ form.last_name.errors|first }}</small>
                         {% endif %}
                     </div>
                 </div>

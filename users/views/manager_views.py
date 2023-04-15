@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import user_passes_test
+from django.contrib import messages
 from .. import forms, models
 
 
@@ -8,10 +9,12 @@ from .. import forms, models
 # ---------------------------------------------------------------------------------------------
 
 
-@user_passes_test(lambda u: u.is_authenticated and u.is_officemanager)
+@user_passes_test(lambda u: u.is_authenticated and u.is_manager)
 def manager_dashboard_view(request):
-    if request.user.groups.filter(name="office_manager"):
-        return render(request, "medical_office/medical_office_dashboard.html")
-    else:
-        # messages.info(request, '')
-        return redirect("login")
+    manager = models.OfficeManager.objects.get(id=request.user.id)
+    messages.success(request, "Welcome manager")
+
+    context = {
+        "manager": manager,
+    }
+    return render(request, "profiles/manager/dashboard/manager_dashboard.html", context)

@@ -1,6 +1,6 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from .views import doctor_views, office_manager_views, patient_views, user_views
+from .views import doctor_views, manager_views, patient_views, user_views
 
 # -----------------------------------------------------------------------------------------
 # --------------------------------------- Auth Urls ---------------------------------------
@@ -8,14 +8,10 @@ from .views import doctor_views, office_manager_views, patient_views, user_views
 urlpatterns = [
     path("signup/doctor/", user_views.doctor_signup_view, name="doctor_signup_view"),
     path("signup/patient", user_views.patient_signup_view, name="patient_signup_view"),
-    path(
-        "signup/office_manager",
-        user_views.officemanager_signup_view,
-        name="officemanager_signup_view",
-    ),
+    path("signup/manager", user_views.manager_signup_view, name="manager_signup_view"),
     path("login/", user_views.login_view, name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
-    path("", user_views.user_view, name="user_view"),
+    path("redirect/", user_views.user_view, name="user_view"),
 ]
 
 # -----------------------------------------------------------------------------------------
@@ -58,7 +54,7 @@ urlpatterns += [
 urlpatterns += [
     path(
         "manager/dashboard/",
-        office_manager_views.manager_dashboard_view,
+        manager_views.manager_dashboard_view,
         name="manager_dashboard_view",
     ),
     # path("manager/", views.doctor_list, name="doctor_list"),

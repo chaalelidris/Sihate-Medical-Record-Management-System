@@ -21,7 +21,7 @@ def is_doctor(user):
 
 
 def is_manager(user):
-    return user.is_office_manager
+    return user.is_manager
 
 
 # ---------AFTER ENTERING CREDENTIALS WE CHECK WHETHER USERNAME AND PASSWORD IS OF ADMIN,DOCTOR OR PATIENT
@@ -87,7 +87,7 @@ def doctor_signup_view(request):
             user.is_doctor = True
             user.save()
             messages.success(request, f"Account created for {user.username}!")
-            return redirect("doctor_dashboard_view")
+            return redirect("login_view")
     else:
         form = forms.DoctorSignupForm()
     context = {"form": form}
@@ -103,24 +103,20 @@ def patient_signup_view(request):
             user.is_patient = True
             user.save()
             messages.success(request, f"Account created for {user.username}!")
-            return redirect("patient_dashboard_view")
+            return redirect("login_view")
     else:
         form = forms.PatientSignupForm()
     return render(request, "index/register/patient_signup.html", {"form": form})
 
 
-def officemanager_signup_view(request):
+def manager_signup_view(request):
     if request.method == "POST":
         form = forms.OfficeManagerSignupForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_officemanager = True
+            user.is_manager = True
             user.save()
-            officemanager = OfficeManager.objects.create(
-                user=user, mobile=form.cleaned_data["phone_number"]
-            )
-            officemanager.save()
-            return redirect("manger_dashboard_view")
+            return redirect("login_view")
     else:
         form = forms.OfficeManagerSignupForm()
-    return render(request, "pages\register\officemanager_signup.html", {"form": form})
+    return render(request, "index/register/officemanager_signup.html", {"form": form})

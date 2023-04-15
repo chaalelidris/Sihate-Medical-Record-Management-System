@@ -1,0 +1,16 @@
+{% extends 'profiles/manager/includes/parts/toast.html' %} 
+
+{% block title %}Manager dashboard{% endblock title %} 
+
+
+{% block body %}
+
+{% if messages %} 
+{% for message in messages %} 
+{{message}}
+{% endfor %}
+{% endif %}
+
+{{manager.first_name}} {{manager.last_name}}.
+
+{% endblock body %}

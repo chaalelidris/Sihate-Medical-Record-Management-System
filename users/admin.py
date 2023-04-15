@@ -110,20 +110,17 @@ class DoctorAdmin(UserAdmin):
 
 
 class OfficeManagerAdmin(UserAdmin):
+    list_display = ("username", "email", "mobile", "address", "profile_pic")
+    list_filter = ("username", "mobile")
     fieldsets = (
-        (None, {"fields": ("username", "email", "password")}),
+        (None, {"fields": ("username", "password")}),
         (
-            "Personal info",
-            {
-                "fields": (
-                    "first_name",
-                    "last_name",
-                    "name",
-                    "address",
-                    "mobile",
-                    "profile_pic",
-                )
-            },
+            "Personal Info",
+            {"fields": ("email", "first_name", "last_name", "profile_pic")},
+        ),
+        (
+            "Contact",
+            {"fields": ("address", "mobile")},
         ),
         (
             "Permissions",
@@ -132,13 +129,11 @@ class OfficeManagerAdmin(UserAdmin):
                     "is_active",
                     "is_staff",
                     "is_superuser",
-                    "status",
                     "groups",
                     "user_permissions",
                 )
             },
         ),
-        ("Important dates", {"fields": ("last_login", "date_joined")}),
     )
     add_fieldsets = (
         (
@@ -148,21 +143,22 @@ class OfficeManagerAdmin(UserAdmin):
                 "fields": (
                     "username",
                     "email",
-                    "first_name",
-                    "last_name",
-                    "name",
-                    "address",
-                    "mobile",
-                    "profile_pic",
                     "password1",
                     "password2",
+                    "address",
+                    "mobile",
+                    "is_staff",
+                    "is_superuser",
+                    "profile_pic",
                 ),
             },
         ),
     )
+    search_fields = ("username", "email", "first_name", "last_name")
+    ordering = ("username",)
 
 
 admin.site.register(models.OfficeManager, OfficeManagerAdmin)
 admin.site.register(models.Doctor, DoctorAdmin)
 admin.site.register(models.Patient, PatientAdmin)
-admin.site.register(models.User, UserAdmin)
+admin.site.register(models.User)

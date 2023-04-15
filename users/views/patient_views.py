@@ -11,9 +11,13 @@ from .. import forms, models
 @user_passes_test(lambda u: u.is_authenticated and u.is_patient)
 def patient_dashboard_view(request):
     patient = models.Patient.objects.get(id=request.user.id)
+    doctors = models.Doctor.objects.filter(patients__id=request.user.id)
     messages.success(request, "Welcome patient ")
 
-    context = {"patient": patient}
+    context = {
+        "patient": patient,
+        "doctors": doctors,
+    }
     return render(request, "profiles/patient/dashboard/patient_dashboard.html", context)
 
 
@@ -25,10 +29,6 @@ def patient_profile_view(request):
     if request.method == "POST":
         form = forms.PatientUpdateForm(request.POST, request.FILES, instance=patient)
         if form.is_valid():
-            # Delete old profile pic if it exists
-            if patient.profile_pic:
-                patient.profile_pic.delete()
-
             form.save()
             messages.success(request, "Your profile has been updated!")
             return redirect("patient_profile_view")

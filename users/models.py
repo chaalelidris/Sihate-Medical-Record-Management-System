@@ -10,7 +10,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 class User(AbstractUser):
     is_doctor = models.BooleanField("doctor status", default=False)
     is_patient = models.BooleanField("patient status", default=False)
-    is_office_manager = models.BooleanField("office manager status", default=False)
+    is_manager = models.BooleanField("office manager status", default=False)
 
 
 # ----------------------------------------------------------------------------
@@ -27,7 +27,6 @@ class Doctor(User):
         ("Colon and Rectal Surgeons", "Colon and Rectal Surgeons"),
     ]
     patients = models.ManyToManyField("users.Patient", related_name="patients")
-
     address = models.CharField(max_length=40)
     mobile = models.CharField(max_length=20, null=True)
     department = models.CharField(
@@ -92,8 +91,7 @@ class Patient(User):
 
 
 class OfficeManager(User):
-    name = models.CharField(max_length=254)
-    address = models.CharField(max_length=254)
+    address = models.CharField(max_length=254, default="/")
     mobile = PhoneNumberField(blank=True)
     profile_pic = models.ImageField(
         upload_to="profile_pic/OfficeManagerProfilePic/", null=True, blank=True
@@ -104,4 +102,8 @@ class OfficeManager(User):
         verbose_name_plural = "OfficeManagers"
 
     def __str__(self):
-        return str(self.name)
+        return str(self.username)
+
+    def save(self, *args, **kwargs):
+        self.is_manager = True
+        super().save(*args, **kwargs)
