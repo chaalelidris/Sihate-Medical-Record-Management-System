@@ -121,7 +121,7 @@
                     <div class="card-body pb-5">
 
                         {% if doctor.profile_pic %}
-                        <img src="{{doctor.profile_pic.url}}" class="avatar-xl rounded-circle mx-auto mt-n7 mb-4"
+                        <img src="{{doctor.get_profile_pic}}" class="avatar-xl rounded-circle mx-auto mt-n7 mb-4"
                             alt="Doctor picture" />
                         {% else %}
                         <img src="{% static 'assets/profile/img/default/default_profile_picture.png' %}"
@@ -158,7 +158,7 @@
                         <!-- Avatar -->
                         <div class="me-3">
                             {% if doctor.profile_pic %}
-                            <img src="{{doctor.profile_pic.url}}" class="rounded avatar-xl" alt="Doctor picture" />
+                            <img src="{{doctor.get_profile_pic}}" class="rounded avatar-xl" alt="Doctor picture" />
                             {% else %}
                             <img src="{% static 'assets/profile/img/default/default_profile_picture.png' %}"
                                 class="rounded avatar-xl" alt="Default profile picture" />

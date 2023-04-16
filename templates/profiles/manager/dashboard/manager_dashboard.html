@@ -33,18 +33,18 @@
   </div>
 </div>
 <div class="row">
+
   <div class="col-12 col-sm-6 col-xl-4 mb-4">
-    <div class="card border-0 bg-success shadow">
+    <div class="card border-0 bg-yellow-200 shadow">
       <div class="card-body">
         <div class="row d-block d-xl-flex align-items-center">
           <div class="col-12 col-xl-7 px-xl-0">
             <div class="d-none d-sm-block">
-              <h2 class="h6 text-white mb-0">Appointments</h2>
-              <h3 class="fw-extrabold text-white mb-2">00</h3>
+              <h2 class="h6 text-gray-600 mb-0">Doctors</h2>
+              <h3 class="fw-extrabold mb-2">00</h3>
             </div>
-
             <div class="small d-flex mt-1">
-              <div>Shuduled</div>
+              <div>Registred</div>
             </div>
           </div>
         </div>
@@ -61,9 +61,8 @@
               <h2 class="h6 text-gray-200 mb-0">Patients</h2>
               <h3 class="fw-extrabold mb-2 text-white">00</h3>
             </div>
-
             <div class="small d-flex mt-1">
-              <div class="text-warning">Assigned to you</div>
+              <div class="text-warning">Registred</div>
             </div>
           </div>
         </div>
@@ -72,26 +71,27 @@
   </div>
 
   <div class="col-12 col-sm-6 col-xl-4 mb-4">
-    <div class="card border-0 bg-yellow-200 shadow">
+    <div class="card border-0 bg-success shadow">
       <div class="card-body">
         <div class="row d-block d-xl-flex align-items-center">
           <div class="col-12 col-xl-7 px-xl-0">
             <div class="d-none d-sm-block">
-              <h2 class="h6 text-gray-600 mb-0">Medical records</h2>
-              <h3 class="fw-extrabold mb-2">00</h3>
+              <h2 class="h6 text-white mb-0">Appointments</h2>
+              <h3 class="fw-extrabold text-white mb-2">00</h3>
             </div>
-
             <div class="small d-flex mt-1">
-              <div>Elaborated</div>
+              <div>Shuduled</div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+
 </div>
 
-<!-- TABLE APPOINTMENTS -->
+<!-- TABLE PATIENTS -->
 <div class="row">
   <div class="col-12">
     <div class="row">
@@ -100,7 +100,7 @@
           <div class="card-header">
             <div class="row align-items-center">
               <div class="col">
-                <h2 class="fs-5 fw-bold mb-0">Recent appointments</h2>
+                <h2 class="fs-5 fw-bold mb-0">Recent patients</h2>
               </div>
               <div class="col text-end">
                 <a href="#" class="btn btn-sm btn-primary">See all</a>
@@ -111,25 +111,26 @@
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
-                  <th class="border-bottom" scope="col">Patient</th>
-                  <th class="border-bottom" scope="col">Picture</th>
-                  <th class="border-bottom" scope="col">Date</th>
-                  <th class="border-bottom" scope="col">Description</th>
-                  <th class="border-bottom" scope="col">Status</th>
+                  <th class="border-bottom" scope="col">Full name</th>
+                  <th class="border-bottom" scope="col">picture</th>
+                  <th class="border-bottom" scope="col">address</th>
+                  <th class="border-bottom" scope="col">mobile</th>
+                  <th class="border-bottom" scope="col">Symptoms</th>
+                  <th class="border-bottom" scope="col">admit_date</th>
                 </tr>
               </thead>
               <tbody>
-                {% for appointment in appointments %}
-
+                {% for patient in patients %}
                 <tr>
-                  <th class="text-gray-900" scope="row">{{appointment.patient.get_name}}</th>
-                  <th class="text-gray-900" scope="row"><img src="{{appointment.patient.profile_pic.url}}"
-                      alt="patient profile picture" width="60"></th>
-                  <th class="text-gray-900" scope="row">{{appointment.date}}</th>
-                  <th class="text-gray-900" scope="row">{{appointment.description}}</th>
-                  <th class="text-gray-900" scope="row">{{appointment.status}}</th>
+                  <th class="text-gray-900" scope="row">{{patient.get_name}}</th>
+                  <th class="text-gray-900" scope="row">
+                    <img src="{{patient.get_profile_pic}}" alt="patient profile picture" width="60"> 
+                  </th>
+                  <th class="text-gray-900" scope="row">{{patient.address}}</th>
+                  <th class="text-gray-900" scope="row">{{patient.mobile}}</th>
+                  <th class="text-gray-900" scope="row">{{patient.symptoms}}</th>
+                  <th class="text-gray-900" scope="row">{{patient.admit_date}}</th>
                 </tr>
-
                 {% endfor %}
               </tbody>
             </table>
@@ -140,5 +141,56 @@
   </div>
 </div>
 
+
+
+<!-- TABLE DOCTORS -->
+<div class="row">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-12 mb-4">
+        <div class="card border-0 shadow">
+          <div class="card-header">
+            <div class="row align-items-center">
+              <div class="col">
+                <h2 class="fs-5 fw-bold mb-0">Recent doctors</h2>
+              </div>
+              <div class="col text-end">
+                <a href="#" class="btn btn-sm btn-primary">See all</a>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th class="border-bottom" scope="col">Full name</th>
+                  <th class="border-bottom" scope="col">picture</th>
+                  <th class="border-bottom" scope="col">address</th>
+                  <th class="border-bottom" scope="col">mobile</th>
+                  <th class="border-bottom" scope="col">Department</th>
+                  <th class="border-bottom" scope="col">Admit date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for doctor in doctors %}
+                <tr>
+                  <th class="text-gray-900" scope="row">{{doctor.get_name}}</th>
+                  <th class="text-gray-900" scope="row">
+                    <img src="{{doctor.get_profile_pic}}" alt="doctor profile picture" width="60"> 
+                  </th>
+                  <th class="text-gray-900" scope="row">{{doctor.address}}</th>
+                  <th class="text-gray-900" scope="row">{{doctor.mobile}}</th>
+                  <th class="text-gray-900" scope="row">{{doctor.department}}</th>
+                  <th class="text-gray-900" scope="row">{{doctor.admit_date}}</th>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
 {%endblock content%}

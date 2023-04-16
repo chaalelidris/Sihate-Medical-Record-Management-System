@@ -12,10 +12,15 @@ from .. import forms, models
 @user_passes_test(lambda u: u.is_authenticated and u.is_manager)
 def manager_dashboard_view(request):
     manager = models.OfficeManager.objects.get(id=request.user.id)
+    patients = models.Patient.objects.order_by("-id")[:5]
+    doctors = models.Doctor.objects.order_by("-id")[:5]
+
     messages.success(request, "Welcome manager")
 
     context = {
         "manager": manager,
+        "doctors": doctors,
+        "patients": patients,
     }
     return render(request, "profiles/manager/dashboard/manager_dashboard.html", context)
 

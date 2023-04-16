@@ -32,6 +32,7 @@ class Doctor(User):
     department = models.CharField(
         max_length=50, choices=departments, default="Generalist"
     )
+    admit_date = models.DateField(auto_now=True)
     profile_pic = models.ImageField(
         upload_to="profile_pic/DoctorProfilePic/", null=True, blank=True
     )
@@ -51,6 +52,12 @@ class Doctor(User):
     @property
     def get_id(self):
         return self.id
+
+    def get_profile_pic(self):
+        if self.profile_pic:
+            return self.profile_pic.url
+        else:
+            return "/static/assets/profile/img/default/default_profile_picture.png"
 
 
 # --------------------------------------------------------------------------------------------
@@ -89,6 +96,12 @@ class Patient(User):
     def get_id(self):
         return self.id
 
+    def get_profile_pic(self):
+        if self.profile_pic:
+            return self.profile_pic.url
+        else:
+            return "/static/assets/profile/img/default/default_profile_picture.png"
+
 
 class OfficeManager(User):
     address = models.CharField(max_length=254, default="/")
@@ -107,3 +120,9 @@ class OfficeManager(User):
     def save(self, *args, **kwargs):
         self.is_manager = True
         super().save(*args, **kwargs)
+
+    def get_profile_pic(self):
+        if self.profile_pic:
+            return self.profile_pic.url
+        else:
+            return "/static/assets/profile/img/default/default_profile_picture.png"

@@ -123,7 +123,7 @@
 
                 <tr>
                   <th class="text-gray-900" scope="row">{{appointment.patient.get_name}}</th>
-                  <th class="text-gray-900" scope="row"><img src="{{appointment.patient.profile_pic.url}}"
+                  <th class="text-gray-900" scope="row"><img src="{{appointment.patient.get_profile_pic}}"
                       alt="patient profile picture" width="60"></th>
                   <th class="text-gray-900" scope="row">{{appointment.date}}</th>
                   <th class="text-gray-900" scope="row">{{appointment.description}}</th>
@@ -171,7 +171,7 @@
                 {% for patient in patients %}
                 <tr>
                   <th class="text-gray-900" scope="row">{{patient.get_name}}</th>
-                  <th class="text-gray-900" scope="row"><img src="{{patient.profile_pic.url}}"
+                  <th class="text-gray-900" scope="row"><img src="{{patient.get_profile_pic}}"
                       alt="patient profile picture" width="60"> </th>
                   <th class="text-gray-900" scope="row">{{patient.address}}</th>
                   <th class="text-gray-900" scope="row">{{patient.mobile}}</th>

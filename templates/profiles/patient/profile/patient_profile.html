@@ -136,13 +136,10 @@
                     <div class="profile-cover rounded-top" data-background="/static/assets/img/profile-cover.jpg"></div>
                     <div class="card-body pb-5">
 
-                        {% if patient.profile_pic %}
-                        <img src="{{patient.profile_pic.url}}" class="avatar-xl rounded-circle mx-auto mt-n7 mb-4"
+                        
+                        <img src="{{patient.get_profile_pic}}" class="avatar-xl rounded-circle mx-auto mt-n7 mb-4"
                             alt="Patient picture" />
-                        {% else %}
-                        <img src="{% static 'assets/profile/img/default/default_profile_picture.png' %}"
-                            class="avatar-xl rounded-circle mx-auto mt-n7 mb-4" alt="Default profile picture" />
-                        {% endif %}
+                        
 
                         <h4 class="h3">
                             {{patient.get_name}}
@@ -173,13 +170,9 @@
                         
                         <!-- Avatar -->
                         <div class="me-3">
-                            {% if patient.profile_pic %}
-                            <img src="{{patient.profile_pic.url}}" class="rounded avatar-xl" alt="Patient picture" />
-                            {% else %}
-                            <img src="{% static 'assets/profile/img/default/default_profile_picture.png' %}"
-                                class="rounded avatar-xl" alt="Default profile picture" />
-                            {% endif %}
+                            <img src="{{patient.get_profile_pic}}" class="rounded avatar-xl" alt="Patient picture" />
                         </div>
+                        
                         <div class="file-field">
                             <div class="d-flex justify-content-xl-center ms-xl-3">
                                 <div class="d-flex">

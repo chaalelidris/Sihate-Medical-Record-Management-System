@@ -4,11 +4,9 @@
 
 {% block profile_pic %}
 
-{% if doctor.profile_pic %}
-<img src="{{doctor.profile_pic.url}}" class="rounded-circle" alt="Doctor picture" />
-{% else %}
-<img src="{% static 'assets/profile/img/default/default_profile_picture.png' %}" class="rounded-circle" alt="Default profile picture" />
-{% endif %}
+
+<img src="{{doctor.get_profile_pic}}" class="rounded-circle" alt="Doctor picture" />
+
 
 {% endblock profile_pic %}
 

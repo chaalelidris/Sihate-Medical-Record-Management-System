@@ -163,12 +163,8 @@
             <div class="media d-flex align-items-center">
               
               <!-- PROFILE PIC -->
-              {% if patient.profile_pic %}
-              <img src="{{ patient.profile_pic.url }}" class="avatar rounded-circle" alt="Image placeholder" />
-              {% else %}
-              <img src="{% static 'assets/profile/img/default/default_profile_picture.png' %}" class="avatar rounded-circle"
-                alt="Default profile picture" />
-              {% endif %}
+              <img src="{{ patient.get_profile_pic }}" class="avatar rounded-circle" alt="Image placeholder" />
+              
 
 
               <div class="media-body ms-2 text-dark align-items-center d-none d-lg-block">
