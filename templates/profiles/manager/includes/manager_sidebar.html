@@ -1,21 +1,24 @@
-{% extends 'profiles/doctor/includes/parts/sidebar.html' %}
+{% extends 'profiles/manager/includes/parts/sidebar.html' %}
+{% load static %}
 
 
 {% block profile_pic %}
-<img class="rounded-circle" src="{{doctor.profile_pic.url}}" alt="Doctor picture" />
+{% if doctor.profile_pic %}
+<img src="{{manager.profile_pic.url}}" class="rounded-circle"  alt="Manager profile picture" />
+{% else %}
+<img src="{% static 'assets/profile/img/default/default_profile_picture.png' %}" class="rounded-circle" alt="Default Manager profile picture" />
+{% endif %}
 {% endblock profile_pic %}
 
 
-{% block username %}{{doctor.username}}{% endblock username %}
+{% block username %}{{manager.username}}{% endblock username %}
 
 
 {% block sidebar_items %}
 
-  {% include "profiles/doctor/includes/sidebar_items/dashboard.html" %}
-  {% include "profiles/doctor/includes/sidebar_items/patients.html" %}
-  {% include "profiles/doctor/includes/sidebar_items/appointments.html" %}
-  {% include "profiles/doctor/includes/sidebar_items/medical_records.html" %}
-  {% include "profiles/doctor/includes/parts/sidebar_devider.html" %}
-  {% include "profiles/doctor/includes/sidebar_items/profile.html" %}
+  {% include "profiles/manager/includes/sidebar_items/dashboard.html" %}
+  {% include "profiles/manager/includes/sidebar_items/patients.html" %}
+  {% include "profiles/manager/includes/parts/sidebar_devider.html" %}
+  {% include "profiles/manager/includes/sidebar_items/profile.html" %}
 
 {% endblock sidebar_items %}

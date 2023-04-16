@@ -57,6 +57,11 @@ urlpatterns += [
         manager_views.manager_dashboard_view,
         name="manager_dashboard_view",
     ),
+    path(
+        "manager/profile/",
+        manager_views.manager_profile_view,
+        name="manager_profile_view",
+    ),
     # path("manager/", views.doctor_list, name="doctor_list"),
     # path("manager/<int:pk>/", views.doctor_detail, name="doctor_detail"),
     # path("manager/<int:pk>/update/", views.doctor_update, name="doctor_update"),

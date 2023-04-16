@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from phonenumber_field.formfields import PhoneNumberField
 from . import models as users_models
 
 
@@ -104,3 +105,22 @@ class PatientUpdateForm(UserChangeForm):
         if len(mobile) != 10:
             raise forms.ValidationError("Mobile number must be 10 digits long.")
         return mobile
+
+
+# ---------------------------------------------------------------------------
+# -------------------------- for manager related form -----------------------
+# ---------------------------------------------------------------------------
+class ManagerUpdateForm(forms.ModelForm):
+    class Meta:
+        model = users_models.OfficeManager
+        fields = [
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "address",
+            "mobile",
+            "profile_pic",
+        ]
+
+    mobile = PhoneNumberField(required=False)

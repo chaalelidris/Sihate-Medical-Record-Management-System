@@ -139,53 +139,6 @@
     </div>
   </div>
 </div>
-<!-- TABLE PATIENTS -->
-<div class="row">
-  <div class="col-12">
-    <div class="row">
-      <div class="col-12 mb-4">
-        <div class="card border-0 shadow">
-          <div class="card-header">
-            <div class="row align-items-center">
-              <div class="col">
-                <h2 class="fs-5 fw-bold mb-0">Recent patients</h2>
-              </div>
-              <div class="col text-end">
-                <a href="#" class="btn btn-sm btn-primary">See all</a>
-              </div>
-            </div>
-          </div>
-          <div class="table-responsive">
-            <table class="table align-items-center table-flush">
-              <thead class="thead-light">
-                <tr>
-                  <th class="border-bottom" scope="col">Full name</th>
-                  <th class="border-bottom" scope="col">picture</th>
-                  <th class="border-bottom" scope="col">address</th>
-                  <th class="border-bottom" scope="col">mobile</th>
-                  <th class="border-bottom" scope="col">Symptoms</th>
-                  <th class="border-bottom" scope="col">admit_date</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for patient in patients %}
-                <tr>
-                  <th class="text-gray-900" scope="row">{{patient.get_name}}</th>
-                  <th class="text-gray-900" scope="row"><img src="{{patient.profile_pic.url}}"
-                      alt="patient profile picture" width="60"> </th>
-                  <th class="text-gray-900" scope="row">{{patient.address}}</th>
-                  <th class="text-gray-900" scope="row">{{patient.mobile}}</th>
-                  <th class="text-gray-900" scope="row">{{patient.symptoms}}</th>
-                  <th class="text-gray-900" scope="row">{{patient.admit_date}}</th>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+
 
 {%endblock content%}
