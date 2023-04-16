@@ -1,0 +1,61 @@
+{%extends 'profiles/manager/index.html'%}
+{% load static %}
+
+
+{% block title%} Manager doctors {% endblock title %}
+
+
+<!-- PAGE CONTENT! -->
+{% block content %}
+
+<!-- TABLE DOCTORS -->
+<div class="row">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-12 mb-4">
+        <div class="card border-0 shadow">
+          <div class="card-header">
+            <div class="row align-items-center">
+              <div class="col">
+                <h2 class="fs-5 fw-bold mb-0">Recent doctors</h2>
+              </div>
+              <div class="col text-end">
+                <a href="{% url 'manager_doctors_view' %}" class="btn btn-sm btn-primary">See all</a>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th class="border-bottom" scope="col">Full name</th>
+                  <th class="border-bottom" scope="col">picture</th>
+                  <th class="border-bottom" scope="col">address</th>
+                  <th class="border-bottom" scope="col">mobile</th>
+                  <th class="border-bottom" scope="col">Department</th>
+                  <th class="border-bottom" scope="col">Admit date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for doctor in doctors %}
+                <tr>
+                  <th class="text-gray-900" scope="row">{{doctor.get_name}}</th>
+                  <th class="text-gray-900" scope="row">
+                    <img src="{{doctor.get_profile_pic}}" alt="doctor profile picture" width="60"> 
+                  </th>
+                  <th class="text-gray-900" scope="row">{{doctor.address}}</th>
+                  <th class="text-gray-900" scope="row">{{doctor.mobile}}</th>
+                  <th class="text-gray-900" scope="row">{{doctor.department}}</th>
+                  <th class="text-gray-900" scope="row">{{doctor.admit_date}}</th>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%endblock content%}

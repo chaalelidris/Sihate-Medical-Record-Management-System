@@ -44,7 +44,7 @@
               <h3 class="fw-extrabold mb-2">00</h3>
             </div>
             <div class="small d-flex mt-1">
-              <div>Registred</div>
+              <div>Doctors registred</div>
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@
               <h3 class="fw-extrabold mb-2 text-white">00</h3>
             </div>
             <div class="small d-flex mt-1">
-              <div class="text-warning">Registred</div>
+              <div class="text-warning">Patients registred</div>
             </div>
           </div>
         </div>
@@ -80,7 +80,7 @@
               <h3 class="fw-extrabold text-white mb-2">00</h3>
             </div>
             <div class="small d-flex mt-1">
-              <div>Shuduled</div>
+              <div>Appointments shuduled</div>
             </div>
           </div>
         </div>
@@ -103,7 +103,7 @@
                 <h2 class="fs-5 fw-bold mb-0">Recent patients</h2>
               </div>
               <div class="col text-end">
-                <a href="#" class="btn btn-sm btn-primary">See all</a>
+                <a href="{% url 'manager_patients_view' %}" class="btn btn-sm btn-primary">See all</a>
               </div>
             </div>
           </div>
@@ -155,7 +155,7 @@
                 <h2 class="fs-5 fw-bold mb-0">Recent doctors</h2>
               </div>
               <div class="col text-end">
-                <a href="#" class="btn btn-sm btn-primary">See all</a>
+                <a href="{% url 'manager_doctors_view' %}" class="btn btn-sm btn-primary">See all</a>
               </div>
             </div>
           </div>

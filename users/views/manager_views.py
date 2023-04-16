@@ -48,3 +48,29 @@ def manager_profile_view(request):
         "manager": manager,
     }
     return render(request, "profiles/manager/profile/manager_profile.html", context)
+
+
+# PATIENTS VIEW
+@user_passes_test(lambda u: u.is_authenticated and u.is_manager)
+def manager_patients_view(request):
+    manager = models.OfficeManager.objects.get(id=request.user.id)
+    patients = models.Patient.objects.all()
+
+    context = {
+        "manager": manager,
+        "patients": patients,
+    }
+    return render(request, "profiles/manager/patients/manager_patients.html", context)
+
+
+# DOCTORS VIEW
+@user_passes_test(lambda u: u.is_authenticated and u.is_manager)
+def manager_doctors_view(request):
+    manager = models.OfficeManager.objects.get(id=request.user.id)
+    doctors = models.Doctor.objects.all()
+
+    context = {
+        "manager": manager,
+        "doctors": doctors,
+    }
+    return render(request, "profiles/manager/doctors/manager_doctors.html", context)
