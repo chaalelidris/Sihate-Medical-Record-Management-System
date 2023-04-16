@@ -17,10 +17,6 @@
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
 
-                {% if form.errors %}
-                <small class="text-danger">{{ form.errors }}</small>
-                {% endif %}
-
                 <div class="row">
                     <div class="col-md-6 mb-3">
                         <div>
@@ -74,10 +70,10 @@
                             {% endif %}
                         </div>
                     </div>
-                    <div class="col-sm-9 mb-3">
+                    <div class="col-md-6 mb-3">
                         <div class="form-group">
                             <label for="address">Address</label>
-                            {% render_field form.address class="form-control" id="address" type="text" placeholder="Enter your home address" %}
+                            {% render_field form.address class="form-control" id="address"  placeholder="Enter your home address" %}
                             {% if form.address.errors %}
                             <small class="text-danger">{{ form.address.errors }}</small>
                             {% endif %}
@@ -120,16 +116,7 @@
                         <p class="text-gray mb-4">
                             {{ manager.email }}
                         </p>
-                        <a class="btn btn-sm btn-gray-800 d-inline-flex align-items-center me-2" href="#">
-                            <svg class="icon icon-xs me-1" fill="currentColor" viewBox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z">
-                                </path>
-                            </svg>
-                            Connect
-                        </a>
-                        <a class="btn btn-sm btn-secondary" href="#">Send Message</a>
+                        
                     </div>
                 </div>
             </div>

@@ -21,6 +21,7 @@ def manager_dashboard_view(request):
         "manager": manager,
         "doctors": doctors,
         "patients": patients,
+        "segment": "dashboard",
     }
     return render(request, "profiles/manager/dashboard/manager_dashboard.html", context)
 
@@ -46,6 +47,7 @@ def manager_profile_view(request):
     context = {
         "form": form,
         "manager": manager,
+        "segment": "profile",
     }
     return render(request, "profiles/manager/profile/manager_profile.html", context)
 
@@ -59,6 +61,7 @@ def manager_patients_view(request):
     context = {
         "manager": manager,
         "patients": patients,
+        "segment": "patients",
     }
     return render(request, "profiles/manager/patients/manager_patients.html", context)
 
@@ -72,5 +75,6 @@ def manager_doctors_view(request):
     context = {
         "manager": manager,
         "doctors": doctors,
+        "segment": "doctors",
     }
     return render(request, "profiles/manager/doctors/manager_doctors.html", context)
