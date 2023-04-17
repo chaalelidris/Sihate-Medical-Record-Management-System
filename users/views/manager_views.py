@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.http import JsonResponse
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from .. import forms, models
@@ -58,10 +59,26 @@ def manager_patients_view(request):
     manager = models.OfficeManager.objects.get(id=request.user.id)
     patients = models.Patient.objects.all()
 
+    if request.method == "POST":
+        form = forms.PatientSignupForm(request.POST, request.FILES)
+        if form.is_valid():
+            patient = form.save(commit=False)
+            patient.is_patient = True
+            patient.save()
+            # Return success response with patient data
+            return JsonResponse({"success": "Patient added successfully"})
+        else:
+            # Return error response with form errors
+            return JsonResponse({"errors": form.errors})
+
+    else:
+        form = forms.PatientSignupForm()
+
     context = {
         "manager": manager,
         "patients": patients,
         "segment": "patients",
+        "form": form,
     }
     return render(request, "profiles/manager/patients/manager_patients.html", context)
 
