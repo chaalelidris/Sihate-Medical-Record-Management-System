@@ -62,6 +62,7 @@ urlpatterns += [
         manager_views.manager_profile_view,
         name="manager_profile_view",
     ),
+    # PATIENTS URLS
     path(
         "manager/patients/",
         manager_views.manager_patients_view,
@@ -72,6 +73,12 @@ urlpatterns += [
         manager_views.manager_update_patient_view,
         name="manager_update_patient_view",
     ),
+    path(
+        "manager/patient/delete/<int:pk>/",
+        manager_views.manager_delete_patient_view,
+        name="manager_delete_patient_view",
+    ),
+    # DOCTORS URLS
     path(
         "manager/doctors/",
         manager_views.manager_doctors_view,

@@ -90,13 +90,17 @@
                   <td class="text-gray-900" scope="row">{{patient.age}}</td>
                   <td class="text-gray-900" scope="row">{{patient.admit_date}}</td>
                   <td class="text-gray-900" scope="row"><button class="btn btn-success edit-patient-btn" type="button" data-bs-toggle="modal" data-bs-target="#update_patient_modal_{{patient.id}}" data-form-id="#update_patient_form_{{patient.id}}">Edit</button></td>
-                  <td class="text-gray-900" scope="row"><button class="btn btn-danger" type="button">Delete</button>
+                  <td class="text-gray-900" scope="row"><button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#delete_patient_modal_{{patient.id}}" >Delete</button>
+                    
                   </td>
                 </tr>
 
 
                 <!-- EDIT MODAL -->
                 {% include "profiles/manager/includes/components/update_patient_modal.html" %}
+
+                <!-- DELETE MODAL -->
+                {% include "profiles/manager/includes/components/delete_patient_modal.html" %}
 
                 {% endfor %}
               </tbody>

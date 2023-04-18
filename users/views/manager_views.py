@@ -106,6 +106,14 @@ def manager_update_patient_view(request, pk):
     return render(request, "profiles/manager/patients/manager_patients.html", context)
 
 
+# DELETE PATIENT
+def manager_delete_patient_view(request, pk):
+    patient = get_object_or_404(models.Patient, pk=pk)
+
+    patient.delete()
+    return redirect("manager_patients_view")
+
+
 # DOCTORS VIEW
 @user_passes_test(lambda u: u.is_authenticated and u.is_manager)
 def manager_doctors_view(request):
