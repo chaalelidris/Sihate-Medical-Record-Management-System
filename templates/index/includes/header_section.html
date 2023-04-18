@@ -29,7 +29,7 @@
 
     {% if user.is_authenticated %}
     <span>
-      Hi <a href="{% url 'user_view' %}">{{ user.username }}!</a> <a class="text-danger" href="{% url 'logout' %}"> Logout</a>
+      &nbsp; Hi <a href="{% url 'user_view' %}">{{ user.username }}!</a> <a class="text-danger" href="{% url 'logout' %}"> Logout</a>
     </span>
     {% else %}
 

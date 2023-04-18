@@ -1,0 +1,127 @@
+{% load widget_tweaks %}
+<div class="col-lg-4">
+  <!-- Modal Content -->
+  <div class="modal fade" id="update_patient_modal_{{patient.id}}" tabindex="-1" role="dialog" aria-labelledby="update_patient_modal_{{patient.id}}"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body p-0">
+          <div class="card p-3 p-lg-4">
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="text-center text-md-center mb-4 mt-md-0">
+              <h1 class="mb-0 h4">Create Patient Account </h1>
+            </div>
+            <form id="update_patient_form_{{patient.id}}" method="post" action="{% url 'manager_update_patient_view' patient.id %}"
+              enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div>
+                    <label for="username">Username</label>
+                    <input class="form-control" id="username_{{patient.id}}" name="username" placeholder="Enter your username"
+                      value="{{patient.username}}" />
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div>
+                    <label for="last_name">Email</label>
+                    <input class="form-control" id="email_{{patient.id}}" name="email" type="text" placeholder="Also your email"
+                      value="{{patient.email}}" />
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div>
+                    <label for="first_name">First Name</label>
+                    <input class="form-control" id="first_name_{{patient.id}}" name="first_name" placeholder="Enter your first name"
+                      value="{{patient.first_name}}" />
+
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div>
+                    <label for="last_name">Last Name</label>
+                    <input class="form-control" id="last_name_{{patient.id}}" name="last_name" type="text"
+                      placeholder="Also your last name" value="{{patient.last_name}}" />
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                    <label for="phone">Mobile</label>
+                    <input class="form-control" id="mobile_{{patient.id}}" name="mobile" type="number" placeholder="+12-345 678 910"
+                      value="{{patient.mobile}}" />
+
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                    <label for="symptoms">Symptoms</label>
+                    <input class="form-control" id="symptoms_{{patient.id}}" name="symptoms" placeholder="What are you symptoms ?"
+                      value="{{patient.symptoms}}" />
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                    <label for="age">Age</label>
+                    <input class="form-control" id="age_{{patient.id}}" name="age" type="number" placeholder="Enter you age"
+                      value="{{patient.age}}" />
+
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select class="form-select mb-0" id="gender_{{patient.id}}" name="gender" aria-label="Gender">
+                      <option value="M" {% if patient.gender == "M" %}selected{% endif %}>Male</option>
+                      <option value="F" {% if patient.gender == "F" %}selected{% endif %}>Female</option>
+                    </select>
+
+                  </div>
+                </div>
+              </div>
+
+
+
+              <h2 class="h5 my-4">Location</h2>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                    <label for="address">Address</label>
+                    <input class="form-control" id="address_{{patient.id}}" name="address" type="text"
+                      placeholder="Enter your home address" value="{{patient.address}}" />
+
+                  </div>
+                </div>
+              </div>
+
+              <h2 class="h5 my-4">Profile picture</h2>
+              <div class="row">
+                <div class="form-floating mb-3">
+                  <input type="file" id="profile_pic_{{patient.id}}" name="profile_pic" class="form-control"
+                    value="{{patient.get_profile_pic}}" />
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Add</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End of Modal Content -->
+</div>

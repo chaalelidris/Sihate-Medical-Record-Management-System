@@ -83,6 +83,29 @@ def manager_patients_view(request):
     return render(request, "profiles/manager/patients/manager_patients.html", context)
 
 
+# UPDATE PATIENT
+@user_passes_test(lambda u: u.is_authenticated and u.is_manager)
+def manager_update_patient_view(request, pk):
+    patient = get_object_or_404(models.Patient, pk=pk)
+
+    if request.method == "POST":
+        form = forms.PatientUpdateForm(request.POST, request.FILES, instance=patient)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({"success": "Patient updated successfully"})
+        else:
+            # Return error response with form errors
+            return JsonResponse({"errors": form.errors, "id": patient.id})
+    else:
+        form = forms.PatientUpdateForm(instance=patient)
+
+    context = {
+        "form": form,
+        "patient": patient,
+    }
+    return render(request, "profiles/manager/patients/manager_patients.html", context)
+
+
 # DOCTORS VIEW
 @user_passes_test(lambda u: u.is_authenticated and u.is_manager)
 def manager_doctors_view(request):

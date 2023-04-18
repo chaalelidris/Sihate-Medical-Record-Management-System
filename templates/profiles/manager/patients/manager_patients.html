@@ -36,253 +36,156 @@
 </div>
 
 
-<div class="col-lg-4">
-  <!-- Modal Content -->
-  <div class="modal fade" id="add_patient_modal" tabindex="-1" role="dialog" aria-labelledby="add_patient_modal" aria-hidden="true">
-      <div class="modal-dialog modal-dialog-centered" role="document">
-          <div class="modal-content">
-              <div class="modal-body p-0">
-                  <div class="card p-3 p-lg-4">
-                      <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
-                      <div class="text-center text-md-center mb-4 mt-md-0">
-                          <h1 class="mb-0 h4">Create Patient Account </h1>
-                      </div>
-                      <form id="add_patient_form" method="post" action="{% url 'manager_patients_view'  %}" enctype="multipart/form-data">
-                        {% csrf_token %}
-                        <div id="error_message"></div>
-                        <div id="success_message"></div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div>
-                                    <label for="username">Username</label>
-                                    {% render_field form.username class="form-control" id="username" placeholder="Enter your username" %}
-                                    {% if form.username.errors %}
-                                    <small class="text-danger">{{ form.username.errors }}</small>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div>
-                                    <label for="last_name">Email</label>
-                                    {% render_field form.email class="form-control" id="email" type="text" placeholder="Also your email" %}
-                                    {% if form.email.errors %}
-                                    <small class="text-danger">{{ form.email.errors }}</small>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-        
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div>
-                                    <label for="first_name">First Name</label>
-                                    {% render_field form.first_name class="form-control" id="first_name" placeholder="Enter your first name" %}
-                                    {% if form.first_name.errors %}
-                                    <small class="text-danger">{{ form.first_name.errors }}</small>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div>
-                                    <label for="last_name">Last Name</label>
-                                    {% render_field form.last_name class="form-control" id="last_name" type="text" placeholder="Also your last name" %}
-                                    {% if form.last_name.errors %}
-                                    <small class="text-danger">{{ form.last_name.errors }}</small>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-        
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label for="phone">Mobile</label>
-                                    {% render_field form.mobile class="form-control" id="mobile" type="number" placeholder="+12-345 678 910" %}
-                                    {% if form.mobile.errors %}
-                                    <small class="text-danger">{{ form.mobile.errors }}</small>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label for="symptoms">Symptoms</label>
-                                    {% render_field form.symptoms class="form-control" id="symptoms"  placeholder="What are you symptoms ?" %}
-                                    {% if form.symptoms.errors %}
-                                    <small class="text-danger">{{ form.symptoms.errors }}</small>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-        
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label for="age">Age</label>
-                                    {% render_field form.age class="form-control" id="age" type="number" placeholder="Enter you age" %}
-                                    {% if form.age.errors %}
-                                    <small class="text-danger">{{ form.age.errors }}</small>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label for="gender">Gender</label>
-                                    {% render_field form.gender class="form-control" id="gender"  placeholder="Select Gender" %}
-                                    {% if form.gender.errors %}
-                                    <small class="text-danger">{{ form.gender.errors }}</small>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label for="age">Password</label>
-                                    {% render_field form.password1 class="form-control" id="password1"  placeholder="Enter you password" %}
-                                    {% if form.password1.errors %}
-                                    <small class="text-danger">{{ form.password1.errors }}</small>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label for="gender">Confirm password</label>
-                                    {% render_field form.password2 class="form-control" id="password2"  placeholder="Confirm password" %}
-                                    {% if form.password2.errors %}
-                                    <small class="text-danger">{{ form.password2.errors }}</small>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-        
-                        <h2 class="h5 my-4">Location</h2>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <div class="form-group">
-                                    <label for="address">Address</label>
-                                    {% render_field form.address class="form-control" id="address" type="text" placeholder="Enter your home address" %}
-                                    {% if form.address.errors %}
-                                    <small class="text-danger">{{ form.address.errors }}</small>
-                                    {% endif %}
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <h2 class="h5 my-4">Profile picture</h2>
-                        <div class="row">
-                            <div class="form-floating mb-3">
-                                {% render_field form.profile_pic class="form-control"%}
-                                {% if form.profile_pic.errors %}
-                                <small class="text-danger">{{ form.profile_pic.errors|first }}</small>
-                                {% endif %}
-                            </div>
-                        </div>
-        
-                        <div class="mt-3">
-                            <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Add</button>
-                        </div>
-                    </form>
-                     
-                  </div>
-              </div>
-          </div>
-      </div>
-  </div>
-  <!-- End of Modal Content -->
-</div>
+{% include "profiles/manager/includes/components/add_patient_modal.html" %}
 
 
-<script>
-  $(document).ready(function() {
-    $("#add_patient_form").submit(function(event) {
-        // Prevent the form from submitting normally
-        event.preventDefault();
 
-        // Get the form data
-        var formData = new FormData(this);
 
-        // Submit the form using AJAX
-        $.ajax({
-            url: $(this).attr("action"),
-            type: $(this).attr("method"),
-            data: formData,
-            processData: false,
-            contentType: false,
-            success: function(response) {
-              $('.text-danger').remove();
-              if ('errors' in response) {
-                console.log(response.errors)
-                // Display error messages for each field
-                $.each(response.errors, function(key, value) {
-                    $('#' + key).after('<small class="text-danger">' + value + '</small>');
-                });
-              } else {
-                window.location.replace("{% url 'manager_patients_view'  %}");
-                $('#success_message').text(response.success);
-              }
-              console.log(response)
-            },
-            errors: function(xhr, status, error) {
-                alert("an error occured")
-                
-            }
-        });
-    });
-});
-</script>
 
 
 <!-- TABLE PATIENTS -->
 <div class="row">
-    <div class="col-12">
-      <div class="row">
-        <div class="col-12 mb-4">
-          <div class="card border-0 shadow">
-            <div class="card-header">
-              <div class="row align-items-center">
-                <div class="col">
-                  <h2 class="fs-5 fw-bold mb-0">Recent patients</h2>
-                </div>
-                <div class="col text-end">
-                  <a href="#" class="btn btn-sm btn-primary">See all</a>
-                </div>
+  <div class="col-12">
+    <div class="row">
+      <div class="col-12 mb-4">
+        <div class="card border-0 shadow">
+          <div class="card-header">
+            <div class="row align-items-center">
+              <div class="col">
+                <h2 class="fs-5 fw-bold mb-0">Recent patients</h2>
+              </div>
+              <div class="col text-end">
+                <a href="#" class="btn btn-sm btn-primary">See all</a>
               </div>
             </div>
-            <div class="table-responsive">
-              <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                  <tr>
-                    <th class="border-bottom" scope="col">Username</th>
-                    <th class="border-bottom" scope="col">Full name</th>
-                    <th class="border-bottom" scope="col">picture</th>
-                    <th class="border-bottom" scope="col">address</th>
-                    <th class="border-bottom" scope="col">mobile</th>
-                    <th class="border-bottom" scope="col">Symptoms</th>
-                    <th class="border-bottom" scope="col">admit_date</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {% for patient in patients %}
-                  <tr>
-                    <th class="text-gray-900" scope="row">{{patient.username  }}</th>
-                    <th class="text-gray-900" scope="row">{{patient.get_name}}</th>
-                    <th class="text-gray-900" scope="row">
-                      <img src="{{patient.get_profile_pic}}" alt="patient profile picture" width="60"> 
-                    </th>
-                    <th class="text-gray-900" scope="row">{{patient.address}}</th>
-                    <th class="text-gray-900" scope="row">{{patient.mobile}}</th>
-                    <th class="text-gray-900" scope="row">{{patient.symptoms}}</th>
-                    <th class="text-gray-900" scope="row">{{patient.admit_date}}</th>
-                  </tr>
-                  {% endfor %}
-                </tbody>
-              </table>
-            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th class="border-bottom" scope="col">Username</th>
+                  <th class="border-bottom" scope="col">Full name</th>
+                  <th class="border-bottom" scope="col">picture</th>
+                  <th class="border-bottom" scope="col">address</th>
+                  <th class="border-bottom" scope="col">mobile</th>
+                  <th class="border-bottom" scope="col">Symptoms</th>
+                  <th class="border-bottom" scope="col">Gender</th>
+                  <th class="border-bottom" scope="col">Age</th>
+                  <th class="border-bottom" scope="col">Admit date</th>
+                  <th colspan="2" class="border-bottom" scope="col">Manage</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for patient in patients %}
+                <tr>
+                  <td class="text-gray-900" scope="row">{{patient.username }}</td>
+                  <td class="text-gray-900" scope="row">{{patient.get_name}}</td>
+                  <td class="text-gray-900" scope="row">
+                    <img src="{{patient.get_profile_pic}}" alt="patient profile picture" width="60">
+                  </td>
+                  <td class="text-gray-900" scope="row">{{patient.address}}</td>
+                  <td class="text-gray-900" scope="row">{{patient.mobile}}</td>
+                  <td class="text-gray-900" scope="row">{{patient.symptoms}}</td>
+                  <td class="text-gray-900" scope="row">{{patient.gender}}</td>
+                  <td class="text-gray-900" scope="row">{{patient.age}}</td>
+                  <td class="text-gray-900" scope="row">{{patient.admit_date}}</td>
+                  <td class="text-gray-900" scope="row"><button class="btn btn-success edit-patient-btn" type="button" data-bs-toggle="modal" data-bs-target="#update_patient_modal_{{patient.id}}" data-form-id="#update_patient_form_{{patient.id}}">Edit</button></td>
+                  <td class="text-gray-900" scope="row"><button class="btn btn-danger" type="button">Delete</button>
+                  </td>
+                </tr>
+
+
+                <!-- EDIT MODAL -->
+                {% include "profiles/manager/includes/components/update_patient_modal.html" %}
+
+                {% endfor %}
+              </tbody>
+            </table>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
+<script>
+  $(document).ready(function () {
+    $("#add_patient_form").submit(function (event) {
+      // Prevent the form from submitting normally
+      event.preventDefault();
+
+      // Get the form data
+      var formData = new FormData(this);
+
+      // Submit the form using AJAX
+      $.ajax({
+        url: $(this).attr("action"),
+        type: $(this).attr("method"),
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          $('.text-danger').remove();
+          if (response && 'errors' in response) {
+            console.log(response.errors)
+            // Display error messages for each field
+            $.each(response.errors, function (key, value) {
+              $('#' + key).after('<small class="text-danger">' + value + '</small>');
+            });
+          } else {
+            window.location.replace("{% url 'manager_patients_view'  %}");
+            $('#success_message').text(response.success);
+          }
+          console.log(response)
+        },
+        errors: function (xhr, status, error) {
+          alert("an error occured")
+
+        }
+      });
+    });
+    
+    //GET MODAL ID FROM CLicked BUTTON
+    $('button.edit-patient-btn').on('click', function() {
+      var patientFormId = $(this).data('form-id');
+
+      $(patientFormId).submit(function (event) {
+        event.preventDefault();
+  
+        // Get the form data
+        var formData = new FormData(this);
+        
+        // Submit the form using AJAX
+        $.ajax({
+          url: $(this).attr("action"),
+          type: $(this).attr("method"),
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            $('.text-danger').remove();
+            if (response && 'errors' in response) {
+              // console.log(response.errors)
+              // Display error messages for each field
+              $.each(response.errors, function (key, value) {
+                $('#' + key + "_" + response.id).after('<small class="text-danger">' + value + '</small>');
+              });
+            } else {
+              window.location.replace("{% url 'manager_patients_view'  %}");
+              if (response.success){
+                $('#success_message').text(response.success);
+              }
+            }
+            console.log(response)
+          },
+          errors: function (xhr, status, error) {
+            alert("an error occured")
+          }
+        });
+      });
+    });
+
+
+  });
+</script>
 {%endblock content%}

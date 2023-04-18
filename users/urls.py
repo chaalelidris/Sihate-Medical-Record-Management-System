@@ -63,12 +63,17 @@ urlpatterns += [
         name="manager_profile_view",
     ),
     path(
-        "manager/patients",
+        "manager/patients/",
         manager_views.manager_patients_view,
         name="manager_patients_view",
     ),
     path(
-        "manager/doctors",
+        "manager/patient/update/<int:pk>/",
+        manager_views.manager_update_patient_view,
+        name="manager_update_patient_view",
+    ),
+    path(
+        "manager/doctors/",
         manager_views.manager_doctors_view,
         name="manager_doctors_view",
     ),
