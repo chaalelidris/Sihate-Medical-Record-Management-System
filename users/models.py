@@ -53,6 +53,11 @@ class Doctor(User):
     def get_id(self):
         return self.id
 
+    @property
+    def get_status(self):
+        return "Approved" if self.status else "Pending"
+
+    @property
     def get_profile_pic(self):
         if self.profile_pic:
             return self.profile_pic.url
@@ -96,6 +101,10 @@ class Patient(User):
     def get_id(self):
         return self.id
 
+    @property
+    def get_status(self):
+        return "Approved" if self.status else "Pending"
+
     def get_profile_pic(self):
         if self.profile_pic:
             return self.profile_pic.url
@@ -120,6 +129,10 @@ class OfficeManager(User):
     def save(self, *args, **kwargs):
         self.is_manager = True
         super().save(*args, **kwargs)
+
+    @property
+    def get_id(self):
+        return self.id
 
     def get_profile_pic(self):
         if self.profile_pic:

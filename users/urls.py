@@ -14,6 +14,7 @@ urlpatterns = [
     path("redirect/", user_views.user_view, name="user_view"),
 ]
 
+
 # -----------------------------------------------------------------------------------------
 # --------------------------------------- Doctor Urls -------------------------------------
 # -----------------------------------------------------------------------------------------
@@ -32,6 +33,7 @@ urlpatterns += [
     # path('doctor/patient/<int:patient_id>/', doctor_views.patient_detail, name='patient_detail'),
 ]
 
+
 # -----------------------------------------------------------------------------------------
 # --------------------------------------- Patient Urls -------------------------------------
 # -----------------------------------------------------------------------------------------
@@ -49,7 +51,7 @@ urlpatterns += [
 ]
 
 # -----------------------------------------------------------------------------------------
-# --------------------------------------- Manager Urls -------------------------------------
+# --------------------------------------- Manager Urls ------------------------------------
 # -----------------------------------------------------------------------------------------
 urlpatterns += [
     path(
@@ -62,7 +64,9 @@ urlpatterns += [
         manager_views.manager_profile_view,
         name="manager_profile_view",
     ),
-    # -------------------------------------------- PATIENTS URLS --------------------------------------------
+    #
+    # PATIENTS URLS ------------------------------------------
+    #
     path(
         "manager/patients/",
         manager_views.manager_patients_view,
@@ -78,7 +82,14 @@ urlpatterns += [
         manager_views.manager_delete_patient_view,
         name="manager_delete_patient_view",
     ),
-    # --------------------------------------------- DOCTORS URLS ------------------------------------------
+    path(
+        "manager/patient/<int:pk>/toggle_status/",
+        manager_views.manager_patient_status_view,
+        name="manager_patient_status_view",
+    ),
+    #
+    # DOCTORS URLS ------------------------------------------
+    #
     path(
         "manager/doctors/",
         manager_views.manager_doctors_view,
@@ -93,5 +104,10 @@ urlpatterns += [
         "manager/doctor/<int:pk>/delete/",
         manager_views.manager_delete_doctor_view,
         name="manager_delete_doctor_view",
+    ),
+    path(
+        "manager/doctor/<int:pk>/toggle_status/",
+        manager_views.manager_doctor_status_view,
+        name="manager_doctor_status_view",
     ),
 ]

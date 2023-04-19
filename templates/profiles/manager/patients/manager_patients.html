@@ -39,10 +39,6 @@
 {% include "profiles/manager/includes/components/add_patient_modal.html" %}
 
 
-
-
-
-
 <!-- TABLE PATIENTS -->
 <div class="row">
   <div class="col-12">
@@ -72,6 +68,7 @@
                   <th class="border-bottom" scope="col">Gender</th>
                   <th class="border-bottom" scope="col">Age</th>
                   <th class="border-bottom" scope="col">Admit date</th>
+                  <th colspan="2" class="border-bottom" scope="col">Status</th>
                   <th colspan="2" class="border-bottom" scope="col">Manage</th>
                 </tr>
               </thead>
@@ -89,6 +86,16 @@
                   <td class="text-gray-900" scope="row">{{patient.gender}}</td>
                   <td class="text-gray-900" scope="row">{{patient.age}}</td>
                   <td class="text-gray-900" scope="row">{{patient.admit_date}}</td>
+                  
+                  <td class="text-gray-900" scope="row">{{patient.get_status}}</td>
+                  <td class="text-gray-900" scope="row">
+                    {% if patient.status %}
+                      <a href="{% url 'manager_patient_status_view' patient.id %} "  class="btn btn-warning" type="button">Make Pending</a>
+                    {% else %}
+                      <a href="{% url 'manager_patient_status_view' patient.id %}" class="btn btn-info" type="button">Approve</a>
+                    {% endif %}
+                  </td>
+
                   <td class="text-gray-900" scope="row"><button class="btn btn-success edit-patient-btn" type="button" data-bs-toggle="modal" data-bs-target="#update_patient_modal_{{patient.id}}" data-form-id="#update_patient_form_{{patient.id}}">Edit</button></td>
                   <td class="text-gray-900" scope="row"><button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#delete_patient_modal_{{patient.id}}" >Delete</button>
                     

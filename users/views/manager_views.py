@@ -126,6 +126,23 @@ def manager_delete_patient_view(request, pk):
     return redirect("manager_patients_view")
 
 
+#
+# ----------------------------------------- TOGGLE PATIENT STATUS ---------------------------------------------
+#
+@user_passes_test(lambda u: u.is_authenticated and u.is_manager)
+def manager_patient_status_view(request, pk):
+    patient = get_object_or_404(models.Patient, id=pk)
+
+    if patient.status:
+        patient.status = False
+    else:
+        patient.status = True
+
+    patient.save()
+
+    return redirect("manager_patients_view")
+
+
 # ----------------------------------------------------------------------------------------------
 # ---------------------------------------- DOCTORS VIEW ----------------------------------------
 # ----------------------------------------------------------------------------------------------
@@ -190,4 +207,21 @@ def manager_delete_doctor_view(request, pk):
     doctor = get_object_or_404(models.Doctor, pk=pk)
 
     doctor.delete()
+    return redirect("manager_doctors_view")
+
+
+#
+# ----------------------------------------- TOGGLE DOCTOR STATUS ---------------------------------------------
+#
+@user_passes_test(lambda u: u.is_authenticated and u.is_manager)
+def manager_doctor_status_view(request, pk):
+    doctor = get_object_or_404(models.Doctor, id=pk)
+
+    if doctor.status:
+        doctor.status = False
+    else:
+        doctor.status = True
+
+    doctor.save()
+
     return redirect("manager_doctors_view")

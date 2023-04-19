@@ -62,21 +62,31 @@
                   <th class="border-bottom" scope="col">mobile</th>
                   <th class="border-bottom" scope="col">Department</th>
                   <th class="border-bottom" scope="col">Admit date</th>
+                  <th colspan="2" class="border-bottom" scope="col">Status</th>
                   <th colspan="2" class="border-bottom" scope="col">Manage</th>
                 </tr>
               </thead>
               <tbody>
                 {% for doctor in doctors %}
                 <tr>
-                  <th class="text-gray-900" scope="row">{{doctor.get_name}}</th>
-                  <th class="text-gray-900" scope="row">
+                  <td class="text-gray-900" scope="row">{{doctor.get_name}}</td>
+                  <td class="text-gray-900" scope="row">
                     <img src="{{doctor.get_profile_pic}}" alt="doctor profile picture" width="60"> 
-                  </th>
-                  <th class="text-gray-900" scope="row">{{doctor.address}}</th>
-                  <th class="text-gray-900" scope="row">{{doctor.mobile}}</th>
-                  <th class="text-gray-900" scope="row">{{doctor.department}}</th>
-                  <th class="text-gray-900" scope="row">{{doctor.admit_date}}</th>
+                  </td>
+                  <td class="text-gray-900" scope="row">{{doctor.address}}</td>
+                  <td class="text-gray-900" scope="row">{{doctor.mobile}}</td>
+                  <td class="text-gray-900" scope="row">{{doctor.department}}</td>
+                  <td class="text-gray-900" scope="row">{{doctor.admit_date}}</td>
+                  <td class="text-gray-900" scope="row">{{doctor.get_status}}</td>
                   
+                  <td class="text-gray-900" scope="row">
+                    {% if doctor.status %}
+                      <a href="{% url 'manager_doctor_status_view' doctor.id %} "  class="btn btn-warning" type="button">Make Pending</a>
+                    {% else %}
+                      <a href="{% url 'manager_doctor_status_view' doctor.id %}" class="btn btn-info" type="button">Approve</a>
+                    {% endif %}
+                  </td>
+
                   <td class="text-gray-900" scope="row"><button class="btn btn-success edit-doctor-btn" type="button" data-bs-toggle="modal" data-bs-target="#update_doctor_modal_{{doctor.id}}" data-form-id="#update_doctor_form_{{doctor.id}}">Edit</button></td>
                   <td class="text-gray-900" scope="row"><button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#delete_doctor_modal_{{doctor.id}}" >Delete</button>
                 </tr>

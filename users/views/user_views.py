@@ -24,14 +24,32 @@ def is_manager(user):
     return user.is_manager
 
 
+# ----------- USER WAITING VIEW
+def user_waiting_view(request, template_name):
+    return render(request, template_name)
+
+
 # ---------AFTER ENTERING CREDENTIALS WE CHECK WHETHER USERNAME AND PASSWORD IS OF ADMIN,DOCTOR OR PATIENT
-def user_view(request):
-    if is_manager(request.user):
+def user_view(request, user):
+    if is_doctor(user):
+        doctor = users_models.Doctor.objects.get(id=user.id)
+        if doctor.status:
+            login(request, user)
+            return redirect("doctor_dashboard_view")
+        else:
+            return redirect("user_waiting_view")
+
+    elif is_patient(user):
+        patient = users_models.Patient.objects.get(id=user.id)
+        if patient.status:
+            login(request, user)
+            return redirect("patient_dashboard_view")
+        else:
+            return user_waiting_view(request, "profiles/patient/waiting/waiting.html")
+
+    elif is_manager(user):
+        login(request, user)
         return redirect("manager_dashboard_view")
-    elif is_doctor(request.user):
-        return redirect("doctor_dashboard_view")
-    elif is_patient(request.user):
-        return redirect("patient_dashboard_view")
 
 
 # -------------------------------------------------------------------------------
@@ -48,17 +66,7 @@ def login_view(request):
             user = authenticate(request=request, username=username, password=password)
             if user is not None:
                 if user.is_active:
-                    if is_doctor(user):
-                        login(request, user)
-                        return redirect("doctor_dashboard_view")
-
-                    elif is_patient(user):
-                        login(request, user)
-                        return redirect("patient_dashboard_view")
-
-                    elif is_manager(user):
-                        login(request, user)
-                        return redirect("manager_dashboard_view")
+                    return user_view(request, user)
 
                 else:
                     messages.error(request, "User unknown please contact admin !")
