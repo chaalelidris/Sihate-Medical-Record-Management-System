@@ -3,11 +3,10 @@ from django.http import JsonResponse
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from .. import forms, models
+from appointment import models as appointment_models
 
 
-# ---------------------------------------------------------------------------------------------
-# ----------------- OfficeManager views -------------------------------------------------------
-# ---------------------------------------------------------------------------------------------
+# --------------------------------------------- Dashboard view -------------------------------------------------------
 
 
 @user_passes_test(lambda u: u.is_authenticated and u.is_manager)
@@ -16,18 +15,27 @@ def manager_dashboard_view(request):
     patients = models.Patient.objects.order_by("-id")[:5]
     doctors = models.Doctor.objects.order_by("-id")[:5]
 
+    appointments_count = appointment_models.Appointment.objects.count()
+    patients_count = models.Patient.objects.count()
+    doctors_count = models.Doctor.objects.count()
+
     messages.success(request, "Welcome manager")
 
     context = {
         "manager": manager,
         "doctors": doctors,
         "patients": patients,
+        "appointments_count": appointments_count,
+        "patients_count": patients_count,
+        "doctors_count": doctors_count,
         "segment": "dashboard",
     }
     return render(request, "profiles/manager/dashboard/manager_dashboard.html", context)
 
 
-# PROFILE VIEW
+#
+# ----------------------------------------- PROFILE VIEW ---------------------------------------------
+#
 @user_passes_test(lambda u: u.is_authenticated and u.is_manager)
 def manager_profile_view(request):
     manager = models.OfficeManager.objects.get(id=request.user.id)
@@ -53,7 +61,9 @@ def manager_profile_view(request):
     return render(request, "profiles/manager/profile/manager_profile.html", context)
 
 
-# PATIENTS VIEW
+#
+# ----------------------------------------- PATIENTS VIEW ---------------------------------------------
+#
 @user_passes_test(lambda u: u.is_authenticated and u.is_manager)
 def manager_patients_view(request):
     manager = models.OfficeManager.objects.get(id=request.user.id)
@@ -83,7 +93,9 @@ def manager_patients_view(request):
     return render(request, "profiles/manager/patients/manager_patients.html", context)
 
 
-# UPDATE PATIENT
+#
+# ----------------------------------------- UPDATE PATIENT ---------------------------------------------
+#
 @user_passes_test(lambda u: u.is_authenticated and u.is_manager)
 def manager_update_patient_view(request, pk):
     patient = get_object_or_404(models.Patient, pk=pk)
@@ -148,7 +160,9 @@ def manager_doctors_view(request):
     return render(request, "profiles/manager/doctors/manager_doctors.html", context)
 
 
-# UPDATE DOCTOR
+#
+# ----------------------------------------- UPDATE DOCTOR ---------------------------------------------
+#
 @user_passes_test(lambda u: u.is_authenticated and u.is_manager)
 def manager_update_doctor_view(request, pk):
     doctor = get_object_or_404(models.Doctor, pk=pk)
