@@ -62,30 +62,36 @@ urlpatterns += [
         manager_views.manager_profile_view,
         name="manager_profile_view",
     ),
-    # PATIENTS URLS
+    # -------------------------------------------- PATIENTS URLS --------------------------------------------
     path(
         "manager/patients/",
         manager_views.manager_patients_view,
         name="manager_patients_view",
     ),
     path(
-        "manager/patient/update/<int:pk>/",
+        "manager/patient/<int:pk>/update/",
         manager_views.manager_update_patient_view,
         name="manager_update_patient_view",
     ),
     path(
-        "manager/patient/delete/<int:pk>/",
+        "manager/patient/<int:pk>/delete/",
         manager_views.manager_delete_patient_view,
         name="manager_delete_patient_view",
     ),
-    # DOCTORS URLS
+    # --------------------------------------------- DOCTORS URLS ------------------------------------------
     path(
         "manager/doctors/",
         manager_views.manager_doctors_view,
         name="manager_doctors_view",
     ),
-    # path("manager/<int:pk>/", views.doctor_detail, name="doctor_detail"),
-    # path("manager/<int:pk>/update/", views.doctor_update, name="doctor_update"),
-    # path("manager/<int:pk>/delete/", views.doctor_delete, name="doctor_delete"),
-    # path("manager/create/", views.doctor_create, name="doctor_create"),
+    path(
+        "manager/doctor/<int:pk>/update/",
+        manager_views.manager_update_doctor_view,
+        name="manager_update_doctor_view",
+    ),
+    path(
+        "manager/doctor/<int:pk>/delete/",
+        manager_views.manager_delete_doctor_view,
+        name="manager_delete_doctor_view",
+    ),
 ]

@@ -27,7 +27,7 @@ class Doctor(User):
         ("Colon and Rectal Surgeons", "Colon and Rectal Surgeons"),
     ]
     patients = models.ManyToManyField("users.Patient", related_name="patients")
-    address = models.CharField(max_length=40)
+    address = models.CharField(max_length=40, blank=True, default="/")
     mobile = models.CharField(max_length=20, null=True)
     department = models.CharField(
         max_length=50, choices=departments, default="Generalist"
@@ -72,7 +72,7 @@ class Patient(User):
 
     age = models.IntegerField(default=None)
     gender = models.CharField(max_length=1, choices=GENDER_OPTIONS, default=None)
-    address = models.CharField(max_length=40)
+    address = models.CharField(max_length=40, blank=True, default="/")
     mobile = models.CharField(max_length=20, null=False)
     symptoms = models.CharField(max_length=100, null=False)
     admit_date = models.DateField(auto_now=True)
@@ -104,7 +104,7 @@ class Patient(User):
 
 
 class OfficeManager(User):
-    address = models.CharField(max_length=254, default="/")
+    address = models.CharField(max_length=254, blank=True, default="/")
     mobile = PhoneNumberField(blank=True)
     profile_pic = models.ImageField(
         upload_to="profile_pic/OfficeManagerProfilePic/", null=True, blank=True

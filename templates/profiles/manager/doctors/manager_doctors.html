@@ -8,6 +8,34 @@
 <!-- PAGE CONTENT! -->
 {% block content %}
 
+
+<!-- New -->
+<div class="py-4">
+  <div class="dropdown">
+    <button class="btn btn-gray-800 d-inline-flex align-items-center me-2 dropdown-toggle" data-bs-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+      </svg>
+      Add
+    </button>
+    <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1">
+      <a class="dropdown-item d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#add_doctor_modal">
+        <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z">
+          </path>
+        </svg>
+        Add User
+      </a>
+    </div>
+  </div>
+</div>
+
+{% include "profiles/manager/includes/components/add_doctor_modal.html" %}
+
 <!-- TABLE DOCTORS -->
 <div class="row">
   <div class="col-12">
@@ -34,6 +62,7 @@
                   <th class="border-bottom" scope="col">mobile</th>
                   <th class="border-bottom" scope="col">Department</th>
                   <th class="border-bottom" scope="col">Admit date</th>
+                  <th colspan="2" class="border-bottom" scope="col">Manage</th>
                 </tr>
               </thead>
               <tbody>
@@ -47,7 +76,17 @@
                   <th class="text-gray-900" scope="row">{{doctor.mobile}}</th>
                   <th class="text-gray-900" scope="row">{{doctor.department}}</th>
                   <th class="text-gray-900" scope="row">{{doctor.admit_date}}</th>
+                  
+                  <td class="text-gray-900" scope="row"><button class="btn btn-success edit-doctor-btn" type="button" data-bs-toggle="modal" data-bs-target="#update_doctor_modal_{{doctor.id}}" data-form-id="#update_doctor_form_{{doctor.id}}">Edit</button></td>
+                  <td class="text-gray-900" scope="row"><button class="btn btn-danger" type="button" data-bs-toggle="modal" data-bs-target="#delete_doctor_modal_{{doctor.id}}" >Delete</button>
                 </tr>
+
+                <!-- EDIT MODAL -->
+                {% include "profiles/manager/includes/components/update_doctor_modal.html" %}
+
+                <!-- DELETE MODAL -->
+                {% include "profiles/manager/includes/components/delete_doctor_modal.html" %}
+
                 {% endfor %}
               </tbody>
             </table>
@@ -57,5 +96,84 @@
     </div>
   </div>
 </div>
+
+<script>
+  $(document).ready(function () {
+    $("#add_doctor_form").submit(function (event) {
+      // Prevent the form from submitting normally
+      event.preventDefault();
+
+      // Get the form data
+      var formData = new FormData(this);
+
+      // Submit the form using AJAX
+      $.ajax({
+        url: $(this).attr("action"),
+        type: $(this).attr("method"),
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function (response) {
+          $('.text-danger').remove();
+          if (response && 'errors' in response) {
+            console.log(response.errors)
+            // Display error messages for each field
+            $.each(response.errors, function (key, value) {
+              $('#' + key).after('<small class="text-danger">' + value + '</small>');
+            });
+          } else {
+            window.location.replace("{% url 'manager_doctors_view'  %}");
+            $('#success_message').text(response.success);
+          }
+          console.log(response)
+        },
+        errors: function (xhr, status, error) {
+          alert("an error occured")
+
+        }
+      });
+    });
+    
+    //GET MODAL ID FROM CLicked BUTTON
+    $('button.edit-doctor-btn').on('click', function() {
+      var doctorFormId = $(this).data('form-id');
+
+      $(doctorFormId).submit(function (event) {
+        event.preventDefault();
+  
+        // Get the form data
+        var formData = new FormData(this);
+        
+        // Submit the form using AJAX
+        $.ajax({
+          url: $(this).attr("action"),
+          type: $(this).attr("method"),
+          data: formData,
+          processData: false,
+          contentType: false,
+          success: function (response) {
+            $('.text-danger').remove();
+            if (response && 'errors' in response) {
+              // console.log(response.errors)
+              // Display error messages for each field
+              $.each(response.errors, function (key, value) {
+                $('#' + key + "_" + response.id).after('<small class="text-danger">' + value + '</small>');
+              });
+            } else {
+              window.location.replace("{% url 'manager_doctors_view'  %}");
+              if (response.success){
+                $('#success_message').text(response.success);
+              }
+            }
+            console.log(response)
+          },
+          errors: function (xhr, status, error) {
+            alert("an error occured")
+          }
+        });
+      });
+    });
+  });
+</script>
 
 {%endblock content%}

@@ -1,0 +1,138 @@
+{% load widget_tweaks %}
+<div class="col-lg-4">
+    <!-- Modal Content -->
+    <div class="modal fade" id="add_doctor_modal" tabindex="-1" role="dialog" aria-labelledby="add_doctor_modal"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+          <div class="modal-body p-0">
+            <div class="card p-3 p-lg-4">
+              <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+              <div class="text-center text-md-center mb-4 mt-md-0">
+                <h1 class="mb-0 h4">Create Doctor Account </h1>
+              </div>
+              <form id="add_doctor_form" method="post" action="{% url 'manager_doctors_view'  %}"
+                enctype="multipart/form-data">
+                {% csrf_token %}
+                <div id="error_message"></div>
+                <div id="success_message"></div>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <div>
+                      <label for="username">Username</label>
+                      {% render_field form.username class="form-control" id="username" placeholder="Enter your username"%}
+                      {% if form.username.errors %}
+                      <small class="text-danger">{{ form.username.errors }}</small>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div>
+                      <label for="last_name">Email</label>
+                      {% render_field form.email class="form-control" id="email" type="text" placeholder="Also your email" %}
+                      {% if form.email.errors %}
+                      <small class="text-danger">{{ form.email.errors }}</small>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <div>
+                      <label for="first_name">First Name</label>
+                      {% render_field form.first_name class="form-control" id="first_name" placeholder="Enter your first name" %}
+                      {% if form.first_name.errors %}
+                      <small class="text-danger">{{ form.first_name.errors }}</small>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div>
+                      <label for="last_name">Last Name</label>
+                      {% render_field form.last_name class="form-control" id="last_name" type="text" placeholder="Also your last name" %}
+                      {% if form.last_name.errors %}
+                      <small class="text-danger">{{ form.last_name.errors }}</small>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="phone">Mobile</label>
+                      {% render_field form.mobile class="form-control" id="mobile" type="number" placeholder="+12-345 678 910" %}
+                      {% if form.mobile.errors %}
+                      <small class="text-danger">{{ form.mobile.errors }}</small>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="department">Department</label>
+                      {% render_field form.department class="form-control" id="department" placeholder="What are you department ?" %}
+                      {% if form.department.errors %}
+                      <small class="text-danger">{{ form.department.errors }}</small>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+  
+  
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="age">Password</label>
+                      {% render_field form.password1 class="form-control" id="password1" placeholder="Enter you password" %}
+                      {% if form.password1.errors %}
+                      <small class="text-danger">{{ form.password1.errors }}</small>
+                      {% endif %}
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="gender">Confirm password</label>
+                      {% render_field form.password2 class="form-control" id="password2" placeholder="Confirm password" %}
+                      {% if form.password2.errors %}
+                      <small class="text-danger">{{ form.password2.errors }}</small>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+  
+                <h2 class="h5 my-4">Location</h2>
+                <div class="row">
+                  <div class="col-md-6 mb-3">
+                    <div class="form-group">
+                      <label for="address">Address</label>
+                      {% render_field form.address class="form-control" id="address" type="text" placeholder="Enter your home address" %}
+                      {% if form.address.errors %}
+                      <small class="text-danger">{{ form.address.errors }}</small>
+                      {% endif %}
+                    </div>
+                  </div>
+                </div>
+  
+                <h2 class="h5 my-4">Profile picture</h2>
+                <div class="row">
+                  <div class="form-floating mb-3">
+                    {% render_field form.profile_pic class="form-control"%}
+                    {% if form.profile_pic.errors %}
+                    <small class="text-danger">{{ form.profile_pic.errors|first }}</small>
+                    {% endif %}
+                  </div>
+                </div>
+  
+                <div class="mt-3">
+                  <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Add</button>
+                </div>
+              </form>
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End of Modal Content -->
+  </div>

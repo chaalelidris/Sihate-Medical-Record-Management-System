@@ -1,0 +1,20 @@
+
+<!-- Modal Content -->
+<div class="modal fade" id="delete_doctor_modal_{{doctor.id}}" tabindex="-1" role="dialog" aria-labelledby="delete_doctor_modal_{{doctor.id}}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="h6 modal-title">Delete doctor</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you wante to delete this doctor </p>
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'manager_delete_doctor_view' doctor.id %}" type="button" class="btn btn-danger">Delete</a>
+                <button type="button" class="btn btn-link text-gray-600 ms-auto" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Modal Content -->

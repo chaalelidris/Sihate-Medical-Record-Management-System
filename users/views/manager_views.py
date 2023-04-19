@@ -114,15 +114,66 @@ def manager_delete_patient_view(request, pk):
     return redirect("manager_patients_view")
 
 
-# DOCTORS VIEW
+# ----------------------------------------------------------------------------------------------
+# ---------------------------------------- DOCTORS VIEW ----------------------------------------
+# ----------------------------------------------------------------------------------------------
+
+
 @user_passes_test(lambda u: u.is_authenticated and u.is_manager)
 def manager_doctors_view(request):
     manager = models.OfficeManager.objects.get(id=request.user.id)
     doctors = models.Doctor.objects.all()
 
+    if request.method == "POST":
+        form = forms.DoctorSignupForm(request.POST, request.FILES)
+        if form.is_valid():
+            doctor = form.save(commit=False)
+            doctor.is_doctor = True
+            doctor.save()
+            # Return success response with doctor data
+            return JsonResponse({"success": "Doctor added successfully"})
+        else:
+            # Return error response with form errors
+            return JsonResponse({"errors": form.errors})
+
+    else:
+        form = forms.DoctorSignupForm()
+
     context = {
         "manager": manager,
         "doctors": doctors,
         "segment": "doctors",
+        "form": form,
     }
     return render(request, "profiles/manager/doctors/manager_doctors.html", context)
+
+
+# UPDATE DOCTOR
+@user_passes_test(lambda u: u.is_authenticated and u.is_manager)
+def manager_update_doctor_view(request, pk):
+    doctor = get_object_or_404(models.Doctor, pk=pk)
+
+    if request.method == "POST":
+        form = forms.DoctorUpdateForm(request.POST, request.FILES, instance=doctor)
+        if form.is_valid():
+            form.save()
+            return JsonResponse({"success": "Doctor updated successfully"})
+        else:
+            # Return error response with form errors
+            return JsonResponse({"errors": form.errors, "id": doctor.id})
+    else:
+        form = forms.DoctorUpdateForm()(instance=doctor)
+
+    context = {
+        "form": form,
+        "doctor": doctor,
+    }
+    return render(request, "profiles/manager/doctors/manager_patients.html", context)
+
+
+# DELETE PATIENT
+def manager_delete_doctor_view(request, pk):
+    doctor = get_object_or_404(models.Doctor, pk=pk)
+
+    doctor.delete()
+    return redirect("manager_doctors_view")

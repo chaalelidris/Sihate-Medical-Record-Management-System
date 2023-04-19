@@ -1,0 +1,105 @@
+{% load widget_tweaks %}
+<div class="col-lg-4">
+  <!-- Modal Content -->
+  <div class="modal fade" id="update_doctor_modal_{{doctor.id}}" tabindex="-1" role="dialog" aria-labelledby="update_doctor_modal_{{doctor.id}}"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-body p-0">
+          <div class="card p-3 p-lg-4">
+            <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+            <div class="text-center text-md-center mb-4 mt-md-0">
+              <h1 class="mb-0 h4">Edit Doctor Account </h1>
+            </div>
+            <form id="update_doctor_form_{{doctor.id}}" method="post" action="{% url 'manager_update_doctor_view' doctor.id %}"
+              enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div>
+                    <label for="username">Username</label>
+                    <input class="form-control" id="username_{{doctor.id}}" name="username" placeholder="Enter your username"
+                      value="{{doctor.username}}" />
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div>
+                    <label for="last_name">Email</label>
+                    <input class="form-control" id="email_{{doctor.id}}" name="email" type="text" placeholder="Also your email"
+                      value="{{doctor.email}}" />
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div>
+                    <label for="first_name">First Name</label>
+                    <input class="form-control" id="first_name_{{doctor.id}}" name="first_name" placeholder="Enter your first name"
+                      value="{{doctor.first_name}}" />
+
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div>
+                    <label for="last_name">Last Name</label>
+                    <input class="form-control" id="last_name_{{doctor.id}}" name="last_name" type="text"
+                      placeholder="Also your last name" value="{{doctor.last_name}}" />
+
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                    <label for="phone">Mobile</label>
+                    <input class="form-control" id="mobile_{{doctor.id}}" name="mobile" type="number" placeholder="+12-345 678 910"
+                      value="{{doctor.mobile}}" />
+
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                    <label for="department">Department</label>
+                    <input class="form-control" id="department_{{doctor.id}}" name="department" placeholder="What are you department ?"
+                      value="{{doctor.department}}" />
+
+                  </div>
+                </div>
+              </div>
+
+
+              <h2 class="h5 my-4">Location</h2>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <div class="form-group">
+                    <label for="address">Address</label>
+                    <input class="form-control" id="address_{{doctor.id}}" name="address" type="text"
+                      placeholder="Enter your home address" value="{{doctor.address}}" />
+
+                  </div>
+                </div>
+              </div>
+
+              <h2 class="h5 my-4">Profile picture</h2>
+              <div class="row">
+                <div class="form-floating mb-3">
+                  <input type="file" id="profile_pic_{{doctor.id}}" name="profile_pic" class="form-control"
+                    value="{{doctor.get_profile_pic}}" />
+                </div>
+              </div>
+
+              <div class="mt-3">
+                <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Add</button>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- End of Modal Content -->
+</div>
