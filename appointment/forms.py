@@ -5,25 +5,34 @@ from .models import Appointment
 
 
 class AppointmentForm(forms.ModelForm):
+    date = forms.DateTimeField(
+        input_formats=["%Y-%m-%d %H:%M:%S"],
+        widget=forms.DateTimeInput(attrs={"type": "datetime-local"}),
+    )
+
     class Meta:
         model = Appointment
-        fields = [
-            "doctor",
-            "patient",
-            "appointment_date",
-            "description",
-        ]
+        fields = ["doctor", "patient", "date", "description"]
+        labels = {
+            "doctor": "Doctor",
+            "patient": "Patient",
+            "date": "Date and Time",
+            "description": "Description",
+        }
 
 
-class EditProfileForm(UserChangeForm):
-    password = forms.CharField(widget=forms.PasswordInput())
+class AppointmentUpdateForm(forms.ModelForm):
+    date = forms.DateTimeField(
+        input_formats=["%Y-%m-%d %H:%M:%S"],
+        widget=forms.DateTimeInput(attrs={"type": "datetime-local"}),
+    )
 
     class Meta:
-        model = User
-        fields = (
-            "first_name",
-            "last_name",
-            "email",
-            "username",
-            "password",
-        )
+        model = Appointment
+        fields = ["doctor", "patient", "date", "description"]
+        labels = {
+            "doctor": "Doctor",
+            "patient": "Patient",
+            "date": "Date and Time",
+            "description": "Description",
+        }

@@ -24,9 +24,15 @@ def is_manager(user):
     return user.is_manager
 
 
-# ----------- USER WAITING VIEW
-def user_waiting_view(request, template_name):
-    return render(request, template_name)
+def redirect_user_view(request):
+    if is_doctor(request.user):
+        return redirect("doctor_dashboard_view")
+
+    elif is_patient(request.user):
+        return redirect("patient_dashboard_view")
+
+    elif is_manager(request.user):
+        return redirect("manager_dashboard_view")
 
 
 # ---------AFTER ENTERING CREDENTIALS WE CHECK WHETHER USERNAME AND PASSWORD IS OF ADMIN,DOCTOR OR PATIENT

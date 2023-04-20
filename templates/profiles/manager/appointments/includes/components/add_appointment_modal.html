@@ -1,0 +1,64 @@
+{% load widget_tweaks %}
+
+<div class="modal fade" id="add_appointment_modal" tabindex="-1" role="dialog" aria-labelledby="add_appointment_modal"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-body p-0">
+        <div class="card p-3 p-lg-4">
+          <button type="button" class="btn-close ms-auto" data-bs-dismiss="modal" aria-label="Close"></button>
+          <div class="text-center text-md-center mb-4 mt-md-0">
+            <h1 class="mb-0 h4">Add Appointment</h1>
+          </div>
+          <form id="add_appointment_form" method="post" action="{% url 'manager_appointments_view' %}"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <div>
+                  <label for="{{ form.doctor.id_for_label }}">Doctor</label>
+                  {% render_field form.doctor class="form-control" id="{{ form.doctor.id_for_label }}" %}
+                  {% if form.doctor.errors %}
+                  <small class="text-danger">{{ form.doctor.errors }}</small>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div>
+                  <label for="{{ form.patient.id_for_label }}">Patient</label>
+                  {% render_field form.patient class="form-control" id="{{ form.patient.id_for_label }}" %}
+                  {% if form.patient.errors %}
+                  <small class="text-danger">{{ form.patient.errors }}</small>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <div>
+                  <label for="{{ form.date.id_for_label }}">Date and Time</label>
+                  {% render_field form.date class="form-control" id="{{ form.date.id_for_label }}" type="datetime-local" %}
+                  {% if form.date.errors %}
+                  <small class="text-danger">{{ form.date.errors }}</small>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div>
+                  <label for="{{ form.description.id_for_label }}">Description</label>
+                  {% render_field form.description class="form-control" id="{{ form.description.id_for_label }}" %}
+                  {% if form.description.errors %}
+                  <small class="text-danger">{{ form.description.errors }}</small>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block">Save Appointment</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

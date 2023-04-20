@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+from crispy_forms.utils import render_crispy_form
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from .. import forms, models
-from appointment import models as appointment_models
+from appointment import models as appointment_models, forms as appointment_forms
 
 
 # --------------------------------------------- Dashboard view -------------------------------------------------------
@@ -211,7 +212,7 @@ def manager_delete_doctor_view(request, pk):
 
 
 #
-# ----------------------------------------- TOGGLE DOCTOR STATUS ---------------------------------------------
+# ------------------------------------ TOGGLE DOCTOR STATUS ------------------------------------------
 #
 @user_passes_test(lambda u: u.is_authenticated and u.is_manager)
 def manager_doctor_status_view(request, pk):
@@ -225,3 +226,59 @@ def manager_doctor_status_view(request, pk):
     doctor.save()
 
     return redirect("manager_doctors_view")
+
+
+# ----------------------------------------------------------------------------------------------
+# ---------------------------------------- APPOINTMENTS VIEW -----------------------------------
+# ----------------------------------------------------------------------------------------------
+@user_passes_test(lambda u: u.is_authenticated and u.is_manager)
+def manager_appointments_view(request):
+    manager = models.OfficeManager.objects.get(id=request.user.id)
+    appointments = appointment_models.Appointment.objects.all()
+
+    if request.method == "POST":
+        form = appointment_forms.AppointmentForm(request.POST)
+        if form.is_valid():
+            appointment = form.save(commit=False)
+            appointment.status = False
+            appointment.save()
+            messages.success(request, "Appointment added successfully!")
+            return redirect("manager_appointments_view")
+        else:
+            messages.error(request, "Invalid form data.")
+    else:
+        form = appointment_forms.AppointmentForm()
+
+    context = {
+        "manager": manager,
+        "appointments": appointments,
+        "segment": "appointments",
+        "form": form,
+    }
+
+    return render(
+        request, "profiles/manager/appointments/manager_appointments.html", context
+    )
+
+
+def manager_update_appointment_view(request, pk):
+    manager = models.OfficeManager.objects.get(id=request.user.id)
+    # Get the appointment with the specified ID, or return a 404 error if it doesn't exist
+    appointment = get_object_or_404(appointment_models.Appointment, id=pk)
+
+    if request.method == "POST":
+        form = appointment_forms.AppointmentUpdateForm(
+            request.POST, instance=appointment
+        )
+        if form.is_valid():
+            form.save()
+            return redirect("manager_appointments_view")
+        else:
+            errors = form.errors.as_json()
+            return JsonResponse({"success": False, "errors": errors})
+    else:
+        form = appointment_forms.AppointmentUpdateForm(instance=appointment)
+        form_html = render_crispy_form(form, context={"form_show_labels": False})
+        return JsonResponse({"form_html": form_html})
+
+    return redirect("manager_appointments_view")

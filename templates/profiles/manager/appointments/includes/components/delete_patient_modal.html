@@ -1,0 +1,20 @@
+
+<!-- Modal Content -->
+<div class="modal fade" id="delete_appointment_modal_{{appointment.id}}" tabindex="-1" role="dialog" aria-labelledby="delete_appointment_modal_{{appointment.id}}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="h6 modal-title">Delete appointment</h2>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <p>Are you sure you wante to delete this appointment </p>
+            </div>
+            <div class="modal-footer">
+                <a href="{% url 'manager_delete_appointment_view' appointment.id %}" type="button" class="btn btn-danger">Delete</a>
+                <button type="button" class="btn btn-link text-gray-600 ms-auto" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- End of Modal Content -->

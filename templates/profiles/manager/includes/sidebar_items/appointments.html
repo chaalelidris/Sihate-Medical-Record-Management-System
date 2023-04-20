@@ -1,0 +1,8 @@
+<li class="nav-item {% if 'appointments' in segment %} active {% endif %}">
+    <a href="{% url 'manager_appointments_view' %}" class="nav-link">
+        <span class="sidebar-icon">
+            {% block sidebar_item_icon %}{% endblock sidebar_item_icon %}
+        </span>
+        <span class="sidebar-text">appointments</span>
+    </a>
+</li>

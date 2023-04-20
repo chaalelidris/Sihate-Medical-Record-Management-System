@@ -12,6 +12,7 @@ urlpatterns = [
     path("login/", user_views.login_view, name="login"),
     path("logout/", auth_views.LogoutView.as_view(), name="logout"),
     path("redirect/", user_views.user_view, name="user_view"),
+    path("redirect/user", user_views.redirect_user_view, name="redirect_user_view"),
 ]
 
 
@@ -109,5 +110,18 @@ urlpatterns += [
         "manager/doctor/<int:pk>/toggle_status/",
         manager_views.manager_doctor_status_view,
         name="manager_doctor_status_view",
+    ),
+    #
+    # APPOINTMENTS URLS ------------------------------------------
+    #
+    path(
+        "manager/appointments/",
+        manager_views.manager_appointments_view,
+        name="manager_appointments_view",
+    ),
+    path(
+        "manager/appointments/appointment/<int:pk>/update",
+        manager_views.manager_update_appointment_view,
+        name="manager_update_appointment_view",
     ),
 ]
