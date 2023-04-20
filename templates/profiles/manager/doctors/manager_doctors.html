@@ -56,6 +56,7 @@
             <table class="table align-items-center table-flush">
               <thead class="thead-light">
                 <tr>
+                  <th class="border-bottom" scope="col">Username</th>
                   <th class="border-bottom" scope="col">Full name</th>
                   <th class="border-bottom" scope="col">picture</th>
                   <th class="border-bottom" scope="col">address</th>
@@ -69,6 +70,7 @@
               <tbody>
                 {% for doctor in doctors %}
                 <tr>
+                  <td class="text-gray-900" scope="row">{{doctor.username}}</td>
                   <td class="text-gray-900" scope="row">{{doctor.get_name}}</td>
                   <td class="text-gray-900" scope="row">
                     <img src="{{doctor.get_profile_pic}}" alt="doctor profile picture" width="60"> 

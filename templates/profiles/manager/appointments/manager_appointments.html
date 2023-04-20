@@ -69,8 +69,8 @@
               <tbody>
                 {% for appointment in appointments %}
                 <tr>
-                  <td class="text-gray-900" scope="row">{{appointment.patient.username }}</td>
-                  <td class="text-gray-900" scope="row">{{appointment.doctor.username}}</td>
+                  <td class="text-gray-900" scope="row">{{appointment.patient.username }} ({{appointment.patient.get_name }})</td>
+                  <td class="text-gray-900" scope="row">{{appointment.doctor.username}} ({{appointment.doctor.get_name }})</td>
                   <td class="text-gray-900" scope="row">{{appointment.date}}</td>
                   <td class="text-gray-900" scope="row">{{appointment.description}}</td>
 

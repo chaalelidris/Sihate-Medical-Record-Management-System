@@ -5,18 +5,15 @@
 
         <div class="section-title">
             <h2>Doctors</h2>
-            <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint
-                consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat
-                sit
-                in iste officiis commodi quidem hic quas.</p>
+            <p>Welcome to our website! Our team of skilled and experienced doctors are dedicated to providing the best possible medical care to our patients. We offer a wide range of medical services and specialize in various fields, including cardiology, neurology, pediatrics, and more. Our doctors are trained to handle both simple and complex medical conditions, and are committed to helping our patients live healthy and fulfilling lives. Contact us today to schedule an appointment with one of our top-notch doctors.</p>
         </div>
 
         <div class="row">
-
+            {% for doctor in doctors %}
             <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
                 <div class="member" data-aos="fade-up" data-aos-delay="100">
                     <div class="member-img">
-                        <img src="{%static 'assets/main/img/doctors/doctors-1.jpg'%}" class="img-fluid" alt="">
+                        <img src="{{doctor.get_profile_pic}}" class="img-fluid" alt="">
                         <div class="social">
                             <a href=""><i class="bi bi-twitter"></i></a>
                             <a href=""><i class="bi bi-facebook"></i></a>
@@ -25,65 +22,15 @@
                         </div>
                     </div>
                     <div class="member-info">
-                        <h4>Walter White</h4>
-                        <span>Chief Medical Officer</span>
+                        <h4>{{doctor.get_name}}</h4>
+                        <span>{{doctor.department}}</span>
                     </div>
                 </div>
             </div>
+            {% endfor %}
 
-            <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                <div class="member" data-aos="fade-up" data-aos-delay="200">
-                    <div class="member-img">
-                        <img src="{%static 'assets/main/img/doctors/doctors-2.jpg'%}" class="img-fluid" alt="">
-                        <div class="social">
-                            <a href=""><i class="bi bi-twitter"></i></a>
-                            <a href=""><i class="bi bi-facebook"></i></a>
-                            <a href=""><i class="bi bi-instagram"></i></a>
-                            <a href=""><i class="bi bi-linkedin"></i></a>
-                        </div>
-                    </div>
-                    <div class="member-info">
-                        <h4>Sarah Jhonson</h4>
-                        <span>Anesthesiologist</span>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                <div class="member" data-aos="fade-up" data-aos-delay="300">
-                    <div class="member-img">
-                        <img src="{%static 'assets/main/img/doctors/doctors-3.jpg'%}" class="img-fluid" alt="">
-                        <div class="social">
-                            <a href=""><i class="bi bi-twitter"></i></a>
-                            <a href=""><i class="bi bi-facebook"></i></a>
-                            <a href=""><i class="bi bi-instagram"></i></a>
-                            <a href=""><i class="bi bi-linkedin"></i></a>
-                        </div>
-                    </div>
-                    <div class="member-info">
-                        <h4>William Anderson</h4>
-                        <span>Cardiology</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
-                <div class="member" data-aos="fade-up" data-aos-delay="400">
-                    <div class="member-img">
-                        <img src="{%static 'assets/main/img/doctors/doctors-4.jpg'%}" class="img-fluid" alt="">
-                        <div class="social">
-                            <a href=""><i class="bi bi-twitter"></i></a>
-                            <a href=""><i class="bi bi-facebook"></i></a>
-                            <a href=""><i class="bi bi-instagram"></i></a>
-                            <a href=""><i class="bi bi-linkedin"></i></a>
-                        </div>
-                    </div>
-                    <div class="member-info">
-                        <h4>Amanda Jepson</h4>
-                        <span>Neurosurgeon</span>
-                    </div>
-                </div>
-            </div>
+            
 
         </div>
 
