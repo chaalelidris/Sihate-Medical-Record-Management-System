@@ -28,9 +28,21 @@ urlpatterns += [
     path(
         "doctor/profile/", doctor_views.doctor_profile_view, name="doctor_profile_view"
     ),
-    # path('doctor/appointments/', doctor_views.appointments, name='appointments'),
+    # PATIENTS VIEWs
+    path(
+        "doctor/patients/",
+        doctor_views.doctor_patients_view,
+        name="doctor_patients_view",
+    ),
+    path(
+        "doctor/appointments/",
+        doctor_views.doctor_appointments_view,
+        name="doctor_appointments_view",
+    ),
+    path(
+        "doctor/records/", doctor_views.doctor_records_view, name="doctor_records_view"
+    ),
     # path('doctor/prescriptions/', doctor_views.prescriptions, name='prescriptions'),
-    # path('doctor/patients/', doctor_views.patients, name='patients'),
     # path('doctor/patient/<int:patient_id>/', doctor_views.patient_detail, name='patient_detail'),
 ]
 

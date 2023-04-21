@@ -1,0 +1,97 @@
+{%extends 'profiles/doctor/index.html'%}
+{% load static %}
+
+
+{% block title%} Doctor records {% endblock title %}
+
+
+<!-- PAGE CONTENT! -->
+{% block content %}
+{% include 'profiles/doctor/includes/welcome_toast.html' %}
+
+<div class="py-4">
+  <div class="dropdown">
+    <button class="btn btn-gray-800 d-inline-flex align-items-center me-2 dropdown-toggle" data-bs-toggle="dropdown"
+      aria-haspopup="true" aria-expanded="false">
+      <svg class="icon icon-xs me-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+      </svg>
+      New
+    </button>
+    <div class="dropdown-menu dashboard-dropdown dropdown-menu-start mt-2 py-1">
+      <a class="dropdown-item d-flex align-items-center" href="#">
+        <svg class="dropdown-icon text-gray-400 me-2" fill="currentColor" viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg">
+          <path
+            d="M8 9a3 3 0 100-6 3 3 0 000 6zM8 11a6 6 0 016 6H2a6 6 0 016-6zM16 7a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z">
+          </path>
+        </svg>
+        Add record
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- TABLE recordS -->
+<div class="row">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-12 mb-4">
+        <div class="card border-0 shadow">
+          <div class="card-header">
+            <div class="row align-items-center">
+              <div class="col">
+                <h2 class="fs-5 fw-bold mb-0">records</h2>
+              </div>
+              <div class="col text-end">
+                <a href="#" class="btn btn-sm btn-primary">See all</a>
+              </div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="table align-items-center table-flush">
+              <thead class="thead-light">
+                <tr>
+                  <th class="border-bottom" scope="col">Patient</th>
+                  <th class="border-bottom" scope="col">Doctor</th>
+                  <th class="border-bottom" scope="col">Group sanguin</th>
+                  <th class="border-bottom" scope="col">Profession</th>
+                  <th class="border-bottom" scope="col">Birthday</th>
+                  <th class="border-bottom" scope="col">Description</th>
+                  <th class="border-bottom" scope="col">Birthday location</th>
+                  <th class="border-bottom" scope="col">Situation</th>
+                  <th class="border-bottom" scope="col">Smocking</th>
+                  <th class="border-bottom" scope="col">maladies</th>
+                  <th class="border-bottom" scope="col">Allergic reactions to drugs</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for record in records %}
+
+                <tr>
+                  <td class="text-gray-900" scope="row">{{record.patient.username}} ({{record.patient.get_name}})</td>
+                  <td class="text-gray-900" scope="row">{{record.doctor.username}} ({{record.doctor.get_name}})</td>
+                  <td class="text-gray-900" scope="row">{{record.group_sanguin}}</td>
+                  <td class="text-gray-900" scope="row">{{record.profession}}</td>
+                  <td class="text-gray-900" scope="row">{{record.birthday}}</td>
+                  <td class="text-gray-900" scope="row">{{record.birthday_location}}</td>
+                  <td class="text-gray-900" scope="row">{{record.situation}}</td>
+                  <td class="text-gray-900" scope="row">{{record.smocking}}</td>
+                  <td class="text-gray-900" scope="row">{{record.maladies}}</td>
+                  <td class="text-gray-900" scope="row">{{record.allergic_reactions_to_drugs}}</td>
+                </tr>
+
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{%endblock content%}

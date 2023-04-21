@@ -59,12 +59,11 @@ class MedicalRecord(models.Model):
     )
     NSS = models.CharField(max_length=254)
     profession = models.CharField(max_length=254)
-    establishment_name = models.CharField(max_length=254)
     birthday = models.DateField()
     birthday_location = models.CharField(max_length=254)
     situation = models.CharField(max_length=11, choices=SITUATION_OPTIONS, default=None)
     smocking = models.CharField(max_length=3, choices=OPTIONS, default=None)
-    general_maladies = models.TextField(max_length=254)
+    maladies = models.TextField(max_length=254)
     allergic_reactions_to_drugs = models.TextField(max_length=254)
 
     def __str__(self):

@@ -33,7 +33,7 @@
   </div>
 </div>
 <div class="row">
-  <div class="col-12 col-sm-6 col-xl-4 mb-4">
+  <a href="{% url 'doctor_appointments_view' %}" class="col-12 col-sm-6 col-xl-4 mb-4">
     <div class="card border-0 bg-success shadow">
       <div class="card-body">
         <div class="row d-block d-xl-flex align-items-center">
@@ -50,9 +50,9 @@
         </div>
       </div>
     </div>
-  </div>
+  </a>
 
-  <div class="col-12 col-sm-6 col-xl-4 mb-4">
+  <a href="{% url 'doctor_patients_view' %}" class="col-12 col-sm-6 col-xl-4 mb-4">
     <div class="card border-0 bg-indigo shadow">
       <div class="card-body">
         <div class="row d-block d-xl-flex align-items-center">
@@ -69,9 +69,9 @@
         </div>
       </div>
     </div>
-  </div>
+  </a>
 
-  <div class="col-12 col-sm-6 col-xl-4 mb-4">
+  <a href="{% url 'doctor_records_view' %}" class="col-12 col-sm-6 col-xl-4 mb-4">
     <div class="card border-0 bg-yellow-200 shadow">
       <div class="card-body">
         <div class="row d-block d-xl-flex align-items-center">
@@ -88,7 +88,7 @@
         </div>
       </div>
     </div>
-  </div>
+  </a>
 </div>
 
 <!-- TABLE APPOINTMENTS -->
@@ -122,7 +122,7 @@
                 {% for appointment in appointments %}
 
                 <tr>
-                  <th class="text-gray-900" scope="row">{{appointment.patient.get_name}}</th>
+                  <th class="text-gray-900" scope="row">{{appointment.patient.username}} ({{appointment.patient.get_name}})</th>
                   <th class="text-gray-900" scope="row"><img src="{{appointment.patient.get_profile_pic}}"
                       alt="patient profile picture" width="60"></th>
                   <th class="text-gray-900" scope="row">{{appointment.date}}</th>
@@ -139,6 +139,7 @@
     </div>
   </div>
 </div>
+
 <!-- TABLE PATIENTS -->
 <div class="row">
   <div class="col-12">

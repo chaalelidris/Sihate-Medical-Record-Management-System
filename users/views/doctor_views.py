@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import user_passes_test
 from django.contrib import messages
 from .. import forms, models
 from appointment import models as appointment_models
+from medical_records import models as medical_records_models
 
 
 # ---------------------------------------------------------------------------------------------
@@ -21,6 +22,7 @@ def doctor_dashboard_view(request):
         "doctor": doctor,
         "appointments": appointments,
         "patients": patients,
+        "segment": "dashboard",
     }
     return render(request, "profiles/doctor/dashboard/doctor_dashboard.html", context)
 
@@ -49,5 +51,46 @@ def doctor_profile_view(request):
     context = {
         "form": form,
         "doctor": doctor,
+        "segment": "profile",
     }
     return render(request, "profiles/doctor/profile/doctor_profile.html", context)
+
+
+@user_passes_test(lambda u: u.is_authenticated and u.is_doctor)
+def doctor_patients_view(request):
+    doctor = models.Doctor.objects.get(id=request.user.id)
+    patients = doctor.patients.all()
+    context = {
+        "doctor": doctor,
+        "patients": patients,
+        "segment": "patients",
+    }
+    return render(request, "profiles/doctor/patients/patients.html", context)
+
+
+@user_passes_test(lambda u: u.is_authenticated and u.is_doctor)
+def doctor_records_view(request):
+    doctor = models.Doctor.objects.get(id=request.user.id)
+    records = medical_records_models.MedicalRecord.objects.filter(doctor=request.user)
+
+    context = {
+        "records": records,
+        "doctor": doctor,
+        "segment": "records",
+    }
+    return render(request, "profiles/doctor/records/doctor_records.html", context)
+
+
+@user_passes_test(lambda u: u.is_authenticated and u.is_doctor)
+def doctor_appointments_view(request):
+    doctor = models.Doctor.objects.get(id=request.user.id)
+    appointments = appointment_models.Appointment.objects.filter(doctor=request.user)
+
+    context = {
+        "appointments": appointments,
+        "doctor": doctor,
+        "segment": "appointments",
+    }
+    return render(
+        request, "profiles/doctor/appointments/doctor_appointments.html", context
+    )
