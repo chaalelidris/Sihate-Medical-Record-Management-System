@@ -18,6 +18,9 @@ Sihate is a medical file management system that enables efficient and secure man
         |   ├── admin                
         |   ├── index                
         |   ├── profiles                
+        |   |   ├── doctor               
+        |   |   ├── manager               
+        |   |   ├── patient               
         ├── LICENSE
         └── README.md
 # Features 💡
